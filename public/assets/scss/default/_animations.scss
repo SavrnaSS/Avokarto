@@ -1,0 +1,192 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+// Animation Css
+
+.rbt_bounce_loop {
+    will-change: transform;
+    -webkit-animation-name: rbt_bounce_loop;
+    animation-name: rbt_bounce_loop;
+    -webkit-animation-duration: 5s;
+    animation-duration: 5s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes rbt_bounce_loop {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+
+    50% {
+        -webkit-transform: translateY(20%);
+        transform: translateY(20%)
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@keyframes rbt_bounce_loop {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+
+    50% {
+        -webkit-transform: translateY(20%);
+        transform: translateY(20%)
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0)
+    }
+}
+
+@-webkit-keyframes rbt_rotation_round {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg)
+    }
+}
+
+@keyframes rbt_rotation_round {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg)
+    }
+}
+
+.rbt-rotation-round {
+    will-change: transform;
+    -webkit-animation-name: rbt_rotation_round;
+    animation-name: rbt_rotation_round;
+    -webkit-animation-duration: 50s;
+    animation-duration: 50s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite
+}
+
+
+@keyframes bounceSlide {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-15px);
+    }
+}
+
+.bounce-slide {
+    animation-duration: 4s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-name: bounceSlide;
+}
+
+
+// RBT SHINY ANIMATION
+.rbt-shiny {
+    position: relative;
+    overflow: hidden;
+}
+
+.rbt-shiny::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    top: -5px;
+    left: -5px;
+    width: 5px;
+    height: 50%;
+    background-color: #ffffff;
+    animation: rbtbudgetShiny 5s ease-in-out infinite;
+}
+
+@keyframes rbtbudgetShiny {
+    0% {
+        transform: scale(0) rotate(45deg);
+        opacity: 0
+    }
+
+    93% {
+        transform: scale(0) rotate(45deg);
+        opacity: .1
+    }
+
+    95% {
+        transform: scale(4) rotate(45deg);
+        opacity: .6
+    }
+
+    100% {
+        transform: scale(50) rotate(45deg);
+        opacity: 0
+    }
+}
+
+
+// RBT Flash ANIMATION
+.rbt-flash-animation > svg, 
+.rbt-flash-animation > img {
+    animation: rbt_flash_animate 4000ms infinite;
+}
+@keyframes rbt_flash_animate {
+    0% {
+        opacity: 1
+    }
+
+    5% {
+        opacity: .1
+    }
+
+    10% {
+        opacity: .9
+    }
+
+    15% {
+        opacity: .1
+    }
+
+    20% {
+        opacity: .9
+    }
+
+    25% {
+        opacity: .1
+    }
+
+    30% {
+        opacity: .9
+    }
+
+    100% {
+        opacity: 1
+    }
+}

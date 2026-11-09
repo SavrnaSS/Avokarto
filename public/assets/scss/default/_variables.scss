@@ -1,0 +1,211 @@
+/*-------------------------------------
+  Variables
+  -------------------------------------*/
+
+/* Theme Colors */
+:root {
+    /* Primary and Secondary Colors */
+    --color-primary: #174D0A;
+    --color-secondary: #5F8F18;
+
+
+    /* Additional Colors */
+    --color-green: #6EA31B;
+    --color-light-green: #EAF6DA;
+    --color-yellow: #FCC418;
+    --color-orange: #CD6E00;
+
+
+    /* Text Colors */
+    --color-heading: #000000;
+    --color-body: #737373;
+    --color-black-opacity: rgba(0, 0, 0, 0.8 );
+    --color-black: #000000;
+    --color-dark-black: #111111;
+    --color-gray-black: #05051F;
+    --color-gray-black-two: #272718;
+    --color-gray-black-three: #181818;
+
+
+    /* Background Colors */
+    --color-white: #ffffff;
+    --color-gray-light: #F9F9F9;
+    --color-light-pink: #FFEDEB;
+    --white-opacity: #ffffff21;
+
+
+    /* Brand Palette */
+    --color-brand-50: #F2F8E8;
+    --color-brand-100: #E8F4D9;
+    --color-brand-200: #D8EDB8;
+    --color-brand-300: #BEE184;
+    --color-brand-400: #9CCF55;
+    --color-brand-500: #74B52E;
+    --color-brand-600: #3E8315;
+    --color-brand-700: #174D0A;
+    
+    
+    /* Neutral and Gray Colors */
+    --color-gray-100: #F3F3F3;
+    --color-gray-150: #F6F6F6;
+    --color-gray-200: #E6E6E6;
+    --color-gray-300: #C1C1C1;
+    --color-gray-400: #888888;
+    --color-gray-500: #555555;
+    --color-gray-600: #444444;
+    --color-gray-700: #333333;
+
+
+    /* Border Colors */
+    --color-border: #F3F3F3;
+    --color-border-2: #F4F4F4;
+
+
+    /* Extra Colors */
+    --color-extra-one: #EEEEEE;
+    --color-extra-two: #FAF0DC;
+    --color-extra-three: #EAEAEA;
+    --color-extra-four: #E7E8E9;
+    --color-extra-five: #EDF7E1;
+    --color-extra-six: #E0EEEA;
+    --color-extra-seven: #D7EAB9;
+    --color-extra-eight: #FFC20E; 
+    --color-extra-nine: #0E1932;
+    --color-extra-ten: #222D46;
+    --color-extra-eleven: #BCBCBC;
+    --color-extra-twelve: #FFF0EC;
+    --color-chocolate: #673B39;
+
+
+    /* Element Background Colors */
+    --color-element-bg-blue: #E8F4D9;
+    --color-element-bg-yellow: #FAF0DC;
+
+
+    /* Notification Colors */
+    --color-success: #53DC54;
+    --color-danger: #E53E3E;
+    --color-warning: #F5B24F;
+
+
+    /* Social Media Colors */
+    --color-facebook: #2A66FF;
+    --color-tiktok: #000000;
+    --color-youtube: #ED4141;
+    --color-linkedin: #0077B5;
+    --color-pinterest: #BD091C;
+    --color-tumblr: #34475C;
+    --color-telegram: #31A8E0;
+    --color-vimeo: #00ADEF;
+    --color-twitch: #6441A3;
+    --color-discord: #7289da;
+    --color-whatsapp: #24D366;
+    --color-mail: #5FB7E0;
+    --color-phone: #014A8F;
+    --color-skype: #00AFF0;
+    --color-signal: #3A76F0;
+    
+    /* Border Radius */
+    --radius-60: 60px;
+    --radius-10: 10px;
+    --radius-12: 12px;
+    --radius-big: 16px;
+    --radius-md: 8px;
+    --border-width: 2px;
+    --radius: 6px;
+    --radius-full: 50%;
+
+
+    /* Font weight */
+    --f-light: 300;
+    --f-regular: 400;
+    --f-medium: 500;
+    --f-semi-bold: 600;
+    --f-bold: 700;
+    --f-extra-bold: 800;
+    --f-black: 900;
+
+
+    /* Shadows */
+    --shadow-1: 0px 4px 30px 10px rgba(0, 0, 0, 0.05);
+    --shadow-2: 0px 8px 100px var(--color-extra-three);
+    --shadow-3: 0px 8px 30px 5px rgba(0, 0, 0, 0.05);
+    --shadow-4: 0px 10px 35px 20px rgb(0 0 0 / 6%);
+    --shadow-5: 0px 20px 70px 0px rgba(0, 0, 0, 0.1);
+    --shadow-6:  0px 4px 100px 0px #D6D6D6;;
+    --shadow-7: 0px 5px 20px 0px rgba(23, 77, 10, 0.3);
+    --shadow-8: -4px 4px 8px 4px rgb(0 0 0 / 10%);
+    --shadow-10: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    --shadow-product-item: 0px 10px 35px 0px rgba(0, 0, 0, 0.14);
+    --shadow-light: 0 2px 6px 0 rgba(0, 0, 0, 0.05);
+    
+    
+    /* Transitions */
+    --transition: all 0.4s ease-in-out;
+    --transition-cubic: all .4s cubic-bezier(.15,.2,.1,1);
+    --transition-short-cubic: all .2s cubic-bezier(.15,.2,.1,1);
+    --transition-short: all 0.2s ease-in-out;
+    --transition-2: 256ms ease-in-out;
+    --transition-3: transform .85s cubic-bezier(.23,1,.32,1),background .3s,border .3s,border-radius .3s,box-shadow .3s;
+    --transition-4: all .25s cubic-bezier(.645,.045,.355,1);
+
+
+
+    /* Fonts */
+    --font-primary: "Cabin", sans-serif;
+    --font-secondary: "Caveat", cursive;
+    --font-tertiary: "Bebas Neue", serif;
+    --font-quaternary: "Caprasimo", serif;;
+
+
+    /* Font Sizes */
+    --font-size-b1: 16px;
+    --font-size-b2: 15px;
+    --font-size-b3: 14px;
+    --font-size-b4: 12px;
+    --font-size-xl: 54px;
+
+
+
+    /* Line Heights */
+    --line-height-b1: 1.5; /* Optimized for 16px */
+    --line-height-b2: 1.46; /* For 15px */
+    --line-height-b3: 1.4; /* For 14px */
+    --line-height-b4: 1.5; /* For 12px */
+    --line-height-xl: 1.18; /* For 54px */
+
+    /* Headings */
+    --h1: 36px; /* H1 size */
+    --h2: 30px; /* H2 size */
+    --h3: 28px; /* H3 size */
+    --h4: 24px; /* H4 size */
+    --h5: 20px; /* H5 size */
+    --h6: 18px; /* H6 size */
+    --div-gap-1: 10px; /* Default gap for layout */
+
+
+    /* Gradients */
+    --gradient-1: linear-gradient(rgb(255, 255, 255) 0%, rgb(239, 241, 255) 100%); 
+    --gradient-white-b: linear-gradient(168deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.90) 100%); 
+
+}
+
+/*-------------------------------------
+  Layout Variations for Media Queries
+-------------------------------------*/
+
+$smlg-device: 'only screen and (max-width: 1199px)';
+$lgtolp-device: 'only screen and (min-width: 1200px)';
+$extra-device: 'only screen and (min-width: 1600px) and (max-width: 1919px)';
+$extra-lg-device: 'only screen and (min-width: 1600px)';
+$extra-xl-device: 'only screen and (min-width: 2560px)';
+$laptop-device: 'only screen and (min-width: 1200px) and (max-width: 1599px)';
+$xl-layout: 'only screen and (min-width: 1200px) and (max-width: 1399px)';
+$lg-layout: 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$md-layout:'only screen and (min-width: 768px) and (max-width: 991px)';
+$sm-layout:'only screen and (max-width: 767px)';
+$large-mobile: 'only screen and (max-width: 575px)';
+$small-mobile: 'only screen and (max-width: 479px)';
+
+
+

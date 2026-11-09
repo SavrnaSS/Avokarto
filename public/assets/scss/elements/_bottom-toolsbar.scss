@@ -1,0 +1,94 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*--------------------------
+    Bottom Tools Bar
+---------------------------*/
+.rbt-toolbar {
+    position: sticky;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 350;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--color-white);
+    box-shadow: 0 0 9px rgba(0, 0, 0, .12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: all 0.3s ease-in-out;
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    .rbt-quick-access{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 5px;
+        height: 55px;
+        > li {
+            width: 100%;
+            .rbt-round-btn{
+                display: flex;
+                flex-direction: column;
+                gap: 0px;
+                justify-content: center;
+                align-items: center;
+                line-height: 36px;
+                font-size: 14px;
+                width: 100%;
+                height: 100%;
+                border-radius: var(--radius);
+                i{
+                    color: var(--color-gray-600);
+                }
+                &::after{
+                    background: var(--color-gray-200);
+                    position: absolute;
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: -2px;
+                    opacity: 0;
+                    transform: scale(0.8);
+                    border-radius: var(--radius);
+                    z-index: -1;
+                    display: none;
+                }
+                
+                .access-box-count{
+                    top: -5px;
+                    left: calc(50% + 3px);
+                    width: 15px;
+                    min-width: 15px;
+                    line-height: 15px;
+                    height: 15px;
+                }
+                .rbt-toolbar-label{ 
+                    font-size: var(--font-size-b4);
+                    line-height: var(--line-height-b4);
+                }
+            }
+
+            &:hover{
+                .rbt-round-btn{
+                    color: var(--color-primary);
+                    background: transparent;
+                    i {
+                        color: var(--color-primary);
+                    }
+                    &::after{
+                        transform: scale(1.08);
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+

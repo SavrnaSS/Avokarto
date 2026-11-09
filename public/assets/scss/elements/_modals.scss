@@ -1,0 +1,1025 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*-----------------------
+    Modals Styles  
+------------------------*/
+
+body {
+  &.modal-open,
+  &.hide-scrollbar {
+    .rbt-header .rbt-header-wrapper.rbt-sticky,
+    .rbt-header-common-sticky-activation {
+      padding-right: 17px !important;
+      @media #{$smlg-device} {
+        padding-right: 0 !important;
+      }
+    }
+
+    .rbt-header-common-sticky-activation.rbt-sticky {
+      padding-right: 17px !important;
+      @media #{$smlg-device} {
+        padding-right: 0 !important;
+      }
+    }
+    .rbt-progress-parent {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .side-menu,
+    .rbt-cart-side-menu {
+      margin-right: 17px !important;
+    }
+  }
+}
+
+.rbt-team-modal,
+.rbt-default-modal {
+  z-index: 9999;
+  padding: 60px 30px !important;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.5);
+  cursor: url(/assets/images/cursor-x.webp), pointer;
+  @media #{$sm-layout} {
+    padding: 16px !important;
+  }
+  @media #{$small-mobile} {
+    padding: 12px !important;
+  }
+  .modal-news {
+    max-width: 1000px !important;
+  }
+  .modal-dialog {
+    width: 100%;
+    margin: auto;
+    max-width: 930px;
+    .modal-content {
+      max-width: 2560px;
+      margin: 0 auto;
+      padding: 32px;
+      border-radius: 12px;
+      border: none;
+      z-index: 1;
+      background: var(--color-white);
+      box-shadow: var(--shadow-1);
+      cursor: default;
+      @media #{$sm-layout} {
+        padding: 30px;
+      }
+      @media #{$small-mobile} {
+        padding: 16px;
+      }
+      .modal-header {
+        padding: 0;
+        border: none;
+        .rbt-modal-dis-btn {
+          right: -20px;
+          position: absolute;
+          top: -20px;
+          opacity: 1;
+          transition: var(--transition);
+          font-size: 16px;
+          height: 40px;
+          width: 40px;
+          line-height: 40px;
+          background: transparent;
+          color: var(--color-heading);
+          &::after {
+            background: var(--color-gray-light);
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: var(--shadow-8);
+          }
+          &:hover {
+            color: var(--color-heading) !important;
+            &::after {
+              transform: scale(1.1);
+            }
+          }
+          &:active {
+            &::after {
+              transform: scale(0.9);
+              transition: var(--transition-short-cubic);
+            }
+          }
+        }
+      }
+      .modal-body {
+        .inner {
+          position: relative;
+          .thumb {
+            img {
+              border-radius: var(--radius);
+            }
+          }
+        }
+
+        .rbt-team-details {
+          .author-info {
+            margin-bottom: 20px;
+            .title {
+              margin-bottom: 7px;
+            }
+            .designation {
+              display: block;
+              font-size: 19px;
+              font-weight: var(--f-medium);
+              margin-bottom: 12px;
+            }
+          }
+          p {
+            padding-right: 16%;
+            @media #{$md-layout} {
+              padding-right: 0;
+            }
+            @media #{$sm-layout} {
+              padding-right: 0;
+            }
+          }
+
+          .team-form {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 12px;
+            letter-spacing: 0.6px;
+            font-style: italic;
+            img {
+              padding-right: 10px;
+              max-height: 18px;
+            }
+          }
+        }
+      }
+    }
+    &.container-size {
+      max-width: 1460px;
+    }
+    &.xl-size {
+      max-width: 1600px;
+    }
+    &.sm-size {
+      max-width: 750px;
+    }
+    &.xs-size {
+      max-width: 624px;
+    }
+    &.xxs-size {
+      max-width: 460px;
+      .modal-content {
+        padding: 30px 24px;
+      }
+    }
+    &.modal-dialog-full-width {
+      max-width: 100%;
+    }
+  }
+  .rbt-overlay-counter.counter-sm {
+    @media #{$sm-layout} {
+      display: none;
+    }
+  }
+}
+
+.modal {
+  --folder-shaper-top-h: 89px;
+  --folder-shaper-top-w: 85px;
+  .rbt-folder-shape-right-portion {
+    > svg {
+      display: none;
+    }
+  }
+  &.has-rbt-top-folder-shape {
+    .modal-content {
+      position: relative;
+      padding: 0 !important;
+      padding-top: var(--folder-shaper-top-h) !important;
+      background: transparent;
+      &::before {
+        position: absolute;
+        content: "";
+        background: var(--color-white);
+        width: calc(100% - var(--folder-shaper-top-w));
+        height: var(--folder-shaper-top-h);
+        border-top-left-radius: 12px;
+        left: 0;
+        top: 0;
+        z-index: -1;
+      }
+    }
+    .rbt-top-folder-shape-wrapper {
+      padding: 32px;
+      background: var(--color-white);
+      border-radius: 0 0 12px 12px;
+      @media #{$sm-layout} {
+        padding: 24px;
+      }
+    }
+    .rbt-folder-shape-right-portion {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: var(--folder-shaper-top-h);
+      width: var(--folder-shaper-top-w);
+      z-index: -1;
+    }
+    .rbt-content-trs-portion {
+      margin-top: calc(-1 * (var(--folder-shaper-top-w)));
+    }
+    .modal-dialog .modal-content .modal-header .rbt-modal-dis-btn {
+      top: 13px;
+      right: 8px;
+    }
+    .rbt-folder-shape-right-portion {
+      > svg {
+        display: block;
+      }
+    }
+  }
+}
+
+// newly added
+.rbt-product-restock-modal-area {
+  .modal-header {
+    border-radius: var(--radius-12) var(--radius-12) 0 0;
+    overflow: hidden;
+  }
+}
+
+.rbt-welcome-text-area {
+  width: 100%;
+  background: var(--color-brand-300);
+  padding: 16px 40px;
+  @media #{$sm-layout} {
+    padding: 16px;
+  }
+  .rbt-welcome-title-header {
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-weight: var(--f-bold);
+    margin-bottom: 4px;
+  }
+
+  .rbt-description {
+    color: var(--color-gray-700);
+    font-size: var(--font-size-b2);
+    font-weight: var(--f-medium);
+    line-height: var(--line-height-b2);
+    @media #{$sm-layout} {
+      font-size: var(--font-size-b4);
+    }
+  }
+}
+
+.rbt-cart-product-edit-area {
+  display: flex;
+  gap: 16px;
+  @media #{$sm-layout} {
+    height: 100%;
+  }
+
+  .rbt-cart-product-thumb {
+    display: inline-block;
+    max-width: 160px;
+    height: auto;
+    background: var(--color-brand-100);
+    border-radius: var(--radius);
+    @media #{$sm-layout} {
+      min-height: 100%;
+      max-width: 50%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .rbt-qty-area.rbt-qty-sm {
+    @media #{$sm-layout} {
+      height: 30px;
+    }
+  }
+
+  .rbt-product-info {
+    .rbt-card-title {
+      color: var(--color-heading);
+      font-family: var(--font-primary);
+      font-size: var(--font-size-b2);
+      font-weight: var(--f-medium);
+      line-height: var(--line-height-b2);
+      margin-bottom: 4px;
+      margin-top: 0;
+
+      @media #{$sm-layout} {
+        font-size: var(--font-size-b4);
+      }
+    }
+
+    .pricing-part {
+      color: var(--color-heading);
+      font-family: var(--font-primary);
+      font-size: var(--h6);
+      font-weight: var(--f-semi-bold);
+      @media #{$sm-layout} {
+        font-size: var(--font-size-b4);
+      }
+
+      del {
+        color: var(--color-gray-400);
+        font-weight: var(--f-regular);
+      }
+    }
+  }
+}
+
+.rbt-cart-edit-area {
+  &.modal-dialog {
+    max-width: 890px;
+  }
+
+  button {
+    &.dropdown-toggle {
+      width: 250px;
+      @media #{$sm-layout} {
+        width: auto;
+      }
+    }
+  }
+}
+
+.rbt-modal-title {
+  color: var(--color-heading);
+  font-family: var(--font-primary);
+  font-weight: var(--f-bold);
+  margin-bottom: 4px;
+}
+
+.rbt-modal-description {
+  color: var(--color-heading);
+  font-family: var(--font-primary);
+  font-weight: var(--f-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  margin-bottom: 8px;
+}
+
+.rbt-modal-subtitle {
+  color: var(--color-heading);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  font-weight: var(--f-semi-bold);
+  margin-bottom: 0;
+}
+
+.rbt-wishlist-modal-content {
+  width: 100%;
+  overflow: hidden;
+  .rbt-transparent-table-one-wrapper {
+    @media #{$sm-layout, $md-layout} {
+      overflow-x: auto;
+    }
+  }
+}
+.rbt-wishlist-modal-footer {
+  .rbt-link {
+    font-weight: 500;
+    @media #{$small-mobile} {
+      font-size: var(--font-size-b4);
+    }
+  }
+}
+
+// comparison popup style
+.rbt-added-comparison-modal {
+  .modal-dialog {
+    width: fit-content;
+  }
+
+  .modal-content {
+    padding: 12px !important;
+
+    .rbt-comparison-popup-area {
+      .inner {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        @media #{$large-mobile} {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.rbt-comparison-prd-box {
+  border: 2px solid var(--color-gray-200);
+  border-radius: 12px;
+  padding: 10px;
+  max-width: 240px;
+  position: relative;
+  transition: var(--transition);
+  overflow: unset;
+  .close-btn {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    height: 24px;
+    width: 24px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    &::after {
+      background: var(--color-brand-100);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .rbt-comparison-prd-img {
+    background: var(--color-gray-200);
+    border-radius: 8px 8px 0 0;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    img {
+      transition: var(--transition);
+    }
+  }
+
+  .rbt-product-title {
+    font-size: 15px;
+    margin: 8px 0 0 0;
+  }
+  &:hover {
+    .rbt-comparison-prd-img {
+      img {
+        transform: scale(1.04);
+      }
+    }
+
+    .close-btn {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.rbt-popup-action-area {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .icon {
+    font-size: var(--h1);
+    color: #0cb90d;
+  }
+}
+
+.rbt-comparison-message-area {
+  background: var(--color-white);
+  border-radius: 8px 8px 0 0;
+  box-shadow: var(--shadow-4);
+  padding: 24px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  transform: translateY(8px);
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+
+  &.comparison-active {
+    transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+    z-index: 9999;
+  }
+
+  .close-canvas-btn {
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    &::after {
+      background: var(--color-brand-100);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .rbt-compare-title {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .rbt-compare-products {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 16px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray-400) var(--color-gray-200);
+    scrollbar-gutter: stable;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: var(--color-gray-200);
+      border-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-gray-400);
+      border-radius: 8px;
+    }
+  }
+
+  .rbt-popup-action-area {
+    @media #{$sm-layout, $md-layout} {
+      flex-direction: row;
+      gap: 12px;
+    }
+  }
+}
+
+.rbt-demo-prev-wrapper {
+  max-height: 58vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-gray-200);
+    border-radius: 40px;
+    height: 337px;
+  }
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 337px;
+    background-color: var(--color-gray-200);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 40px;
+    background-color: var(--color-gray-400);
+  }
+}
+
+.rbt-default-modal {
+  .modal-dialog {
+    &.rbt-coupon-modal-dialog {
+      max-width: 564px;
+
+      .rbt-coupon-wrapper {
+        border-radius: var(--radius-12);
+      }
+    }
+  }
+}
+
+.rbt-register-form-modal {
+  .rbt-login-form .rbt-login-form-inner {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .rbt-login-form .rbt-login-form-bottom {
+    padding: 24px;
+    margin: -32px;
+    margin-top: 32px;
+    background: var(--color-gray-100);
+  }
+  .rbt-login-form .rbt-login-form-top {
+    padding: 0;
+  }
+}
+
+.rbt-default-modal {
+  .rbt-product-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .rbt-btn-prev {
+    left: -90px;
+  }
+  .rbt-btn-next {
+    right: -90px;
+  }
+}
+
+/* Quick sign-up (components/modals/Signup.tsx): a compact card, one field
+   at a time (email, then password). A bottom sheet on phones. */
+%avk-auth-card {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding: 34px 32px 26px;
+  border: 0;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgb(214 240 160 / 55%) 0%, transparent 60%),
+    #fff;
+  box-shadow:
+    0 0 0 1px rgb(166 217 74 / 45%),
+    0 0 0 8px rgb(198 240 108 / 18%),
+    0 40px 80px -30px rgb(16 24 8 / 45%);
+  cursor: auto;
+  text-align: center;
+}
+.rbt-default-modal.avk-auth-modal {
+  .avk-auth-dialog { max-width: 440px; }
+  .modal-content.avk-auth { @extend %avk-auth-card; }
+}
+/* The same card as a page (forgot password): centred on a soft lime wash. */
+.avk-auth-page {
+  display: grid;
+  place-items: center;
+  min-height: min(78vh, 760px);
+  padding: 56px 16px 72px;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgb(216 237 184 / 55%) 0%, transparent 70%),
+    #fbfcf9;
+  .avk-auth {
+    @extend %avk-auth-card;
+    width: min(440px, 100%);
+    animation: avkAuthPop 460ms cubic-bezier(0.2, 0.9, 0.25, 1.12);
+  }
+}
+.avk-auth-back { position: absolute; top: 14px; left: 14px; }
+.avk-auth-otp {
+  letter-spacing: 0.5em;
+  font-size: 22px !important;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  padding-left: calc(18px + 0.5em) !important;
+}
+.avk-auth-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fff6e0;
+  color: #7a5200;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+}
+.avk-auth-done {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 6px 0 4px;
+  .avk-auth-done-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #d4f58a 0%, #b5e35a 100%);
+    box-shadow: 0 0 0 8px rgb(198 240 108 / 25%);
+    color: #173c2a;
+    font-size: 26px;
+    animation: avkTick 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+@media (max-width: 575px) {
+  .avk-auth-page { align-items: start; padding-top: 28px; }
+  .avk-auth-page .avk-auth { padding: 30px 20px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avk-auth-page .avk-auth, .avk-auth-done .avk-auth-done-icon { animation: none; }
+}
+.avk-auth-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(23 60 42 / 6%);
+  color: #36452c;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease;
+  &:hover { background: rgb(23 60 42 / 12%); transform: rotate(90deg); }
+}
+.avk-auth-badge {
+  justify-self: center;
+  margin-bottom: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d4f58a 0%, #b5e35a 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 60%), 0 6px 14px -8px rgb(120 180 40 / 80%);
+  color: #173c2a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.avk-auth-title {
+  margin: 0 0 6px;
+  color: #13200d;
+  font-size: clamp(24px, 6vw, 30px) !important;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+.avk-auth-lead { margin: 0 0 22px; color: #5f6f53; font-size: 15px; line-height: 1.5; }
+.avk-auth-form { display: grid; gap: 12px; text-align: left; }
+.avk-auth-input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  border: 1.5px solid #dfe7d6;
+  border-radius: 14px;
+  background: #fff;
+  color: #13200d;
+  font-size: 16px; /* 16px: no zoom-on-focus in iOS Safari */
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  &::placeholder { color: #9aa88e; }
+  &:focus, &:focus-visible { border-color: #4f9a2c; outline: none; box-shadow: 0 0 0 4px rgb(198 240 108 / 40%); }
+  &[aria-invalid="true"] { border-color: #c2410c; }
+}
+.avk-auth-password {
+  position: relative;
+  .avk-auth-input { padding-right: 52px; }
+}
+.avk-auth-eye {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #6e7e61;
+  cursor: pointer;
+  transform: translateY(-50%);
+  &:hover { background: rgb(23 60 42 / 6%); }
+}
+.avk-auth-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 8px 8px 14px;
+  border-radius: 12px;
+  background: #f2f6ec;
+  span { flex: 1; min-width: 0; overflow: hidden; color: #2c4426; font-size: 14px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+  button { flex: none; padding: 5px 10px; border: 0; border-radius: 8px; background: #fff; color: #315d3c; font-size: 13px; font-weight: 700; cursor: pointer; }
+}
+.avk-auth-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3e8315 0%, #173c2a 100%);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 18%) inset, 0 12px 24px -12px rgb(62 131 21 / 70%);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: filter 160ms ease, transform 120ms ease, box-shadow 160ms ease;
+  &:hover:not(:disabled) { filter: brightness(1.08); box-shadow: 0 1px 0 rgb(255 255 255 / 18%) inset, 0 16px 30px -12px rgb(62 131 21 / 75%); }
+  &:active:not(:disabled) { transform: scale(0.98); }
+  &:disabled { cursor: not-allowed; opacity: 0.45; box-shadow: none; }
+  &[aria-busy] { cursor: progress; opacity: 1; animation: avkAuthBusy 1.2s ease-in-out infinite; }
+}
+.avk-auth-submit:focus-visible, .avk-auth-close:focus-visible, .avk-auth-eye:focus-visible, .avk-auth-chip button:focus-visible {
+  outline: 3px solid #bee184;
+  outline-offset: 2px;
+}
+.avk-auth-error { margin: 0; color: #b42318; font-size: 13.5px; font-weight: 600; line-height: 1.45; }
+.avk-auth-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #315d3c;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.avk-auth-switch { margin: 18px 0 6px; color: #5f6f53; font-size: 14px; }
+/* Sign in: error (or nothing) on the left, "Forgot password?" on the right. */
+.avk-auth-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 12px; min-height: 20px; }
+.avk-auth-row .avk-auth-error { flex: 1 1 200px; }
+.avk-auth-forgot { margin-left: auto; font-size: 13.5px; text-decoration: none; &:hover { text-decoration: underline; } }
+/* Phones: a sheet anchored to the bottom, thumb-friendly. It can be swiped
+   down to close and rides above the keyboard (hooks/useBottomSheet.ts sets
+   --avk-kb); taller than the screen, it scrolls inside itself. */
+@media (max-width: 575px) {
+  .rbt-default-modal.avk-auth-modal {
+    padding: 0 !important;
+    .avk-auth-dialog {
+      align-items: flex-end;
+      min-height: 100%;
+      max-width: none;
+      margin: 0;
+      padding-bottom: var(--avk-kb, 0px);
+      transition: padding-bottom 180ms ease;
+    }
+    .modal-content.avk-auth {
+      max-height: calc(100dvh - var(--avk-kb, 0px) - 10px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 28px 18px calc(16px + env(safe-area-inset-bottom));
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -1px 0 rgb(166 217 74 / 45%), 0 -20px 60px -20px rgb(16 24 8 / 45%);
+      scrollbar-width: none;
+      transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+      &::-webkit-scrollbar { display: none; }
+      &[data-dragging] { transition: none; }
+      &[data-dragging]::before { width: 56px; background: rgb(23 60 42 / 32%); }
+    }
+    .avk-auth-close { top: 12px; right: 12px; width: 34px; height: 34px; font-size: 15px; }
+    .avk-auth-close:hover { transform: none; }
+    .avk-auth-badge { margin-bottom: 10px; padding: 4px 11px; font-size: 11px; }
+    .avk-auth-steps { margin-bottom: 12px; }
+    .avk-auth-title { padding: 0 34px; font-size: clamp(22px, 6.6vw, 26px) !important; }
+    .avk-auth-lead { margin-bottom: 18px; font-size: 14.5px; line-height: 1.45; }
+    .avk-auth-form { gap: 10px; }
+    .avk-auth-input, .avk-auth-submit { height: 52px; }
+    .avk-auth-submit { font-size: 16.5px; }
+    .avk-auth-switch { margin: 14px 0 4px; }
+    .avk-signup-rules { gap: 6px 12px; }
+    .avk-signup-rules li { font-size: 12.5px; }
+  }
+}
+/* Very narrow phones (iPhone SE / mini): trim a little more. */
+@media (max-width: 374px) {
+  .rbt-default-modal.avk-auth-modal {
+    .modal-content.avk-auth { padding-right: 14px; padding-left: 14px; }
+    .avk-auth-title { padding: 0 28px; }
+    .avk-auth-lead { font-size: 14px; }
+  }
+}
+/* Phones on their side (short screens): drop the extras so the fields fit,
+   and scroll the card if it still doesn't. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .rbt-default-modal.avk-auth-modal {
+    padding: 10px !important;
+    .modal-content.avk-auth {
+      max-height: calc(100dvh - 20px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 20px 22px 16px;
+    }
+    .avk-auth-badge, .avk-auth-steps, .avk-signup-terms { display: none; }
+    .avk-auth-lead { margin-bottom: 12px; }
+    .avk-auth-switch { margin-top: 10px; }
+  }
+}
+.avk-signup-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    color: #8a9a7e;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 160ms ease;
+    &::before {
+      display: inline-grid;
+      place-items: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1.5px #c9d6bd;
+      color: transparent;
+      content: "✓";
+      font-size: 10px;
+      font-weight: 800;
+      transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+    }
+    &[data-ok] {
+      color: #315d3c;
+      &::before { background: #a6d94a; box-shadow: none; color: #173c2a; }
+    }
+  }
+}
+.avk-signup-terms {
+  margin: 0;
+  color: #8a9a7e;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  a { color: #315d3c; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+}
+/* ---------- quick sign-up motion ----------
+   Open: a soft spring pop (desktop) or a slide-up sheet (phones); close
+   reverses within the layer's 0.22s exit. Steps slide in the direction you
+   moved; a rejected email shakes; met rules pop; the badge glints. */
+.managed-bs-modal-layer .avk-auth-modal .avk-auth-dialog {
+  opacity: 0;
+  transform: translateY(18px) scale(0.94);
+  transition: transform 220ms ease, opacity 200ms ease;
+}
+.managed-bs-modal-layer.is-open .avk-auth-modal .avk-auth-dialog {
+  opacity: 1;
+  transform: none;
+  animation: avkAuthPop 460ms cubic-bezier(0.2, 0.9, 0.25, 1.12);
+}
+@keyframes avkAuthPop {
+  from { opacity: 0; transform: translateY(18px) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 575px) {
+  .managed-bs-modal-layer .avk-auth-modal .avk-auth-dialog { opacity: 1; transform: translateY(100%); }
+  .managed-bs-modal-layer.is-open .avk-auth-modal .avk-auth-dialog { animation: avkAuthSheet 420ms cubic-bezier(0.22, 1, 0.36, 1); }
+  /* Grab handle: reads as a sheet that came up from the bottom. */
+  .rbt-default-modal.avk-auth-modal .modal-content.avk-auth::before {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgb(23 60 42 / 18%);
+    content: "";
+    transform: translateX(-50%);
+  }
+}
+@keyframes avkAuthSheet {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+/* Two-step progress under the badge. */
+.avk-auth-steps {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: -4px 0 14px;
+  span { width: 22px; height: 4px; border-radius: 999px; background: #dfe7d6; transition: width 300ms ease, background-color 300ms ease; }
+  span:first-child, &[data-step="password"] span:last-child { width: 34px; background: #4f9a2c; }
+}
+.avk-auth-form[data-dir="forward"] { animation: avkStepForward 320ms cubic-bezier(0.22, 1, 0.36, 1); }
+.avk-auth-form[data-dir="back"] { animation: avkStepBack 320ms cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes avkStepForward { from { opacity: 0; transform: translateX(28px); } }
+@keyframes avkStepBack { from { opacity: 0; transform: translateX(-28px); } }
+/* Two names, same motion: alternating restarts the shake on every rejection. */
+.avk-auth-form[data-shake="a"] .avk-auth-input { animation: avkShakeA 380ms ease; }
+.avk-auth-form[data-shake="b"] .avk-auth-input { animation: avkShakeB 380ms ease; }
+@keyframes avkShakeA { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+@keyframes avkShakeB { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+.avk-auth-error { animation: avkStepForward 220ms ease; }
+.avk-signup-rules li[data-ok]::before { animation: avkTick 360ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes avkTick { 0% { transform: scale(0.3); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.avk-auth-badge { position: relative; overflow: hidden; }
+.avk-auth-badge::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 65%) 50%, transparent 65%);
+  content: "";
+  transform: translateX(-120%);
+  animation: avkGlint 3.6s ease-in-out 0.6s infinite;
+}
+@keyframes avkGlint { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.avk-auth-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgb(255 255 255 / 35%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: avkSpin 700ms linear infinite;
+}
+@keyframes avkSpin { to { transform: rotate(360deg); } }
+@keyframes avkAuthBusy {
+  0%, 100% { box-shadow: 0 1px 0 rgb(255 255 255 / 18%) inset, 0 12px 24px -12px rgb(62 131 21 / 70%); }
+  50% { box-shadow: 0 1px 0 rgb(255 255 255 / 18%) inset, 0 0 0 5px rgb(198 240 108 / 35%), 0 14px 28px -12px rgb(62 131 21 / 80%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avk-signup-rules li, .avk-signup-rules li::before, .avk-auth-input, .avk-auth-submit, .avk-auth-close, .avk-auth-steps span { transition: none; }
+  .avk-auth-close:hover { transform: none; }
+  .managed-bs-modal-layer .avk-auth-modal .avk-auth-dialog,
+  .managed-bs-modal-layer.is-open .avk-auth-modal .avk-auth-dialog { animation: none; transition: opacity 150ms ease; transform: none; }
+  .avk-auth-form, .avk-auth-form .avk-auth-input, .avk-auth-error, .avk-signup-rules li[data-ok]::before, .avk-auth-badge::after, .avk-auth-submit[aria-busy] { animation: none; }
+  .avk-auth-spinner { animation-duration: 1.6s; }
+}

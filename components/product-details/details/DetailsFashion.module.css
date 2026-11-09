@@ -1,0 +1,27 @@
+/*
+ * The sidebar (Recently Viewed/Recommended + ad) sits beside the gallery in
+ * a Bootstrap row. position: sticky's "room to move" is the gap between the
+ * STICKY ELEMENT'S OWN BOX and its containing block (the row) - not the
+ * empty space below its visual content. Flexbox's default stretch makes the
+ * sidebar's own box match the row's full height (both columns' boxes match
+ * the taller one), which leaves sticky almost no room to work with even
+ * though the sidebar's actual content is much shorter than the row.
+ * align-self: flex-start opts this column out of that stretch, shrinking
+ * its own box back down to its real content height (~627px) inside a
+ * ~964-988px row - giving sticky the ~340px of genuine headroom it needs to
+ * follow the scroll, the same way the gallery already does
+ * (.position-sticky-top, public/assets/scss/elements/_single-product.scss)
+ * - same 150px top offset, so both move in sync through the hero section.
+ *
+ * Scoped to >=1200px (Bootstrap's xl breakpoint, matching col-xl-3 on this
+ * same element) - below that the sidebar stacks full-width in normal flow,
+ * where "sticky" would pin a full-width block awkwardly mid-page instead of
+ * behaving like a side column.
+ */
+@media (min-width: 1200px) {
+  .sidebar {
+    position: sticky;
+    top: 150px;
+    align-self: flex-start;
+  }
+}

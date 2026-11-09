@@ -1,0 +1,174 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*--------------------------
+    Bootstrap Tooltips Styles
+---------------------------*/
+.tooltip {
+  position: relative;
+  display: inline-block;
+  opacity: 0; 
+  transition: opacity .15s linear;
+  z-index: 9999; 
+  padding: 0 !important;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+.tooltip-inner {
+  color: var(--color-white);
+  background: var(--color-black-opacity);
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: var(--font-size-b4);
+  line-height: 1.4;
+  text-align: center;
+  max-width: 150px;
+  transition: var(--transiton);
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  &::before{
+    display: none;
+  }
+}
+
+/* Tooltip Positions */
+.tooltip.top .tooltip-inner {
+  margin-top: 10px;
+}
+
+.tooltip.top .tooltip-arrow {
+  bottom: 100%; 
+  left: 50%;
+  margin-left: -5px; 
+  border-width: 5px 5px 0;
+  border-color: var(--color-black) transparent transparent transparent; /* Arrow color */
+  display: none;
+}
+
+.tooltip.right .tooltip-inner {
+  margin-left: 10px;
+}
+
+.tooltip.right .tooltip-arrow {
+  left: 100%; 
+  top: 50%;
+  margin-top: -5px; 
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent var(--color-black); /* Arrow color */
+}
+
+.tooltip.bottom .tooltip-inner {
+  margin-top: 10px;
+}
+
+.tooltip.bottom .tooltip-arrow {
+  top: 100%; /* Position the arrow below */
+  left: 50%;
+  margin-left: -5px; /* Center the arrow */
+  border-width: 0 5px 5px;
+  border-color: transparent transparent var(--color-black) transparent; /* Arrow color */
+}
+
+.tooltip.left .tooltip-inner {
+  margin-right: 10px;
+}
+
+.tooltip.left .tooltip-arrow {
+  right: 100%; /* Position the arrow to the left */
+  top: 50%;
+  margin-top: -5px; /* Center the arrow */
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--color-black) transparent transparent; /* Arrow color */
+}
+
+/* Color Variations */
+.tooltip[data-tooltip-type="primary"] .tooltip-inner {
+  background-color: var(--color-primary);
+}
+
+.tooltip[data-tooltip-type="secondary"] .tooltip-inner {
+  background-color: var(--color-secondary);
+}
+
+.tooltip[data-tooltip-type="black"] .tooltip-inner {
+  background-color: var(--color-black);
+}
+
+.tooltip[data-tooltip-type="success"] .tooltip-inner {
+  background-color: #27ae60;
+}
+
+.tooltip[data-tooltip-type="warning"] .tooltip-inner {
+  background-color: #f39c12;
+}
+
+.tooltip[data-tooltip-type="danger"] .tooltip-inner {
+  background-color: #c0392b;
+}
+
+
+.tooltip-distance-lg{
+  .tooltip-inner{
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  &.bs-tooltip-top .tooltip-inner{
+    margin-bottom: 12px;
+  }
+  &.bs-tooltip-bottom .tooltip-inner{
+    margin-top: 12px;
+  }
+}
+
+.popover {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-10);
+  padding: 4px 0;
+
+  &.bs-popover-start>.popover-arrow {
+    &::before {
+      border-left-color: var(--color-gray-200);
+    }
+  }
+
+  &.bs-popover-top>.popover-arrow {
+    &::before {
+      border-top-color: var(--color-gray-200);
+    }
+  }
+
+  &.bs-popover-end>.popover-arrow {
+    &::before {
+      border-right-color: var(--color-gray-200);
+    }
+  }
+
+  &.bs-popover-bottom>.popover-arrow {
+    &::before {
+      border-bottom-color: var(--color-gray-200);
+    }
+  }
+
+  .popover-header {
+    font-size: var(--font-size-b1);
+    border: none;
+    background: none;
+    font-weight: var(--f-medium);
+    padding-bottom: 4px;
+  }
+
+  .popover-body {
+    font-size: var(--font-size-b2);
+    color: var(--color-body);
+    padding: 4px 12px 8px;
+  }
+}

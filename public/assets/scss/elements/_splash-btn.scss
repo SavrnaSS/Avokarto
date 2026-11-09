@@ -1,0 +1,106 @@
+@use "../default/variables" as *; // Importing all the variables
+
+/* The checkout buttons' hover/icon motion - kept from the template's splash
+   styles when the rest of that demo page was removed. */
+// splash buttons
+.splash-btn {
+  @media #{$lg-layout} {
+    font-size: var(--font-size-b1);
+    padding: 0 28px;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  @media #{$sm-layout, $md-layout} {
+    font-size: var(--font-size-b1);
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px !important;
+  }
+
+  &.icon-reverse-left {
+    .icon-left {
+      margin-left: -24px;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .icon-right {
+      margin-right: 0;
+      transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    &:hover,
+    &:focus {
+      .icon-left {
+        opacity: 1;
+        margin-left: 0;
+      }
+
+      .icon-right {
+        margin-right: -24px;
+        opacity: 0;
+      }
+    }
+  }
+
+  &.icon-reverse-right {
+    .icon-left {
+      transition: var(--transition);
+      transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .icon-right {
+      margin-right: -24px;
+      opacity: 0;
+      transition: var(--transition);
+      transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    &:hover,
+    &:focus {
+      .icon-left {
+        margin-left: -24px;
+        opacity: 0;
+      }
+
+      .icon-right {
+        margin-right: 0;
+        opacity: 1;
+      }
+    }
+  }
+
+  & + .splash-btn {
+    &.rbt-btn-border {
+      &:hover,
+      &:focus {
+        background: transparent;
+      }
+    }
+  }
+
+  &:hover,
+  &:focus {
+    transform: translate3d(0, -2px, 0);
+    box-shadow: var(--shadow-7);
+    color: var(--color-white);
+
+    &.icon-hover {
+      .btn-text {
+        transform: translateX(-5px);
+      }
+
+      .btn-icon {
+        i {
+          opacity: 1;
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+}

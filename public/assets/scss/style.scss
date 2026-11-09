@@ -1,0 +1,124 @@
+/*********************************************************************************
+
+	Template Name: Avokarto Ecommerce Bootstrap5 Template
+	Description: A perfect Template For Ecommerce. It comes with nice and clean design.
+
+	Note: This is style css.
+
+**********************************************************************************/
+
+/**************************************************************
+	
+	STYLESHEET INDEXING
+	|
+	|
+	|___ Default Styles
+	|	|
+	|	|___ variables
+	|	|___ mixins
+	|	|___ reset
+	|	|___ typography
+	|	|___ extend
+	|	|___ animations
+	|	|___ shortcode
+	|	|___ spacing
+	|	|___ rbt-common
+	|	|___ forms
+	|	|___ text-animation
+	|
+	|
+	|___Header Styles
+	|	|___ header-common
+	|	|___ headertop
+	|	|___ offertopbar
+	|	|___ headermid
+	|	|___ social-share
+	|	|___ header
+	|	|___ nav
+	|	|___ mega-menu
+	|	|___ mobilemenu
+	|	|___ offcanvas
+	|	|___ one-page-navigation
+	|
+	|
+	|___Elements Styles
+	|	|___ Button
+	|___|___ Catagory
+	|___|___ Card
+	|___|___ Swiper
+	|___|___ Section-title
+	|___|___ Catagory
+	|___|___ Tab
+	|___|___ Accordion
+	|___|___ Countdown
+	|___|___ List
+	|___|___ Select Styles
+	|___|___ Product Card
+	|___|___ Tooltips
+	|___|___ Alert Style
+	|___|___ Single Product
+	|___|___ Modals Css
+	|___|___ Breadcrumb Styles
+	|___|___ Brands Styles
+	|___|___ Instagram Post Styles
+	|___|___ Lookbook Styles
+	|___|___ Bottom ToolsBar Styles
+	|___|___ Video Styles
+	|___|___ Pagination
+	|___|___ Mask Element Styles
+	|___|___ Folder Shape Box Styles
+	|___|___ Timeline Styles
+	|___|___ Product Comparison Styles
+	|___|___ Product Review Styles
+	|___|___ zoom-section Styles
+	|___|___ animations Styles
+	|___|___ swipe-slideshow Styles
+	|___|___ loading-skelton
+	|___|___ Table Style
+
+
+	|___Blog
+	|	|___  Blog Styles
+
+	|___Shop Styles
+	|	|___ minicart
+	|	|___ Sidebar
+	|	|___ Shop Styles
+
+	|___Inner Pages
+	|	|___ Brand List
+	|	|___ Catagories List
+	|	|___ Offer List
+	|	|___ About
+	|	|___ Blog Details
+	|	|___ Counter Up
+	|	|___ Error Page
+	|	|___ Contact Page
+	|	|___ Compare Product Page
+	|	|___ wishlist Page
+	|	|___ find-store Page
+	|	|___ sign-in Page
+	|	|___ Cart Page
+
+	|___Footer Styles
+	|	|___ Footer
+	|	|___ back to top
+	|
+
+	|___Splash Styles
+	|	|___ Solash
+	|	|___ Splash Banner
+	|	|___ Splash Feature
+	|
+	|
+	|___ END STYLESHEET INDEXING
+
+***************************************************************/
+
+@use "default";
+@use "header";
+@use "elements";
+@use "shop";
+@use "inner-pages";
+@use "footer";
+@use "dashboard";

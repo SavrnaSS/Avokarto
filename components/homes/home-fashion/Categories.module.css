@@ -1,0 +1,186 @@
+/* Categories section: the template's row from 768px up, a 2-up grid of
+   photo tiles below. display:none also keeps the hidden version out of the
+   accessibility tree, and its lazy images out of the network. */
+
+.phoneOnly {
+  display: none !important;
+}
+
+@media (max-width: 767.98px) {
+  .desktopOnly {
+    display: none !important;
+  }
+
+  .phoneOnly {
+    display: inline !important;
+  }
+
+  div.phoneOnly {
+    display: block !important;
+  }
+}
+
+/* ---------- phone slider ----------
+   Native scroll-snap: swipes with momentum, works with keyboard/trackpad,
+   no JS library. Cards are ~72% wide so the next one peeks in (it reads as
+   swipeable); 2 per view on large phones. */
+
+.slider {
+  display: flex;
+  gap: 12px;
+  margin: 8px -12px 0;
+  padding: 0 12px 4px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider .tile {
+  flex: 0 0 72%;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 540px) {
+  .slider .tile {
+    flex-basis: calc(50% - 6px);
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-gray-300, #c1c1c1);
+  cursor: pointer;
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
+}
+
+.dotActive {
+  width: 22px;
+  background: var(--color-primary, #174d0a);
+}
+
+/* Bigger hit area for the dots without making them look bigger. */
+.dot {
+  position: relative;
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -10px -4px;
+}
+
+.soon .media img {
+  filter: saturate(0.6);
+}
+
+.tile {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-gray-100, #f3f3f3);
+}
+
+.link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: var(--color-white, #fff);
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline: 3px solid var(--color-primary, #174d0a);
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+.media img {
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+/* Legibility: text sits on a soft dark gradient, whatever the photo. */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.2) 38%, transparent 60%);
+}
+
+.body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 14px;
+}
+
+.name {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-white, #fff);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  overflow-wrap: anywhere;
+}
+
+.count {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.corner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-white, #fff);
+  color: var(--color-heading, #000);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider {
+    scroll-behavior: auto;
+  }
+
+  .dot {
+    transition: none;
+  }
+}

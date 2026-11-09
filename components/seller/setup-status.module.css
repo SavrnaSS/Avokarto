@@ -1,0 +1,30 @@
+/* The wait before the builder (or a new account) is ready. One status line
+   does the talking; in the builder, a faint outline of the first step sits
+   where the form will land. Its own tokens, because it also opens in the
+   sign-up popup. Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.wait { --ink: #192e22; --ink-2: #526055; --tone: #eef2e8; --tone-light: #f7f9f3; --brand-dark: #173c2a; display: grid; gap: 24px; width: 100%; min-width: 0; color: var(--ink); }
+.status { display: flex; align-items: center; gap: 12px; min-width: 0; text-align: left; }
+.icon { display: grid; flex: none; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--brand-dark); color: #fff; }
+.icon svg { animation: statusSpin 900ms linear infinite; }
+@keyframes statusSpin { to { transform: rotate(360deg); } }
+.text { display: grid; gap: 2px; min-width: 0; }
+.text strong { color: var(--ink); font-size: 16px; font-weight: 500; line-height: 24px; }
+.text small { color: var(--ink-2); font-size: 14px; line-height: 20px; }
+
+.outline { display: grid; gap: 8px; min-width: 0; }
+.outline > span, .chips > i { display: block; border-radius: 8px; background: linear-gradient(100deg, var(--tone) 30%, var(--tone-light) 50%, var(--tone) 70%) 0 0 / 200% 100%; animation: statusShimmer 1.4s linear infinite; }
+.label { width: 96px; height: 16px; }
+.outline > .label:not(:first-child) { margin-top: 16px; }
+.field { height: 48px; border-radius: 10px; }
+.field[data-size="large"] { height: 56px; }
+.outline > .chips { display: flex; gap: 8px; background: none; animation: none; }
+.chips > i { width: 80px; height: 36px; }
+@keyframes statusShimmer { to { background-position: -200% 0; } }
+
+/* In the popup it stands alone, so it gets room. */
+.wait[data-kind="account"] { padding: 32px 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .icon svg { animation-duration: 3s; }
+  .outline > span, .chips > i { animation: none; }
+}

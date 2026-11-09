@@ -1,0 +1,209 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+.rbt-google-map {
+  height: 100%;
+  iframe {
+    height: 100%;
+    border-radius: var(--radius-big);
+    box-shadow: var(--shadow-light);
+    min-height: 470px;
+  }
+}
+
+.rbt-location-card {
+  &.rbt-curved-style-box {
+    -webkit-mask-image: url(/assets/images/system/location-card-bg-shape-1.webp);
+    mask-image: url(/assets/images/system/location-card-bg-shape-1.webp);
+    background-image: url(/assets/images/system/location-card-bg-shape-1.webp);
+  }
+
+  .inner {
+    padding: 32px 24px;
+
+    .rbt-location-icon {
+      font-size: var(--h2);
+      color: var(--color-primary);
+    }
+
+    .rbt-location-card-title {
+      color: var(--color-gray-700);
+      font-family: var(--font-primary);
+      font-size: var(--h6);
+      font-weight: var(--f-bold);
+      margin: 16px 0 8px;
+    }
+
+    .rbt-location-card-text {
+      color: var(--color-gray-500);
+      font-family: var(--font-primary);
+      font-size: var(--font-size-b2);
+      line-height: var(--line-height-b2);
+      font-weight: var(--f-regular);
+      margin-bottom: 22px;
+    }
+
+    .rbt-contact-info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+
+      li {
+        margin: 0;
+        color: var(--color-heading);
+        font-family: var(--font-primary);
+        font-size: var(--font-size-b1);
+        line-height: var(--line-height-b1);
+        font-weight: var(--f-semi-bold);
+      }
+    }
+  }
+  &.style-two {
+    border-radius: 12px;
+    border: 2px solid var(--color-gray-100);
+    .inner {
+      .rbt-location-card-title {
+        margin-top: 0;
+      }
+      .rbt-location-card-text {
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
+
+/*-----------------------
+    contact form
+-------------------------*/
+.rbt-contact-form {
+  .rbt-contact-form-title {
+    padding: 12px 24px;
+
+    &::after {
+      background-image: url(/assets/images/section-title/title-bg-right-white-shape.svg);
+    }
+    .rbt-title.h6 {
+      @media #{$md-layout} {
+        font-size: 24px !important;
+    }
+        @media #{$sm-layout} {
+            font-size: 20px !important;
+        }
+    }
+  }
+
+  .rbt-input-field-grp {
+    label {
+      color: var(--color-heading);
+      font-family: var(--font-primary);
+      font-size: var(--font-size-b2);
+      font-weight: var(--f-semi-bold);
+      line-height: var(--line-height-b2);
+      @media #{$sm-layout} {
+          font-size: 14px;
+      }
+    }
+  }
+
+  .rbt-contact-input-field {
+    border-color: var(--color-gray-200);
+    box-shadow: none;
+    height: 48px;
+    padding: 12px 24px;
+    margin-top: 12px;
+
+    &:active,
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  textarea {
+    &.rbt-contact-input-field {
+      height: 192px;
+    }
+  }
+}
+
+/*-----------------------
+    contact page sidebar
+-------------------------*/
+.rbt-contact-form-sidebar {
+  margin-top: 52px;
+
+  @media #{$md-layout} {
+    margin-top: 32px;
+  }
+
+  @media #{$sm-layout} {
+    margin-top: 32px;
+  }
+
+  .inner {
+    padding: 32px 24px;
+    border-radius: var(--radius-12);
+    border: 2px solid var(--color-gray-200);
+    background: var(--color-white);
+
+    .rbt-contact-sidebar-social-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 16px;
+
+      li {
+        margin: 0;
+        padding: 0;
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          .icon {
+            width: 32px;
+            height: 32px;
+            background: var(--color-brand-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: var(--font-size-b3);
+
+            &.phone {
+              background: #1c61e7;
+            }
+
+            &.email {
+              background: #e7961c;
+            }
+
+            &.whatsapp {
+              background: #075e54;
+            }
+
+            &.pinterest {
+              background: #e60023;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.rbt-contact-form {
+  .rbt-fshape-box-outline-style
+    .rbt-component-section-title
+    .rbt-fshape-right-portion {
+    top: -3px;
+  }
+  .rbt-fshape-box-outline-style .rbt-fshape-box {
+    margin-top: -2px;
+  }
+}

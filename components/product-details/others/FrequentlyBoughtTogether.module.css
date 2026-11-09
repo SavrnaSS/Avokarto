@@ -1,0 +1,1048 @@
+/* Frequently bought together.
+
+   Layout is driven by CSS container queries, not viewport breakpoints, so
+   it adapts to the width the section actually gets (a sidebar layout, a
+   zoomed browser, a split-screen tablet...):
+
+   panel  (container "fbt-panel")
+     >= 1000px  rail + summary side by side
+     600-999px  summary under the rail, split into two columns
+     < 600px    summary stacked
+   rail   (container "fbt-rail")
+     >= 680px   one row of image cards joined by "+" (--fbt-count columns)
+     480-679px  2x2 grid of image-on-top cards
+     < 480px    one full-width row per item (mobile checklist) with
+                labelled View/Swap buttons instead of the image overlay
+
+   Root font-size is 10px in this theme, so sizes are in px. */
+
+.section {
+  padding-block: clamp(32px, 5vw, 64px);
+  background: var(--color-gray-light, #f9f9f9);
+}
+
+.panel {
+  container: fbt-panel / inline-size;
+  background: var(--color-white, #fff);
+  border: 1px solid var(--color-gray-200, #e6e6e6);
+  border-radius: clamp(14px, 2vw, 20px);
+  padding: clamp(16px, 3vw, 32px);
+}
+
+/* ---------- header ---------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 16px);
+  margin-bottom: clamp(18px, 2.5vw, 28px);
+}
+
+.headerIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: clamp(42px, 5vw, 52px);
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+  font-size: clamp(18px, 2vw, 22px);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(19px, 2.2vw, 24px);
+  line-height: 1.25;
+  color: var(--color-heading, #000);
+}
+
+.clearHistory {
+  margin-top: 4px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--color-gray-500, #555);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clearHistory:hover,
+.clearHistory:focus-visible {
+  color: var(--color-primary, #174d0a);
+}
+
+.offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 8px 0 0;
+}
+
+.offerBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.offerText {
+  font-size: 13px;
+  color: var(--color-gray-600, #444);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.45;
+  color: var(--color-body, #737373);
+}
+
+/* ---------- body ---------- */
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Room for the "=" between the cards and the summary below them. */
+  gap: 40px;
+  align-items: start;
+}
+
+@container fbt-panel (min-width: 1000px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr) clamp(260px, 26cqi, 320px);
+    gap: 28px;
+  }
+}
+
+.rail {
+  container: fbt-rail / inline-size;
+  min-width: 0;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Room for the "+" between stacked cards. */
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- card: compact row (default, narrow rails) ---------- */
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  padding: 8px;
+  border: 1.5px solid var(--color-gray-200, #e6e6e6);
+  border-radius: 12px;
+  background: var(--color-white, #fff);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.item:hover:not(.itemSelected):not(.itemDisabled) {
+  border-color: var(--color-gray-300, #c1c1c1);
+}
+
+.itemSelected {
+  border-color: var(--color-primary, #174d0a);
+  box-shadow: 0 8px 24px rgba(23, 77, 10, 0.08);
+}
+
+.itemDisabled {
+  cursor: not-allowed;
+}
+
+.item:not(.itemSelected) .media {
+  opacity: 0.55;
+}
+
+/* Product photos in this catalog are portrait (4:5, 3:4, 2:3 - the site's
+   cards use ~3:4), so every layout uses one portrait 4:5 frame. Cover-crop
+   is anchored above centre: when a taller photo must lose some height it
+   comes off the bottom, keeping faces/tops of garments in view. */
+.media {
+  position: relative;
+  flex: none;
+  width: clamp(76px, 24cqi, 100px);
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-gray-100, #f3f3f3);
+  transition: opacity 0.2s ease;
+}
+
+.media a {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.media img {
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+.imageFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-gray-400, #888);
+}
+
+.discount {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--color-orange, #cd6e00);
+  color: var(--color-white, #fff);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.anchorTag {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Quick view + swap: revealed on hover/focus with a mouse, always shown on
+   touch screens (nothing to hover there). */
+.mediaActions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.item:hover .mediaActions,
+.item:focus-within .mediaActions {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .mediaActions {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.mediaBtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white, #fff);
+  color: var(--color-heading, #000);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.mediaBtn:hover,
+.mediaBtn:focus-visible {
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.checkRow {
+  display: flex;
+  min-width: 0;
+}
+
+/* The theme hides the native checkbox and draws it on label::before/after
+   at top: 50% - pin it to the first text line instead, so it stays put
+   when a title wraps. (Two classes to out-rank the theme's selector.) */
+.checkRow .itemTitle::before {
+  top: 10px;
+}
+
+.checkRow .itemTitle::after {
+  top: 8px;
+}
+
+/* .checkRow prefix: the theme's "input ~ label" rule would otherwise win
+   on font-size/line-height and break the reserved two-line height. */
+.checkRow .itemTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--color-heading, #000);
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding-left: 24px;
+}
+
+.price {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary, #174d0a);
+  font-variant-numeric: tabular-nums;
+}
+
+.oldPrice {
+  font-size: 12px;
+  color: var(--color-gray-400, #888);
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--color-gray-600, #444);
+  white-space: nowrap;
+}
+
+.rating i {
+  color: var(--color-yellow, #fcc418);
+  font-size: 10px;
+}
+
+.ratingCount {
+  color: var(--color-gray-400, #888);
+}
+
+/* Bottom row: reason + stock + options. margin-top: auto pins it to the
+   card's bottom edge so it lines up across cards of the same row. */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: auto;
+  padding-left: 24px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.meta:empty {
+  display: none;
+}
+
+.reason {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.reason svg {
+  flex: none;
+}
+
+.metaMuted {
+  color: var(--color-gray-400, #888);
+}
+
+.metaWarn {
+  color: var(--color-orange, #cd6e00);
+  font-weight: 500;
+}
+
+.metaOk {
+  color: var(--color-secondary, #5f8f18);
+  font-weight: 500;
+}
+
+.metaLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+  font-weight: 500;
+  color: var(--color-primary, #174d0a);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* Narrow-row extras: labelled action buttons under the text (the image
+   overlay is hidden here - two buttons on a ~90px thumb are cramped and
+   easy to mis-tap). */
+.inlineActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 24px;
+}
+
+.inlineBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--color-gray-300, #c1c1c1);
+  border-radius: 999px;
+  background: var(--color-white, #fff);
+  color: var(--color-heading, #000);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.inlineBtn:hover,
+.inlineBtn:focus-visible,
+.inlineBtn:active {
+  border-color: var(--color-primary, #174d0a);
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+}
+
+.mediaActions,
+.optionsLink {
+  display: none;
+}
+
+/* Finger-sized targets on touch screens (~44px guideline). */
+@media (pointer: coarse) {
+  .mediaBtn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .inlineBtn {
+    min-height: 38px;
+  }
+
+  /* Grow the text link's hit area without moving the layout. */
+  .metaLink {
+    padding-block: 10px;
+    margin-block: -10px;
+  }
+
+  .actions :global(.rbt-btn) {
+    min-height: 46px;
+  }
+}
+
+/* ---------- rail 480-679px: 2x2 grid of image-on-top cards ----------
+   Side-by-side rows at this width leave ~120px for text and truncate
+   titles; stacking the image over the text gives titles the full card
+   width, like an app product grid. */
+
+@container fbt-rail (min-width: 480px) {
+  .items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+
+  .media {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .mediaActions {
+    display: flex;
+    top: 6px;
+    right: 6px;
+    gap: 6px;
+  }
+
+  .optionsLink {
+    display: inline;
+  }
+
+  .inlineActions {
+    display: none;
+  }
+
+  .discount {
+    top: 6px;
+    left: 6px;
+  }
+
+  .anchorTag {
+    left: 6px;
+    bottom: 6px;
+    padding: 0 8px;
+    font-size: 11px;
+    line-height: 20px;
+  }
+
+  .info {
+    padding: 0 2px 2px;
+  }
+
+  /* Reserve two title lines so prices line up across each row. */
+  .checkRow .itemTitle {
+    min-height: 40px;
+  }
+}
+
+/* ---------- rail >= 680px: one row of image cards joined by "+" ---------- */
+
+@container fbt-rail (min-width: 680px) {
+  .items {
+    /* Exactly one column per item so the "+" chain never wraps; capped so a
+       2-3 item bundle doesn't blow up into giant cards. */
+    grid-template-columns: repeat(var(--fbt-count, 4), minmax(0, 230px));
+    justify-content: start;
+    gap: clamp(28px, 4cqi, 40px);
+  }
+
+  .item {
+    gap: 12px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+
+  .media {
+    border-radius: 12px;
+  }
+
+  .discount {
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .anchorTag {
+    left: 8px;
+    bottom: 8px;
+  }
+
+  .mediaActions {
+    top: 8px;
+    right: 8px;
+  }
+
+  .info {
+    padding: 0 4px 4px;
+  }
+
+  .checkRow .itemTitle {
+    font-size: 15px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+}
+
+/* ---------- visual equation: item + item + item = total ----------
+   Decorative "+" / "=" markers so the bundle reads like a sum at a glance.
+   `content: "x" / ""` keeps them silent for screen readers (the text says
+   the same); the first declaration is the fallback for older browsers. */
+
+.item + .item::before,
+.summary::before,
+.item:last-child::after {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0 0 4px var(--color-white, #fff);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+}
+
+.item + .item::before {
+  content: "+";
+  content: "+" / "";
+  /* Default (stacked list): centred in the gap above the card. */
+  top: calc(-15px - 1.5px);
+  left: 50%;
+}
+
+/* The "+" leading into a deselected item fades - the sum shows what's in. */
+.item:not(.itemSelected)::before {
+  opacity: 0.3;
+}
+
+/* "=" above the summary whenever it sits below the cards. */
+.summary::before {
+  content: "=";
+  content: "=" / "";
+  top: -20px;
+  left: 50%;
+  background: var(--color-secondary, #5f8f18);
+}
+
+/* 2x2 grid: "+" in the column gap for right-hand cards, in the row gap for
+   the first card of each new row. */
+@container fbt-rail (min-width: 480px) and (max-width: 679px) {
+  .item:nth-child(even)::before {
+    top: 50%;
+    left: calc(-15px - 1.5px);
+  }
+
+  .item:nth-child(odd):not(:first-child)::before {
+    top: calc(-15px - 1.5px);
+    left: 50%;
+  }
+}
+
+/* One row: "+" level with the photos in the gap between cards. */
+@container fbt-rail (min-width: 680px) {
+  .item + .item::before {
+    top: 38%;
+    left: calc(clamp(28px, 4cqi, 40px) / -2 - 1.5px);
+  }
+}
+
+/* Summary beside the cards: the "=" moves from above the summary to the
+   right of the last card, level with the "+" markers. */
+@container fbt-panel (min-width: 1000px) {
+  .summary::before {
+    content: none;
+  }
+
+  .item:last-child::after {
+    content: "=";
+    content: "=" / "";
+    top: 38%;
+    left: calc(100% + 14px + 1.5px);
+    background: var(--color-secondary, #5f8f18);
+  }
+}
+
+/* ---------- summary ---------- */
+
+.summary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(16px, 2.5vw, 24px);
+  border-radius: 16px;
+  background: var(--color-gray-light, #f9f9f9);
+  border: 1px solid var(--color-gray-200, #e6e6e6);
+}
+
+@container fbt-panel (min-width: 1000px) {
+  .summary {
+    position: sticky;
+    top: 110px;
+  }
+}
+
+/* Mid-width panels: numbers left, buttons right. */
+@container fbt-panel (min-width: 600px) and (max-width: 999px) {
+  .summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 28px;
+    row-gap: 6px;
+    align-items: center;
+  }
+
+  .summaryCount,
+  .breakdown,
+  .summaryTotal,
+  .summarySavings,
+  .unlockHint,
+  .shipping {
+    grid-column: 1;
+  }
+
+  .actions {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+.summaryCount {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-body, #737373);
+}
+
+.summaryTotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-size: 16px;
+  text-align: left;
+  color: var(--color-heading, #000);
+}
+
+.summaryTotal strong {
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.totalValue {
+  animation: totalPop 0.35s ease;
+}
+
+@keyframes totalPop {
+  from {
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 2px 0 4px;
+  font-size: 14px;
+}
+
+.breakdown > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.breakdown dt {
+  margin: 0;
+  font-weight: 400;
+  color: var(--color-gray-600, #444);
+}
+
+.breakdown dd {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0;
+  color: var(--color-heading, #000);
+  font-variant-numeric: tabular-nums;
+}
+
+.breakdown dd del {
+  font-size: 12px;
+  color: var(--color-gray-400, #888);
+}
+
+.breakdownDiscount dt,
+.breakdownDiscount dd {
+  color: var(--color-secondary, #5f8f18);
+  font-weight: 600;
+}
+
+.unlockHint {
+  margin: 2px 0 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Two-line primary button: action on top, the saving underneath. The
+   theme's buttons are fixed-height, so let this one grow. */
+.actions :global(.rbt-btn) {
+  height: auto;
+  min-height: 48px;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-block: 8px;
+  line-height: 1.25;
+}
+
+.btnSave {
+  /* Own line whether the theme renders the button as block or flex. */
+  display: block;
+  width: 100%;
+  flex-basis: 100%;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.summarySavings {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-secondary, #5f8f18);
+}
+
+.summarySavings del {
+  margin-right: 4px;
+  font-weight: 400;
+  color: var(--color-gray-400, #888);
+}
+
+.shipping {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-gray-300, #c1c1c1);
+}
+
+.shippingText {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-gray-600, #444);
+}
+
+.shippingText i {
+  margin-top: 2px;
+  color: var(--color-primary, #174d0a);
+}
+
+.shippingText strong {
+  color: var(--color-secondary, #5f8f18);
+}
+
+.shippingBar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-gray-200, #e6e6e6);
+  overflow: hidden;
+}
+
+.shippingBar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary, #5f8f18),
+    var(--color-green, #6ea31b)
+  );
+  transition: width 0.4s ease;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.actions :global(.rbt-btn) {
+  width: 100%;
+  justify-content: center;
+  white-space: normal;
+}
+
+.actions :global(.rbt-btn:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Announced to screen readers; sighted users already get the cart drawer,
+   the toast, or the swapped card itself as feedback. */
+.status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- loading placeholder (same layout as the real rail) ---------- */
+
+.skeletonItem {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--color-gray-200, #e6e6e6);
+}
+
+.shimmer {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-100, #f3f3f3) 25%,
+    var(--color-gray-200, #e6e6e6) 50%,
+    var(--color-gray-100, #f3f3f3) 75%
+  );
+  background-size: 200% 100%;
+  animation: fbtShimmer 1.3s linear infinite;
+}
+
+.skLine {
+  height: 14px;
+  width: 85%;
+}
+
+.skShort {
+  width: 55%;
+}
+
+.skPrice {
+  height: 20px;
+  width: 50%;
+}
+
+.skTotal {
+  height: 34px;
+  width: 60%;
+  margin: 6px 0 10px auto;
+}
+
+.skButton {
+  height: 48px;
+  width: 100%;
+  border-radius: 999px;
+}
+
+.skTitle.skTitle {
+  flex: 1;
+  min-height: 20px;
+  margin-left: 26px;
+}
+
+.skChip {
+  height: 20px;
+  width: 96px;
+  border-radius: 999px;
+}
+
+.skPill {
+  height: 34px;
+  width: 92px;
+  border-radius: 999px;
+}
+
+.skBar {
+  height: 6px;
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 999px;
+}
+
+@media (pointer: coarse) {
+  .skPill {
+    height: 38px;
+  }
+}
+
+@keyframes fbtShimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+  }
+
+  .item,
+  .media,
+  .mediaActions,
+  .mediaBtn,
+  .inlineBtn,
+  .shippingBar span,
+  .item::before,
+  .summary::before {
+    transition: none;
+  }
+
+  .totalValue {
+    animation: none;
+  }
+}

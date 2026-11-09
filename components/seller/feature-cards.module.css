@@ -1,0 +1,134 @@
+/* Everything included: each card leads with a small working preview, then says
+   what it is. One radius family, one hairline; colour comes from the themes, the
+   product and the lime of the money.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.wrap { --ease: cubic-bezier(.22, 1, .36, 1); --line: rgb(62 131 21 / 22%); --lime: #c6f06c; --keep: #2f6b1f; min-width: 0; container: bento / inline-size; }
+.grid { display: flex; gap: 12px; margin-inline: calc(50% - 50vw); padding-inline: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-padding-inline: 16px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.grid::-webkit-scrollbar { display: none; }
+.grid > .card { flex: none; width: min(320px, calc(100vw - 48px)); scroll-snap-align: start; }
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.dots i { display: block; width: 8px; height: 8px; border-radius: 50%; background: rgb(23 60 42 / 20%); transition: background-color 160ms var(--ease), transform 160ms var(--ease); }
+.dots i[data-active] { background: var(--s-brand-dark); transform: scale(1.25); }
+.card { display: flex; flex-direction: column; min-width: 0; padding: 8px; border-radius: 20px; background: #fff; box-shadow: inset 0 0 0 1px var(--s-line); transition: box-shadow 160ms var(--ease); }
+.card[data-dark] { background: var(--s-brand-dark); box-shadow: none; }
+.preview { position: relative; display: grid; grid-template-rows: minmax(0, 1fr); place-items: center; height: 192px; padding: 12px; overflow: hidden; border-radius: 12px; background: var(--s-brand-soft); }
+.card[data-dark] .preview { background: rgb(255 255 255 / 6%); }
+.copy { display: grid; gap: 4px; padding: 12px 8px 8px; }
+.wrap .title { margin: 0; color: var(--s-ink); font-size: 18px; font-weight: 600; line-height: 24px; }
+.wrap .text { margin: 0; color: var(--s-ink-2); font-size: 14px; line-height: 20px; }
+.card[data-dark] .title { color: #fff; }
+.card[data-dark] .text { color: rgb(255 255 255 / 80%); }
+
+/* ---- fulfilment: the order moves along the line once, as it scrolls in ---- */
+.flow { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 0; padding: 0; list-style: none; }
+.flow li { position: relative; z-index: 1; display: grid; justify-items: start; gap: 0; min-width: 0; margin: 0; }
+.flowNode { display: grid; place-items: center; width: 24px; height: 24px; margin-bottom: 8px; border-radius: 50%; background: var(--lime); color: var(--s-brand-dark); transition: opacity 280ms var(--ease) calc(var(--step) * 280ms), transform 280ms var(--ease) calc(var(--step) * 280ms); }
+.flowTrack { position: absolute; top: 11px; left: 12px; width: calc(75% + 6px); height: 2px; background: rgb(255 255 255 / 16%); }
+.flowTrack span { display: block; width: 100%; height: 100%; background: var(--lime); transform-origin: left; transition: transform 840ms linear; }
+.flow strong { color: #fff; font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap; }
+.flow small { overflow: hidden; max-width: 100%; color: rgb(255 255 255 / 78%); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+.flow li:last-of-type small { color: var(--lime); font-weight: 500; }
+
+/* ---- looks: small storefronts turning past on a stage ---- */
+.preview[data-stage] { padding: 0; background: var(--s-brand-dark); cursor: pointer; container: stage / inline-size; -webkit-tap-highlight-color: transparent; }
+.looks { position: absolute; inset: 0 0 36px; perspective: 640px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.look { --spread: min(26cqi, 112px); position: absolute; z-index: calc(5 - var(--away)); top: 8px; bottom: 4px; left: 50%; display: flex; flex-direction: column; gap: 4px; aspect-ratio: 3 / 4; padding: 6px; overflow: hidden; border-radius: 12px; background: var(--tile-bg); box-shadow: 0 12px 20px -10px rgb(0 0 0 / 60%); color: var(--tile-ink); transform: translateX(calc(-50% + var(--offset) * var(--spread))) rotateY(calc(var(--offset) * -24deg)) scale(calc(1 - var(--away) * .1)); transition: transform 640ms var(--ease), opacity 320ms var(--ease), box-shadow 320ms var(--ease); }
+.look[data-active] { box-shadow: 0 0 0 2px var(--lime), 0 16px 24px -10px rgb(0 0 0 / 70%); }
+.look[data-hidden] { opacity: 0; }
+.lookTop { display: flex; flex: none; align-items: center; gap: 4px; min-width: 0; height: 16px; }
+.lookTop i { display: grid; flex: none; place-items: center; width: 16px; height: 16px; border-radius: 4px; background: var(--tile-accent); color: var(--tile-on-accent); font-size: 11px; font-style: normal; font-weight: 600; line-height: 1; }
+.lookTop strong { min-width: 0; overflow: hidden; font-size: 12px; font-weight: 600; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+.look:not([data-active]) strong, .look:not([data-active]) .lookBuy { color: transparent; }
+.look[data-font="serif"] strong { font-family: Georgia, "Times New Roman", serif; }
+.look[data-font="loud"] strong { font-weight: 800; }
+.lookPhoto { position: relative; flex: 1; min-height: 0; overflow: hidden; border-radius: 4px; background: #e6e6e8; }
+.lookBuy { display: block; flex: none; height: 20px; border-radius: 4px; background: var(--tile-accent); color: var(--tile-on-accent); font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500; line-height: 20px; text-align: center; }
+.lookBar { position: absolute; z-index: 6; right: 12px; bottom: 8px; left: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 20px; }
+.lookName { min-width: 0; overflow: hidden; color: #fff; font-size: 12px; font-weight: 500; line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+.lookTicks { display: flex; flex: none; gap: 4px; }
+.lookTicks i { display: block; width: 6px; height: 6px; border-radius: 50%; background: rgb(255 255 255 / 28%); transition: background-color 320ms var(--ease), transform 320ms var(--ease); }
+.lookTicks i[data-active] { background: var(--lime); transform: scale(1.33); }
+/* A narrow stage keeps three cards, and the name takes the bar. */
+@container stage (max-width: 279px) {
+  .look[data-far] { opacity: 0; }
+  .lookTicks { display: none; }
+  .lookBar { justify-content: center; }
+}
+@media (hover: hover) {
+  .preview[data-stage]:hover .look[data-active] { box-shadow: 0 0 0 2px #fff, 0 16px 24px -10px rgb(0 0 0 / 70%); }
+}
+
+/* ---- domain: the old address gives way to the seller's own ---- */
+.domains { display: grid; gap: 8px; width: 100%; min-width: 0; }
+.oldAddress, .newAddress { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 8px 12px; border-radius: 8px; font-size: 13px; line-height: 16px; }
+.oldAddress span, .newAddress span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oldAddress svg, .newAddress svg { flex: none; }
+.oldAddress { color: var(--s-ink-3); }
+.oldAddress span { text-decoration: line-through; }
+.newAddress { background: #fff; box-shadow: inset 0 0 0 1px var(--line), 0 8px 16px -12px rgb(16 24 8 / 40%); color: var(--s-ink); font-weight: 500; }
+.newAddress svg:last-child { color: var(--keep); }
+
+/* ---- sharing: a product link as it lands in a chat ---- */
+.bubble { position: relative; display: flex; align-items: center; gap: 8px; width: 100%; max-width: 288px; min-width: 0; padding: 8px 28px 8px 8px; border-radius: 12px 12px 4px 12px; background: #dcefbf; box-shadow: 0 8px 16px -12px rgb(16 24 8 / 40%); }
+.bubblePhoto { position: relative; flex: none; width: 56px; height: 72px; overflow: hidden; border-radius: 8px; background: #fff; }
+.bubbleText { display: grid; min-width: 0; }
+.bubbleText strong, .bubbleText em { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bubbleText strong { color: var(--s-ink); font-size: 13px; font-weight: 500; line-height: 16px; }
+.bubbleText small { color: var(--s-ink); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 16px; }
+.bubbleText em { color: var(--keep); font-size: 12px; font-style: normal; line-height: 16px; }
+.bubbleTick { position: absolute; right: 8px; bottom: 8px; color: var(--keep); }
+
+/* ---- analytics: the shape of the feature, no invented numbers ---- */
+.chart { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 8px; align-self: stretch; justify-self: stretch; min-width: 0; min-height: 0; }
+.legend { display: flex; align-items: center; gap: 12px; color: var(--s-ink-2); font-size: 12px; line-height: 16px; white-space: nowrap; }
+.legend span { display: inline-flex; align-items: center; gap: 4px; }
+.legend i[data-series] { width: 8px; height: 2px; }
+.legend i[data-series="visits"] { background: var(--s-brand-dark); }
+.legend i[data-series="orders"] { background: #7fb24a; }
+.legend b { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; color: var(--keep); font-weight: 500; }
+.liveDot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--keep); }
+.liveDot::after { position: absolute; inset: 0; border-radius: inherit; background: inherit; content: ""; animation: live 2400ms var(--ease) infinite; }
+@keyframes live { from { opacity: .6; transform: scale(1); } 70%, to { opacity: 0; transform: scale(3); } }
+.chart svg { display: block; width: 100%; height: 100%; min-height: 0; overflow: visible; }
+.chart path { fill: none; stroke-linecap: round; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.chart path[data-series="visits"] { stroke: var(--s-brand-dark); }
+.chart path[data-series="orders"] { stroke: #7fb24a; }
+
+/* ---- payouts: one transfer, on a slip ---- */
+.payout { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 440px; min-width: 0; padding: 12px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px var(--line), 0 8px 16px -12px rgb(16 24 8 / 40%); }
+.bank { display: grid; flex: none; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: var(--s-brand-soft); color: var(--s-brand-dark); }
+.payoutText { display: grid; flex: 1; min-width: 0; }
+.payoutText strong { color: var(--s-ink); font-size: 14px; font-weight: 500; line-height: 20px; }
+.payoutText small { display: flex; align-items: center; gap: 4px; color: var(--s-ink-2); font-size: 12px; line-height: 16px; }
+.payoutText small svg { flex: none; color: var(--keep); }
+.payout b { flex: none; color: var(--keep); font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 600; line-height: 28px; }
+
+/* A swiped card is narrower, so the order line tightens to keep four steps. */
+@container bento (max-width: 599px) {
+  .flow { gap: 4px; }
+  .flow strong { font-size: 13px; }
+  .flowTrack { width: calc(75% + 3px); }
+}
+@container bento (min-width: 600px) {
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-inline: 0; padding-inline: 0; overflow: visible; }
+  .grid > .card { width: auto; }
+  .dots { display: none; }
+  .card[data-wide] { grid-column: 1 / -1; }
+}
+/* Wide cards sit at opposite ends, so the rows read as a rhythm, not a table. */
+@container bento (min-width: 920px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .card[data-wide] { grid-column: span 2; }
+  .preview { height: 208px; }
+}
+@media (hover: hover) {
+  .card:not([data-dark]):hover { box-shadow: inset 0 0 0 1px var(--line); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flow:not([data-seen]) .flowNode { opacity: .4; transform: scale(.8); }
+  .flow:not([data-seen]) .flowTrack span { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .flowNode, .flowTrack span, .look, .lookTicks i, .dots i { transition: none; }
+  .liveDot::after { display: none; }
+}

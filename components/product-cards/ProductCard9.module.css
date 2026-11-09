@@ -1,0 +1,21 @@
+/* Same fixed frame as ProductCard1.module.css - a merchant's uploaded photo
+   can be any resolution/orientation, so every product card sitewide is
+   pinned to this one ratio + object-fit: cover instead of following
+   whatever aspect ratio the source image happens to have. */
+.imageFrame {
+  width: 100%;
+  aspect-ratio: 624 / 846;
+  background: #f3f4f2;
+}
+
+.imageFrame a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.imageFrame img {
+  object-fit: cover;
+  object-position: center;
+}

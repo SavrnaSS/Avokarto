@@ -1,0 +1,123 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*===================
+Mask Element Styles
+====================*/
+
+.rbt-curved-style-box {
+  -webkit-mask-position: 0% 0%;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  background-image: url("/assets/images/system/banner-mask-right-top-cut.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-mask-image: url("/assets/images/system/banner-mask-right-top-cut.webp");
+  mask-image: url("/assets/images/system/banner-mask-right-top-cut.webp");
+  border: 0;
+  @media #{$smlg-device} {
+    -webkit-mask-image: none;
+    mask-image: none;
+    background-image: none;
+  }
+}
+
+.rbt-categories-section {
+  &.rbt-categories-section-bg-one {
+    &.rbt-curved-style-box {
+      padding: 30px;
+      margin: 0 -30px;
+      width: calc(100% + 64px);
+      -webkit-mask-image: url("/assets/images/system/catagory-mask-right-top-cut.webp");
+      mask-image: url("/assets/images/system/catagory-mask-right-top-cut.webp");
+      background-image: url("/assets/images/system/catagory-mask-right-top-cut.webp");
+      @media #{$smlg-device} {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        -webkit-mask-image: none;
+        mask-image: none;
+        background-image: none;
+      }
+    }
+  }
+}
+
+.rbt-cat-box {
+  &.rbt-categories-img-bg {
+    &.rbt-curved-style-box {
+      -webkit-mask-image: url("/assets/images/system/catagory-img-mask-right-top-cut.webp");
+      mask-image: url("/assets/images/system/catagory-img-mask-right-top-cut.webp");
+      background-image: url("/assets/images/system/catagory-img-mask-right-top-cut.webp");
+      @media #{$smlg-device} {
+        -webkit-mask-image: none;
+        mask-image: none;
+        background-image: none;
+      }
+    }
+  }
+}
+
+.rbt-product-card {
+  &.rbt-list-view-variation {
+    .rbt-curved-style-box {
+      -webkit-mask-image: url("/assets/images/system/sm-list-product-mask-right-top-cut.webp");
+      mask-image: url("/assets/images/system/sm-list-product-mask-right-top-cut.webp");
+      background-image: url("/assets/images/system/sm-list-product-mask-right-top-cut.webp");
+      @media #{$smlg-device} {
+        -webkit-mask-image: none;
+        mask-image: none;
+        background-image: none;
+      }
+    }
+  }
+}
+
+.rbt-product-banner {
+  &.rbt-product-banner-style-one {
+    .rbt-banner-inner {
+      &.rbt-curved-style-box {
+        -webkit-mask-image: url("/assets/images/system/banner-mask-right-top-cut-2.webp");
+        mask-image: url("/assets/images/system/banner-mask-right-top-cut-2.webp");
+        background-image: url("/assets/images/system/banner-mask-right-top-cut-2.webp");
+        @media #{$smlg-device} {
+          -webkit-mask-image: none;
+          mask-image: none;
+          background-image: none;
+        }
+      }
+    }
+  }
+}
+
+.rbt-product-banner {
+  &.rbt-product-banner-style-four {
+    &.rbt-curved-style-box {
+      -webkit-mask-image: url("/assets/images/system/product-folder-shape-mask-01.webp");
+      mask-image: url("/assets/images/system/product-folder-shape-mask-01.webp");
+      background-image: url("/assets/images/system/product-folder-shape-mask-01.webp");
+      &.rbt-curved-style-box-2 {
+        -webkit-mask-image: url("/assets/images/system/product-folder-shape-mask-02.webp");
+        mask-image: url("/assets/images/system/product-folder-shape-mask-02.webp");
+        background-image: url("/assets/images/system/product-folder-shape-mask-02.webp");
+      }
+    }
+  }
+}
+
+.rbt-product-banner {
+  &.rbt-product-banner-style-two {
+    &.rbt-curved-style-box {
+      -webkit-mask-image: url("/assets/images/system/banner-mask-right-top-cut-03.webp");
+      mask-image: url("/assets/images/system/banner-mask-right-top-cut-03.webp");
+      background-image: url("/assets/images/system/banner-mask-right-top-cut-03.webp");
+      @media #{$smlg-device} {
+        -webkit-mask-image: none;
+        mask-image: none;
+        background-image: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,434 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*--------------------------
+    Componenet Section Title
+---------------------------*/
+.rbt-component-section-title{
+    margin-bottom: 40px;
+    padding-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-bottom: 2px solid var(--color-gray-100);
+    @media #{$sm-layout} {
+        margin-bottom: 20px;
+        gap: 8px;
+    }
+    span.rbt-card-subtitle{
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+    .title,
+    .rbt-title{
+        margin-bottom: 0;
+        font-weight:  var(--f-regular);
+        .rbt-bold--text{
+            font-weight: 700;
+        }
+        &.h1{
+            @media #{$sm-layout} {
+               font-size: 24px;
+            }
+        }
+    }
+    .description{
+        color: var(--color-gray-500);
+        max-width: 542px;
+        margin-bottom: 0;
+    }
+    .rbt-link{
+        transition: var(--transition);
+        &:hover{
+            color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+    }
+}
+.title-sm-fsize{
+    margin-bottom: 24px;
+    @media #{$sm-layout} {
+        margin-bottom: 8px;
+    }
+    .title,
+    .rbt-title{
+        margin-bottom: 0;
+        font-weight:  var(--f-medium);
+        font-size: var(--font-size-b2);
+        line-height: var(--line-height-b2);
+        .rbt-bold--text{
+            font-weight: 600;
+        }
+    }
+}
+
+
+.rbt-short-title {
+    font-size: var(--font-size-b3);
+    line-height: var(--line-height-b3);
+    padding-bottom: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    border-bottom: 2px solid var(--color-gray-100);
+    text-align: left;
+    color: var(--color-gray-400);
+    font-weight: 500;
+}
+
+
+
+
+
+.rbt-exclusive-section-title {
+    margin-bottom: 40px;
+    position: relative;
+
+    .icons {
+        font-size: 32px;
+        display: flex;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        display: inline-block;
+        margin-bottom: 8px;
+        color: var(--color-black);
+        font-family: var(--font-primary);
+        position: relative;
+        z-index: 2;
+    }
+
+    .rbt-title {
+        font-size: 52px;
+        color: var(--color-black);
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+
+        @media #{$lg-layout} {
+            font-size: 44px;
+        }
+
+        @media #{$sm-layout, $md-layout} {
+            font-size: 32px;
+        }
+
+        .rbt-title-sm-text {
+            font-size: 40px;
+            font-weight: var(--f-regular);
+
+            @media #{$lg-layout} {
+                font-size: 36px;
+            }
+
+            @media #{$sm-layout, $md-layout} {
+                font-size: 28px;
+            }
+        }
+
+        // overlay text variation
+        .rbt-overlay-text {
+            font-size: 280px;
+            font-weight: 700;
+            padding: 6px 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -54%;
+            line-height: 0.7;
+            z-index: -1;
+            white-space: nowrap;
+            user-select: none;
+
+            &.overlay-sm {
+                font-size: 112px;
+            }
+
+            &.overlay-text-color-var-2 {
+                background: linear-gradient(180deg, #D8E8FF 0%, #EFF1F4 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            &.overlay-text-color-var-3 {
+                background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0) 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                opacity: 0.1;
+            }
+
+            @media #{$md-layout} {
+                font-size: 160px;
+            }
+
+            @media #{$sm-layout} {
+                font-size: 110px;
+            }
+
+            @media #{$small-mobile} {
+                font-size: 80px;
+            }
+        }
+
+        .rbt-text-sm {
+            font-size: 40px;
+            font-weight: 400;
+
+            @media #{$sm-layout} {
+                font-size: 30px;
+            }
+        }
+    }
+
+    p {
+        color: #333;
+    }
+}
+
+
+
+// exclusive buttons
+.exclusive-btn {
+
+    @media #{$lg-layout} {
+        font-size: var(--font-size-b1);
+        padding: 0 28px;
+        height: 44px;
+        line-height: 44px !important;
+    }
+
+    @media #{$sm-layout, $md-layout} {
+        font-size: var(--font-size-b1);
+        padding: 0 20px;
+        height: 40px;
+        line-height: 40px !important;
+    }
+
+    &.icon-reverse-left {
+        .icon-left {
+            margin-left: -24px;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .icon-right {
+            margin-right: 0;
+            transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        &:hover,
+        &:focus {
+            .icon-left {
+                opacity: 1;
+                margin-left: 0;
+            }
+
+            .icon-right {
+                margin-right: -24px;
+                opacity: 0;
+            }
+        }
+    }
+
+    &.icon-reverse-right {
+        .icon-left {
+            transition: var(--transition);
+            transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .icon-right {
+            margin-right: -24px;
+            opacity: 0;
+            transition: var(--transition);
+            transition: opacity 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        &:hover,
+        &:focus {
+            .icon-left {
+                margin-left: -24px;
+                opacity: 0;
+            }
+
+            .icon-right {
+                margin-right: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    &+.exclusive-btn {
+        &.rbt-btn-border {
+
+            &:hover,
+            &:focus {
+                background: transparent;
+            }
+        }
+    }
+
+    &:hover,
+    &:focus {
+        transform: translate3d(0, -2px, 0);
+        box-shadow: var(--shadow-7);
+        color: var(--color-white);
+
+        &.icon-hover {
+            .btn-text {
+                transform: translateX(-5px);
+            }
+
+            .btn-icon {
+                i {
+                    opacity: 1;
+                    transform: translateX(5px);
+                }
+            }
+        }
+    }
+}
+
+// overlay counter
+.rbt-overlay-counter {
+    font-size: 280px;
+    line-height: 1;
+    font-weight: 700;
+    user-select: none;
+
+    @media #{$md-layout} {
+        font-size: 160px;
+    }
+
+    @media #{$sm-layout} {
+        font-size: 110px;
+    }
+
+    @media #{$small-mobile} {
+        font-size: 80px;
+    }
+
+    .odometer {
+        .odometer-digit {
+            .odometer-value {
+                background: linear-gradient(180deg, rgba(23, 77, 10, 0.3) 0%, rgba(239, 241, 244, 0.3) 87.5%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+
+    .counter-suffix {
+        background: linear-gradient(180deg, rgba(23, 77, 10, 0.3) 0%, rgba(239, 241, 244, 0.3) 87.5%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    &.counter-sm {
+        font-size: 112px;
+    }
+
+    &.color-variation-2 {
+        .odometer {
+            .odometer-digit {
+                .odometer-value {
+                    background: linear-gradient(180deg, rgba(23, 77, 10, 0.6) 0%, rgba(0, 0, 0, 0.6) 87.5%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+        }
+
+        .counter-suffix {
+            background: linear-gradient(180deg, rgba(23, 77, 10, 0.6) 0%, rgba(0, 0, 0, 0.6) 87.5%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+
+.rbt-overlay-counter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -132%;
+
+    &.counter-sm {
+        .counter-suffix {
+            margin-left: -28px;
+        }
+    }
+    .counter-suffix {
+        margin-left: -72px;
+        @media #{$sm-layout} {
+            margin-left: 0;
+        }
+        @media #{$md-layout} {
+            margin-left: -30px;
+        }
+    }
+}
+
+.rbt-exclusive-section-title {
+    .rbt-overlay-text {
+        background: linear-gradient(180deg, rgba(23, 77, 10, 0.30) 0%, rgba(239, 241, 244, 0.30) 87.5%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.rbt-exclusive-section-title {
+    .section-indicator {
+        right: -72px;
+        top: -64px;
+
+        @media #{$lg-layout, $laptop-device} {
+            right: 0;
+        }
+    }
+}
+
+.rbt-exclusive-section-title {
+    .section-indicator {
+        position: absolute;
+        right: -16px;
+        top: 28px;
+        color: #000;
+        font-family: var(--font-secondary);
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px;
+        text-transform: capitalize;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        z-index: 1;
+
+        @media #{$lg-layout, $xl-layout} {
+            font-size: 24px;
+        }
+
+        @media #{$sm-layout, $md-layout} {
+            display: none;
+        }
+    }
+}
+
+.rbt-component-area{
+    &.rbt-bg-color-black{
+        .rbt-component-section-title{
+            border-color: var(--color-gray-black-three);
+        }
+    }
+} 

@@ -1,0 +1,84 @@
+/* Minimal bootstrap-select rules used by project markup */
+.bootstrap-select > select.bs-select-hidden,
+select.bs-select-hidden,
+select.selectpicker {
+  display: none !important;
+}
+
+.bootstrap-select {
+  vertical-align: middle;
+}
+
+.bootstrap-select > .dropdown-toggle {
+  position: relative;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bootstrap-select > .dropdown-toggle.bs-placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+  color: #999;
+}
+
+.bootstrap-select > .dropdown-toggle .filter-option {
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+.bootstrap-select > .dropdown-toggle .filter-option-inner-inner {
+  overflow: hidden;
+}
+
+.bootstrap-select > .dropdown-toggle .caret {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  margin-top: -2px;
+}
+
+.bootstrap-select .dropdown-menu {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.bootstrap-select .dropdown-menu.inner {
+  position: static;
+  float: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.bootstrap-select .dropdown-menu li {
+  position: relative;
+}
+
+.bootstrap-select .dropdown-menu li.disabled a {
+  cursor: not-allowed;
+}
+
+.bootstrap-select .dropdown-menu li a {
+  cursor: pointer;
+  user-select: none;
+}
+
+.bootstrap-select .dropdown-menu li a span.text {
+  display: inline-block;
+}
+
+.bs-searchbox {
+  padding: 4px 8px;
+}
+
+.bs-searchbox .form-control {
+  margin-bottom: 0;
+  width: 100%;
+  float: none;
+}

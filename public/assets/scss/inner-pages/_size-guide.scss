@@ -1,0 +1,56 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+.rbt-size-guide-area {
+    &.modal-dialog {
+        max-width: 578px;
+    }
+
+    .nav-tabs {
+        min-width: 117px;
+    }
+}
+
+.rbt-sizeguide-table {
+    margin-bottom: 0;
+
+    tbody {
+        tr {
+            td {
+                color: var(--color-gray-700);
+                font-family: var(--font-primary);
+                font-size: var(--font-size-b2);
+                line-height: var(--line-height-b2);
+                font-weight: var(--f-regular);
+                border-width: 0 0 2px 0;
+                padding: 16px 4px;
+                text-align: center;
+                white-space: nowrap;
+                min-width: 70px;
+
+                &:first-child {
+                    text-align: start;
+                }
+
+                &:last-child {
+                    text-align: end;
+                }
+            }
+
+            &:first-child {
+                td {
+                    color: var(--color-heading);
+                    font-weight: var(--f-semi-bold);
+                }
+            }
+
+            &:last-child {
+                td {
+                    border-width: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}

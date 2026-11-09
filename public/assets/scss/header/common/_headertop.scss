@@ -1,0 +1,219 @@
+@use "../../default/variables" as *; // Importing all the variables
+@use "../../default/extend" as *; // Importing all the extend
+@use "../../default/mixins" as *; // Importing all the mixins
+/*------------------------------------------
+    Header With TopBar Transparent  
+----------------------------------------------*/
+
+.rbt-transparent-header {
+  .rbt-header-top {
+    border-color: #525260;
+  }
+}
+// Avokarto topbar Sectio
+
+.rbt-topbar-one {
+  .rbt-address-content {
+    display: flex;
+  }
+  &.topbar-bg--primary {
+    background: var(--color-primary);
+  }
+  &.rbt-bg-color-primary {
+    .rbt-fancy-item.fancy-menu-text p {
+      color: var(--color-white);
+      a {
+        color: var(--color-white);
+      }
+    }
+    .rbt-quick-access > li.rbt-access-box .rbt-access-link {
+      color: var(--color-white);
+    }
+  }
+}
+.rbt-fancy-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  &.fancy-menu-start {
+    justify-content: flex-start;
+  }
+  &.fancy-menu-end {
+    justify-content: flex-end;
+  }
+  &.fancy-menu-center {
+    justify-content: center;
+  }
+  &.fancy-menu-text {
+    p,
+    span,
+    .rbt-fancy-text {
+      font-size: var(--font-size-b3);
+      line-height: var(--line-height-b3);
+      color: var(--color-heading);
+      @media #{$laptop-device} {
+        font-size: 12px;
+      }
+      @media #{$large-mobile} {
+        font-size: 10px;
+      }
+      strong {
+        font-weight: 600;
+      }
+      a,
+      .rbt-fancy-link {
+        text-decoration: underline;
+        font-weight: 600;
+        transition: var(--transition);
+        color: var(--color-primary);
+      }
+      &.rbt-fancy-text {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.rbt-bg-color-primary {
+  .rbt-fancy-item.fancy-menu-text p a {
+    color: var(--color-white);
+  }
+}
+.rbt-header-top-news {
+  .fancy-menu-text {
+    p {
+      color: var(--color-white);
+    }
+    a {
+      color: var(--color-white);
+      text-decoration: underline;
+    }
+  }
+  .icon-close {
+    .rbt-round-btn {
+      font-size: 16px;
+      &::after {
+        transform: scale(0.85);
+      }
+      &:hover {
+        &::after {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+.rbt-header-wrapper-one {
+  .rbt-header-middle-one {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+
+    .mainbar-row {
+      min-height: unset;
+      &.mainbar-row-var-one {
+        @media #{$smlg-device} {
+          min-height: 60px;
+        }
+        @media #{$small-mobile} {
+          min-height: 50px;
+        }
+      }
+    }
+  }
+  .rbt-topbar-one {
+    min-height: 49px;
+    display: flex;
+    align-items: center;
+    @media #{$smlg-device} {
+      display: none;
+    }
+    &.rbt-topbar--34 {
+      min-height: 34px;
+    }
+  }
+  .header-info {
+    font-size: var(--font-size-b3);
+    line-height: var(--line-height-b3);
+    color: var(--color-heading);
+    font-weight: 500;
+  }
+  .rbt-quick-access > li .header-info + .header-info {
+    border-color: var(--color-gray-200);
+  }
+  .rbt-modern-select .bootstrap-select .dropdown-menu li a span.text {
+    font-size: var(--font-size-b3);
+    line-height: var(--line-height-b3);
+  }
+}
+
+.rbt-topbar-bg-img {
+  @extend %bgImagePosition;
+  &.rbt-topbar-bg-one {
+    background-image: url(/assets/images/header-bg/topbar-bg-01.webp);
+  }
+  &.rbt-topbar-bg-two {
+    background-image: url(/assets/images/header-bg/topbar-bg-02.webp);
+  }
+  &.rbt-topbar-bg-three {
+    background-image: url(/assets/images/header-bg/topbar-bg-03.webp);
+  }
+}
+
+.rbt-text-swiper-container {
+  height: 20px;
+  overflow: hidden;
+  max-width: 500px;
+  @media #{$large-mobile} {
+    height: 16px;
+  }
+  .swiper-wrapper {
+    height: 100%;
+  }
+  .swiper-slide {
+    height: 20px;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+  }
+  &.rbt-arrow-vertical {
+    position: relative;
+    padding-right: 20px;
+    @media #{$large-mobile} {
+      padding-right: 0px;
+    }
+
+    .rbt-vertical-arrow {
+      position: absolute;
+      right: 4px;
+      font-size: 10px;
+      line-height: 1;
+      opacity: 0.8;
+      color: var(--color-body);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      &:hover {
+        opacity: 1;
+        color: var(--color-heading);
+        scale: 1.1;
+      }
+    }
+    &:hover {
+      .rbt-vertical-arrow {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    .rbt-arrow-prev {
+      top: 0;
+    }
+    .rbt-arrow-next {
+      bottom: 0;
+    }
+  }
+}

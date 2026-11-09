@@ -1,0 +1,76 @@
+.banner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+  padding: 20px 32px 20px 20px;
+  margin-bottom: 20px;
+  color: var(--color-heading);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex: 1 1 260px;
+  gap: 14px;
+  min-width: 0;
+}
+
+.gift {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+
+.message {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+.register {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+}
+
+.close:hover,
+.close:focus-visible {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 575px) {
+  .banner {
+    padding: 18px 30px 18px 16px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}

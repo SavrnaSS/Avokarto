@@ -1,0 +1,682 @@
+.rbt-header-campaign:has(
+  .rbt-topbar-dismiss-state[data-topbar-dismissed="true"]
+) {
+  display: none;
+}
+
+.rbt-header-campaign.rbt-header-top-news.rbt-topbar-bg-img,
+.rbt-header-campaign.rbt-header-top-news.rbt-bg-color-primary {
+  background-color: #174d0a !important;
+  background-image: linear-gradient(90deg, #0d3906 0%, #174d0a 52%, #0d3906 100%) !important;
+}
+
+.rbt-header-campaign.rbt-header-top-news {
+  .rbt-fancy-text,
+  .rbt-fancy-link,
+  .icon-close .rbt-round-btn {
+    color: var(--color-white) !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .rbt-header-campaign.rbt-header-top-news .rbt-text-swiper-container {
+    max-width: calc(100vw - 64px);
+  }
+
+  .rbt-header-campaign.rbt-header-top-news .rbt-fancy-item {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .rbt-header-campaign.rbt-header-top-news .rbt-fancy-item > span:nth-of-type(2) {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.rbt-clickable-product-card {
+  cursor: pointer;
+}
+
+.rbt-product-card {
+  .rbt-card-img:not(.rbt-has-hover-img):not(.rbt-has-hover-video) {
+    .rbt-prd-img {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+/* Keep laundry hero below header/topbar layers on mobile. */
+.rbt-hero-banner-laundry {
+  z-index: 1 !important;
+}
+
+/* Header3 has two sticky wrappers; keep only the common sticky wrapper on mobile. */
+.rbt-header-3 .rbt-header-wrapper.rbt-sticky {
+  display: none !important;
+}
+
+/* Header15 uses rbt-header-9 class and also has dual sticky wrappers. */
+.rbt-header-9 .rbt-header-wrapper.rbt-sticky {
+  display: none !important;
+}
+.rbt-copy-link-part .rbt-btn:hover:before {
+  opacity: 1;
+  transform: unset;
+}
+.logo,
+.payment-img-link {
+  img {
+    height: auto;
+    width: auto;
+  }
+}
+
+.logo a img {
+  object-fit: contain !important;
+}
+
+.rbt-header .logo a img {
+  max-height: 44px !important;
+  border-radius: 10px;
+}
+
+.rbt-header .logo.rbt-logo-height-sm a img {
+  max-height: 40px !important;
+}
+
+.rbt-footer .rbt-footer-top .logo a img,
+.rbt-login-form .rbt-login-form-top .logo img,
+.rbt-modal .logo img {
+  max-height: 48px !important;
+  border-radius: 10px;
+}
+
+/* Use on app store badge images to avoid global auto sizing side effects. */
+.rbt-app-store-list img {
+  width: 123px;
+  height: auto;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* Mobile-friendly lookbook open/close state controlled by React */
+@media (max-width: 992px) {
+  /* Disable hover-based opening on touch/mobile; React state controls visibility. */
+  .rbt-lookbook-banner .rbt-lookbook-portion:hover:not(.is-active) {
+    .rbt-dot-lookbook-product-wrapper {
+      opacity: 0;
+      visibility: hidden;
+      z-index: -1;
+    }
+
+    .rbt-dot-lookbook-product-wrapper .rbt-lookbook-dot-content {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  .rbt-lookbook-banner .rbt-lookbook-portion.is-active {
+    .rbt-dot-lookbook-product-wrapper {
+      opacity: 1;
+      visibility: visible;
+      z-index: 99;
+    }
+
+    .rbt-lookbook-dot-content {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+.image-auto {
+  width: auto;
+  height: auto;
+}
+
+/* Match flower hero datepicker popup with template UI */
+.rbt-delivery-details-form {
+  .react-datepicker-popper {
+    z-index: 1080 !important;
+  }
+
+  .react-datepicker {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-3);
+    overflow: hidden;
+    font-family: inherit;
+    background: var(--color-white);
+  }
+
+  .react-datepicker__header {
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: 12px;
+  }
+
+  .react-datepicker__current-month {
+    color: var(--color-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .react-datepicker__day-names {
+    margin-bottom: 4px;
+  }
+
+  .react-datepicker__day-name {
+    color: var(--color-gray-500);
+    font-size: 13px;
+    font-weight: 500;
+    width: 34px;
+    line-height: 34px;
+  }
+
+  .react-datepicker__month {
+    margin: 8px;
+  }
+
+  .react-datepicker__day {
+    color: var(--color-heading);
+    width: 34px;
+    line-height: 34px;
+    border-radius: 8px;
+    transition: var(--transition);
+  }
+
+  .react-datepicker__day:hover {
+    background: var(--color-gray-100);
+  }
+
+  .react-datepicker__day--keyboard-selected {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .react-datepicker__day--selected,
+  .react-datepicker__day--selected:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 600;
+  }
+
+  .react-datepicker__day--outside-month {
+    color: var(--color-gray-400);
+  }
+
+  .react-datepicker__navigation {
+    top: 14px;
+  }
+
+  .react-datepicker__navigation-icon::before {
+    border-color: var(--color-gray-500);
+    border-width: 2px 2px 0 0;
+  }
+}
+.rbt-wish-product-name {
+  a {
+    white-space: wrap !important;
+  }
+}
+.type-animation {
+  transition: width 0.58s ease-out !important;
+}
+input:focus + .cd-headline.clip,
+input:not(:placeholder-shown) + .cd-headline.clip {
+  visibility: hidden;
+}
+.rbt-common-search-dropdown-activation {
+  max-height: calc(100vh - 110px);
+  overflow: auto;
+}
+
+// SearchDropdownCommon renders inside Header2/Header3's secondary sticky
+// bar, which sits at visibility:hidden;height:0 until scroll-triggered
+// sticky mode adds .rbt-sticky - so opening it from the toggler now shown
+// pre-scroll (see Header2.tsx) inherited that hidden visibility from its
+// ancestor even though its own .active state, display, and layout were all
+// otherwise correct. visibility (unlike display) can be reset by a
+// descendant, so this alone is enough to make the panel paint regardless of
+// the sticky bar's own visibility.
+.rbt-search-dropdown.active {
+  visibility: visible;
+}
+.rbt-search-dropdown-activation {
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+}
+.rbt-zoom-main {
+  position: sticky;
+  top: 30px;
+  z-index: 60;
+  .drift-zoom-pane {
+    top: 0;
+    left: 0;
+    height: 520px;
+    max-width: 520px;
+    width: 100%;
+    background: #fff;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    box-shadow:
+      0 1px 5px #7f7f7f05,
+      0 5px 18px #7f7f7f33;
+    z-index: 3;
+  }
+}
+
+// Inner zoom — renders a full-size zoomed view directly over the image.
+// The "drift-inner" namespace scopes these rules to zoomType="inner" only.
+.drift-inner-zoom-pane {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: opacity 0.15s ease;
+}
+
+.drift-zoom-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.drift-inner-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: top left;
+  transform: translate(0px, 0px) scale(2.5);
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+  pointer-events: none;
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
+// Magnifying lens size/style
+.drift-magnify-zoom-pane {
+  width: 200px !important;
+  height: 200px !important;
+  border-radius: 50% !important;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 8;
+}
+
+// .cloudimage-360-inner-box {
+//   &:last-child {
+//     display: none;
+//   }
+// }
+.rc-slider .rc-slider-handle {
+  border: solid 2px var(--color-primary);
+  opacity: 1 !important;
+  background-color: #fff !important;
+  width: 20px;
+  border-radius: 10px !important;
+  height: 20px;
+
+  margin-top: -9px;
+}
+
+.rc-slider .rc-slider-handle:hover {
+  border-color: var(--color-primary);
+}
+
+.rc-slider .rc-slider-handle-dragging {
+  border-color: var(--color-primary) !important;
+  box-shadow: none !important;
+}
+
+.rc-slider .rc-slider-track,
+.rc-slider .rc-slider-tracks {
+  background-color: var(--color-primary);
+}
+.col-xxl-3.product-col {
+  @media (min-width: 1400px) {
+    .rbt-badge {
+      display: none;
+    }
+  }
+}
+
+.rbt-qty-area.rbt-qty-sm {
+  .qty-item-btn i {
+    font-size: 12px;
+  }
+}
+
+.rbt-popover-bubble {
+  z-index: 1200 !important;
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+  outline: none !important;
+}
+
+.rbt-popover-body {
+  padding: 12px 15px !important;
+  color: #6b7280 !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+.rbt-popover-arrow {
+  display: block !important;
+  fill: #fff !important;
+  stroke: #e5e7eb !important;
+  stroke-width: 1 !important;
+}
+
+.tab-pane.fade.active.show,
+.tab-pane.fade.show.active {
+  animation: tabFadeIn 220ms ease-in-out;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Every centred popup shares one backdrop: the page stays visible behind a
+   soft blur and a dim, green-tinted wash (one layer - the modal itself no
+   longer adds a second dark coat on top). Dialogs rise in with a slight
+   spring and sink back out when closed (the layer closes after 0.22s). */
+.managed-bs-modal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1055;
+  display: block;
+  visibility: hidden;
+  background:
+    radial-gradient(90% 60% at 50% 100%, rgb(166 217 74 / 0%) 0%, transparent 70%),
+    rgb(14 22 8 / 0%);
+  backdrop-filter: blur(0) saturate(1);
+  -webkit-backdrop-filter: blur(0) saturate(1);
+  transition:
+    background 0.22s ease,
+    backdrop-filter 0.22s ease,
+    -webkit-backdrop-filter 0.22s ease,
+    visibility 0.22s ease;
+}
+.managed-bs-modal-layer.is-open {
+  visibility: visible;
+  background:
+    radial-gradient(90% 60% at 50% 100%, rgb(166 217 74 / 14%) 0%, transparent 70%),
+    rgb(14 22 8 / 46%);
+  backdrop-filter: blur(9px) saturate(1.15);
+  -webkit-backdrop-filter: blur(9px) saturate(1.15);
+}
+.managed-bs-modal-layer .rbt-default-modal,
+.managed-bs-modal-layer .rbt-team-modal {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.managed-bs-modal-layer .modal {
+  display: block !important;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+.managed-bs-modal-layer .modal-dialog {
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition:
+    transform 0.22s ease,
+    opacity 0.2s ease;
+}
+.managed-bs-modal-layer.is-open .modal {
+  opacity: 1;
+  pointer-events: auto;
+  animation: managedModalFadeIn 0.22s ease;
+}
+.managed-bs-modal-layer.is-open .modal-dialog {
+  opacity: 1;
+  transform: none;
+  animation: managedModalDialogIn 0.46s cubic-bezier(0.2, 0.9, 0.25, 1.12);
+}
+/* Phones: popups rise from below, where the thumb is. */
+@media (max-width: 575px) {
+  .managed-bs-modal-layer .modal-dialog {
+    transform: translateY(36px);
+  }
+  .managed-bs-modal-layer.is-open .modal-dialog {
+    animation: managedModalDialogUp 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes managedModalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes managedModalDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes managedModalDialogUp {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .managed-bs-modal-layer,
+  .managed-bs-modal-layer .modal-dialog {
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+  .managed-bs-modal-layer .modal-dialog,
+  .managed-bs-modal-layer.is-open .modal-dialog {
+    transform: none;
+    animation: none;
+  }
+}
+
+.rbt-password-strength {
+  margin-top: 12px;
+
+  &__bar {
+    width: 100%;
+    max-width: 250px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+  &__segment {
+    height: 3px;
+    border-radius: 999px;
+    background-color: #e9ecef;
+    transition: all 0.2s ease;
+  }
+
+  &__hint {
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  &.is-compact {
+    .rbt-password-strength__bar {
+      width: 74%;
+    }
+  }
+
+  &.is-weak {
+    .rbt-password-strength__segment.is-active {
+      background-color: #dc3545;
+    }
+
+    .rbt-password-strength__hint {
+      color: #dc3545;
+    }
+  }
+
+  &.is-medium {
+    .rbt-password-strength__segment.is-active {
+      background-color: #ff9800;
+    }
+
+    .rbt-password-strength__hint {
+      color: #ff9800;
+    }
+  }
+
+  &.is-strong {
+    .rbt-password-strength__segment.is-active {
+      background-color: #198754;
+    }
+
+    .rbt-password-strength__hint {
+      color: #198754;
+    }
+  }
+}
+
+.rbt-password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+// Keep current demo visible in mega menu based on pathname.
+.home-plesentation-wrapper {
+  .demo-single .inner .content .rbt-title a.active {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+  }
+}
+
+// Header2's compact search panel (below the 1200px breakpoint, see
+// Header2.tsx) reuses SearchWithCategory's own "uni-header-swc-one"
+// styling so the field looks consistent with the desktop bar. That class
+// was only ever rendered at xl+ before, so two of its rules assumed a wide
+// viewport and silently broke the compact panel: `display: none` under
+// $sm-layout (<=767px, apparently meant for some other legacy context that
+// never applied here) and an unconditional `min-width: 448px` on the input
+// with no override below the laptop breakpoint, which forced horizontal
+// overflow on any phone/tablet width. Both are scoped back to sane values
+// here, id-scoped so the xl+ bar (still using the same classes) is
+// untouched.
+#header-compact-search-panel {
+  .rbt-search-with-category.uni-header-swc-one {
+    display: flex;
+
+    .rbt-inner-search-field input {
+      min-width: 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Cart & checkout on phones.
+// - Form text >= 16px: iOS Safari zooms the page when a field with smaller
+//   text is focused, and leaves it zoomed - a classic mobile checkout snag.
+// - Tap targets >= 44px on touch screens (Apple/Google guideline).
+// Scoped to .rbt-cart-page (cart + every checkout step).
+// ---------------------------------------------------------------------------
+@media (max-width: 767.98px) {
+  .rbt-cart-page {
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea,
+    .form-control,
+    .form-select {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .rbt-cart-page {
+    .rbt-btn,
+    button.rbt-btn,
+    .form-control,
+    .form-select,
+    select {
+      min-height: 44px;
+    }
+
+    // Radio/checkbox rows (shipping & payment methods): make the whole row a
+    // comfortable target, not just the small control.
+    .form-check,
+    .rbt-radio-accordion {
+      min-height: 44px;
+      align-items: center;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scrolling category ticker (homepage): pause on hover/keyboard focus so a
+// phrase can actually be clicked, and don't auto-scroll for people who've
+// asked their OS to reduce motion (it becomes a swipeable row instead).
+// ---------------------------------------------------------------------------
+.rbt-scroll-animation-wrapper:hover .rbt-scroll-animation,
+.rbt-scroll-animation-wrapper:focus-within .rbt-scroll-animation {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rbt-scroll-animation-wrapper .rbt-scroll-animation {
+    animation: none;
+  }
+
+  .rbt-categories-scroll-area .rbt-scroll-animation-wrapper {
+    overflow-x: auto;
+  }
+}

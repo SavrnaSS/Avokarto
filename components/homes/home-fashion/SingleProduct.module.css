@@ -1,0 +1,29 @@
+/* Same fixed frame as ProductCard1.module.css / ProductCard9.module.css -
+   this swiper shows two slides of the same product (or its hover variant)
+   side by side, so both need to share one consistent frame regardless of
+   the uploaded photo's native resolution. */
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 624 / 846;
+  background: #f3f4f2;
+}
+
+/* The image column is full-width below xl (matching the real product
+   page's own gallery/content split), so without a width cap here a single
+   3:4-framed slide would stretch edge to edge and balloon well past
+   viewport height on tablet. A max-width (not max-height) keeps the true
+   aspect ratio intact instead of cropping the subject out of frame. Only
+   applies below xl - at xl+ the swiper is already narrower (2 slides
+   inside the sidebar-split column), so it's left at its natural size. */
+@media (max-width: 1199.98px) {
+  .gallery {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.imageFrame img {
+  object-fit: cover;
+  object-position: center;
+}

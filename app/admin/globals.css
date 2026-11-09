@@ -1,0 +1,614 @@
+/*
+ * Split import (instead of the `@import "tailwindcss";` shorthand) so utility
+ * classes are NOT wrapped in `@layer utilities`. This admin app shares a root
+ * layout with the storefront, which loads a large, unlayered Bootstrap/SCSS
+ * bundle (main.scss). Per the CSS Cascade Layers spec, unlayered styles beat
+ * ANY layered styles regardless of selector specificity - so a layered
+ * `.hidden { display: none }` loses outright to Bootstrap's unlayered
+ * `article, aside, ..., section, summary { display: block }` reset, and
+ * layered `.text-ink-500 { color: ... }` loses to Bootstrap's unlayered
+ * `p, body` color rules. Leaving `theme`/`base` layered avoids fighting
+ * Bootstrap's own reset more broadly; only utilities need to compete here.
+ */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Every Tailwind size here is in rem: keep the root at the 16px the admin
+ * was designed at (the storefront sets its own fluid root size in app/(site)).
+ */
+:root:has(.admin-app) {
+	font-size: 16px;
+}
+
+/*
+ * Horizontal scroll boxes (wide tables) must contain their absolutely
+ * positioned children - a table's `sr-only` header label otherwise escapes
+ * the box and widens the whole page on phones.
+ */
+.admin-app .overflow-x-auto {
+	position: relative;
+}
+
+@theme {
+	--font-sans: "Cabin", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: ui-monospace, monospace;
+
+	--color-brand-50: #eef7e9;
+	--color-brand-100: #d8edcf;
+	--color-brand-200: #b8dbab;
+	--color-brand-300: #90c57e;
+	--color-brand-400: #65a84e;
+	--color-brand-500: #3e8326;
+	--color-brand-600: #174d0a;
+	--color-brand-700: #0d3906;
+	--color-brand-800: #0a2e05;
+	--color-brand-900: #062004;
+
+	--color-accent-50: #fff0ec;
+	--color-accent-100: #ffe1d6;
+	--color-accent-300: #ff9d7f;
+	--color-accent-500: #ff4c1a;
+	--color-accent-600: #e23c0f;
+	--color-accent-700: #b8320d;
+
+	--color-success-50: #e5fae5;
+	--color-success-100: #cff5d0;
+	--color-success-500: #24bd25;
+	--color-success-600: #157f16;
+	--color-success-700: #0e5f0f;
+
+	--color-warning-50: #fff5e1;
+	--color-warning-100: #fceac2;
+	--color-warning-500: #f5b24f;
+	--color-warning-600: #9a5b00;
+
+	--color-danger-50: #fdecec;
+	--color-danger-100: #fbd7d7;
+	--color-danger-500: #d12626;
+	--color-danger-600: #c02626;
+
+	--color-admin-sidebar: #174d0a;
+	--color-admin-sidebar-dark: #0d3906;
+	--color-admin-teal: #3e8326;
+
+	--radius-base: 6px;
+	--radius-card: 10px;
+
+	--shadow-card: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+	--shadow-soft: 0 4px 30px 10px rgba(0, 0, 0, 0.05);
+	--shadow-lift: 0 10px 35px 0 rgba(0, 0, 0, 0.08);
+
+	--spacing-sidebar: 278px;
+	--spacing-topbar: 72px;
+}
+
+@theme inline {
+	--color-ink-300: rgb(var(--ink-300));
+	--color-ink-400: rgb(var(--ink-400));
+	--color-ink-500: rgb(var(--ink-500));
+	--color-ink-600: rgb(var(--ink-600));
+	--color-ink-700: rgb(var(--ink-700));
+	--color-ink-800: rgb(var(--ink-800));
+	--color-ink-900: rgb(var(--ink-900));
+
+	--color-surface-body: rgb(var(--surface-body));
+	--color-surface-card: rgb(var(--surface-card));
+	--color-surface-muted: rgb(var(--surface-muted));
+	--color-surface-line: rgb(var(--surface-line));
+}
+
+:root {
+	--surface-body: 249 249 249;
+	--surface-card: 255 255 255;
+	--surface-muted: 243 243 243;
+	--surface-line: 230 230 230;
+	--ink-300: 193 193 193;
+	--ink-400: 110 110 110;
+	--ink-500: 85 85 85;
+	--ink-600: 68 68 68;
+	--ink-700: 51 51 51;
+	--ink-800: 17 17 17;
+	--ink-900: 5 5 31;
+}
+
+.dark {
+	--surface-body: 15 19 28;
+	--surface-card: 24 29 41;
+	--surface-muted: 35 42 58;
+	--surface-line: 47 55 74;
+	--ink-300: 90 102 122;
+	--ink-400: 124 136 156;
+	--ink-500: 148 163 184;
+	--ink-600: 174 185 204;
+	--ink-700: 203 213 225;
+	--ink-800: 230 234 240;
+	--ink-900: 245 247 250;
+}
+
+body {
+	background: rgb(var(--surface-body));
+	color: rgb(var(--ink-500));
+	font-family: "Cabin", ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: rgb(var(--ink-900));
+	font-weight: 600;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+	transition-duration: 200ms;
+	transition-property:
+		color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+button,
+input,
+select,
+textarea {
+	accent-color: var(--color-brand-600);
+	font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+	box-shadow:
+		0 0 0 2px rgb(var(--surface-card)),
+		0 0 0 4px var(--color-brand-600);
+	outline: none;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	border-color: var(--color-brand-600);
+	box-shadow: none;
+	outline: none;
+}
+
+.admin-brand-hero {
+	--hero-foreground: #f8fff2;
+	--hero-muted: rgba(239, 250, 234, 0.84);
+	--hero-chip-foreground: rgba(248, 255, 244, 0.88);
+	background-color: #174d0a;
+	background-image: linear-gradient(
+		90deg,
+		#0d3906 0%,
+		#174d0a 52%,
+		#0d3906 100%
+	);
+}
+
+.admin-brand-hero::before {
+	background-image:
+		linear-gradient(
+			115deg,
+			rgba(255, 255, 255, 0.15) 0%,
+			rgba(255, 255, 255, 0.06) 34%,
+			transparent 34%
+		),
+		repeating-linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.08) 0 1px,
+			transparent 1px 56px
+		);
+	content: "";
+	inset: 0;
+	opacity: 0.65;
+	pointer-events: none;
+	position: absolute;
+}
+
+/*
+ * Scoped to admin-brand-hero-panel (the decorative branding panel only), not
+ * admin-brand-hero (shared by the auth form panel too, for its background
+ * gradient). Without this narrower scope, any <p>/<span>/<h2> inside the
+ * actual sign-in form would inherit near-white text meant for dark-green
+ * backgrounds, making it unreadable against the form's white card.
+ */
+.admin-brand-hero-panel span {
+	color: var(--hero-chip-foreground);
+}
+
+.admin-brand-hero-panel h2 {
+	color: var(--hero-foreground);
+	text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.admin-brand-hero-panel p {
+	color: var(--hero-muted);
+}
+
+@media (max-width: 640px) {
+	.admin-brand-hero {
+		--hero-muted: rgba(248, 255, 244, 0.9);
+		background-image: linear-gradient(
+			90deg,
+			#0b3305 0%,
+			#174d0a 68%,
+			#0d3906 100%
+		);
+	}
+}
+
+@media (min-width: 1024px) {
+	.admin-brand-auth-panel {
+		background: transparent;
+	}
+
+	.admin-brand-auth-panel::before {
+		display: none;
+	}
+}
+
+.dashboard-scrollbar {
+	scrollbar-color: #d6d3d1 #f5f5f4;
+	scrollbar-width: thin;
+}
+
+.dark .dashboard-scrollbar {
+	scrollbar-color: #737373 #404040;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar {
+	height: 8px;
+	width: 8px;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-track {
+	background: #f5f5f4;
+	border-radius: 9999px;
+}
+
+.dashboard-scrollbar::-webkit-scrollbar-thumb {
+	background: #d6d3d1;
+	border-radius: 9999px;
+}
+
+.dark .dashboard-scrollbar::-webkit-scrollbar-track {
+	background: #404040;
+}
+
+.dark .dashboard-scrollbar::-webkit-scrollbar-thumb {
+	background: #737373;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.badge {
+	align-items: center;
+	border-radius: 9999px;
+	display: inline-flex;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	padding: 6px 10px;
+	white-space: nowrap;
+}
+
+.icon-button {
+	align-items: center;
+	border-radius: 6px;
+	display: inline-flex;
+	height: 36px;
+	justify-content: center;
+	width: 36px;
+}
+
+.no-theme-transition *,
+.no-theme-transition *::before,
+.no-theme-transition *::after {
+	transition: none;
+}
+
+.sidebar-ready #admin-sidebar {
+	transition:
+		width 0.3s ease,
+		transform 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+	.sidebar-ready .lg\:pl-sidebar {
+		transition: padding-left 0.3s ease;
+	}
+
+	.sidebar-collapsed #admin-sidebar {
+		width: 80px;
+	}
+
+	.sidebar-collapsed .lg\:pl-sidebar {
+		padding-left: 80px;
+	}
+
+	.sidebar-collapsed #admin-sidebar .nav-text,
+	.sidebar-collapsed #admin-sidebar .ws-text,
+	.sidebar-collapsed #admin-sidebar .user-text,
+	.sidebar-collapsed #admin-sidebar .logo-full,
+	.sidebar-collapsed #admin-sidebar .nav-search,
+	.sidebar-collapsed #admin-sidebar [data-nav-submenu] {
+		display: none;
+	}
+
+	.sidebar-collapsed #admin-sidebar .logo-mark {
+		display: grid;
+	}
+
+	.sidebar-collapsed #admin-sidebar .sidebar-link,
+	.sidebar-collapsed #admin-sidebar .ws-switch,
+	.sidebar-collapsed #admin-sidebar .user-switch {
+		cursor: pointer;
+		justify-content: center;
+	}
+
+	.sidebar-collapsed #admin-sidebar .sidebar-header {
+		flex-direction: column;
+	}
+}
+
+/*
+ * The storefront theme (public/assets/scss/default/_spacing.scss) generates
+ * `.w-0` through `.w-100` as percentage-width utilities with `!important`
+ * (e.g. `.w-10 { width: 10% !important; }`). Tailwind v4 also generates
+ * `.w-{n}` classes dynamically for ANY integer (e.g. `.w-10` meaning
+ * `calc(var(--spacing) * 10)`), so any admin component using a plain
+ * integer width utility in this range silently collides - the storefront's
+ * `!important` percentage always wins over Tailwind's non-important value,
+ * regardless of the unlayered-utilities fix above (that only fixes normal-
+ * priority conflicts; `!important` beats non-important outright). Restore
+ * Tailwind's intended width for every colliding integer, scoped to .admin-app
+ * so the storefront's own use of these classes is untouched.
+ */
+.admin-app .w-0 { width: calc(var(--spacing) * 0) !important; }
+.admin-app .w-1 { width: calc(var(--spacing) * 1) !important; }
+.admin-app .w-2 { width: calc(var(--spacing) * 2) !important; }
+.admin-app .w-3 { width: calc(var(--spacing) * 3) !important; }
+.admin-app .w-4 { width: calc(var(--spacing) * 4) !important; }
+.admin-app .w-5 { width: calc(var(--spacing) * 5) !important; }
+.admin-app .w-6 { width: calc(var(--spacing) * 6) !important; }
+.admin-app .w-7 { width: calc(var(--spacing) * 7) !important; }
+.admin-app .w-8 { width: calc(var(--spacing) * 8) !important; }
+.admin-app .w-9 { width: calc(var(--spacing) * 9) !important; }
+.admin-app .w-10 { width: calc(var(--spacing) * 10) !important; }
+.admin-app .w-11 { width: calc(var(--spacing) * 11) !important; }
+.admin-app .w-12 { width: calc(var(--spacing) * 12) !important; }
+.admin-app .w-13 { width: calc(var(--spacing) * 13) !important; }
+.admin-app .w-14 { width: calc(var(--spacing) * 14) !important; }
+.admin-app .w-15 { width: calc(var(--spacing) * 15) !important; }
+.admin-app .w-16 { width: calc(var(--spacing) * 16) !important; }
+.admin-app .w-17 { width: calc(var(--spacing) * 17) !important; }
+.admin-app .w-18 { width: calc(var(--spacing) * 18) !important; }
+.admin-app .w-19 { width: calc(var(--spacing) * 19) !important; }
+.admin-app .w-20 { width: calc(var(--spacing) * 20) !important; }
+.admin-app .w-21 { width: calc(var(--spacing) * 21) !important; }
+.admin-app .w-22 { width: calc(var(--spacing) * 22) !important; }
+.admin-app .w-23 { width: calc(var(--spacing) * 23) !important; }
+.admin-app .w-24 { width: calc(var(--spacing) * 24) !important; }
+.admin-app .w-25 { width: calc(var(--spacing) * 25) !important; }
+.admin-app .w-26 { width: calc(var(--spacing) * 26) !important; }
+.admin-app .w-27 { width: calc(var(--spacing) * 27) !important; }
+.admin-app .w-28 { width: calc(var(--spacing) * 28) !important; }
+.admin-app .w-29 { width: calc(var(--spacing) * 29) !important; }
+.admin-app .w-30 { width: calc(var(--spacing) * 30) !important; }
+.admin-app .w-31 { width: calc(var(--spacing) * 31) !important; }
+.admin-app .w-32 { width: calc(var(--spacing) * 32) !important; }
+.admin-app .w-33 { width: calc(var(--spacing) * 33) !important; }
+.admin-app .w-34 { width: calc(var(--spacing) * 34) !important; }
+.admin-app .w-35 { width: calc(var(--spacing) * 35) !important; }
+.admin-app .w-36 { width: calc(var(--spacing) * 36) !important; }
+.admin-app .w-37 { width: calc(var(--spacing) * 37) !important; }
+.admin-app .w-38 { width: calc(var(--spacing) * 38) !important; }
+.admin-app .w-39 { width: calc(var(--spacing) * 39) !important; }
+.admin-app .w-40 { width: calc(var(--spacing) * 40) !important; }
+.admin-app .w-41 { width: calc(var(--spacing) * 41) !important; }
+.admin-app .w-42 { width: calc(var(--spacing) * 42) !important; }
+.admin-app .w-43 { width: calc(var(--spacing) * 43) !important; }
+.admin-app .w-44 { width: calc(var(--spacing) * 44) !important; }
+.admin-app .w-45 { width: calc(var(--spacing) * 45) !important; }
+.admin-app .w-46 { width: calc(var(--spacing) * 46) !important; }
+.admin-app .w-47 { width: calc(var(--spacing) * 47) !important; }
+.admin-app .w-48 { width: calc(var(--spacing) * 48) !important; }
+.admin-app .w-49 { width: calc(var(--spacing) * 49) !important; }
+.admin-app .w-50 { width: calc(var(--spacing) * 50) !important; }
+.admin-app .w-51 { width: calc(var(--spacing) * 51) !important; }
+.admin-app .w-52 { width: calc(var(--spacing) * 52) !important; }
+.admin-app .w-53 { width: calc(var(--spacing) * 53) !important; }
+.admin-app .w-54 { width: calc(var(--spacing) * 54) !important; }
+.admin-app .w-55 { width: calc(var(--spacing) * 55) !important; }
+.admin-app .w-56 { width: calc(var(--spacing) * 56) !important; }
+.admin-app .w-57 { width: calc(var(--spacing) * 57) !important; }
+.admin-app .w-58 { width: calc(var(--spacing) * 58) !important; }
+.admin-app .w-59 { width: calc(var(--spacing) * 59) !important; }
+.admin-app .w-60 { width: calc(var(--spacing) * 60) !important; }
+.admin-app .w-61 { width: calc(var(--spacing) * 61) !important; }
+.admin-app .w-62 { width: calc(var(--spacing) * 62) !important; }
+.admin-app .w-63 { width: calc(var(--spacing) * 63) !important; }
+.admin-app .w-64 { width: calc(var(--spacing) * 64) !important; }
+.admin-app .w-65 { width: calc(var(--spacing) * 65) !important; }
+.admin-app .w-66 { width: calc(var(--spacing) * 66) !important; }
+.admin-app .w-67 { width: calc(var(--spacing) * 67) !important; }
+.admin-app .w-68 { width: calc(var(--spacing) * 68) !important; }
+.admin-app .w-69 { width: calc(var(--spacing) * 69) !important; }
+.admin-app .w-70 { width: calc(var(--spacing) * 70) !important; }
+.admin-app .w-71 { width: calc(var(--spacing) * 71) !important; }
+.admin-app .w-72 { width: calc(var(--spacing) * 72) !important; }
+.admin-app .w-73 { width: calc(var(--spacing) * 73) !important; }
+.admin-app .w-74 { width: calc(var(--spacing) * 74) !important; }
+.admin-app .w-75 { width: calc(var(--spacing) * 75) !important; }
+.admin-app .w-76 { width: calc(var(--spacing) * 76) !important; }
+.admin-app .w-77 { width: calc(var(--spacing) * 77) !important; }
+.admin-app .w-78 { width: calc(var(--spacing) * 78) !important; }
+.admin-app .w-79 { width: calc(var(--spacing) * 79) !important; }
+.admin-app .w-80 { width: calc(var(--spacing) * 80) !important; }
+.admin-app .w-81 { width: calc(var(--spacing) * 81) !important; }
+.admin-app .w-82 { width: calc(var(--spacing) * 82) !important; }
+.admin-app .w-83 { width: calc(var(--spacing) * 83) !important; }
+.admin-app .w-84 { width: calc(var(--spacing) * 84) !important; }
+.admin-app .w-85 { width: calc(var(--spacing) * 85) !important; }
+.admin-app .w-86 { width: calc(var(--spacing) * 86) !important; }
+.admin-app .w-87 { width: calc(var(--spacing) * 87) !important; }
+.admin-app .w-88 { width: calc(var(--spacing) * 88) !important; }
+.admin-app .w-89 { width: calc(var(--spacing) * 89) !important; }
+.admin-app .w-90 { width: calc(var(--spacing) * 90) !important; }
+.admin-app .w-91 { width: calc(var(--spacing) * 91) !important; }
+.admin-app .w-92 { width: calc(var(--spacing) * 92) !important; }
+.admin-app .w-93 { width: calc(var(--spacing) * 93) !important; }
+.admin-app .w-94 { width: calc(var(--spacing) * 94) !important; }
+.admin-app .w-95 { width: calc(var(--spacing) * 95) !important; }
+.admin-app .w-96 { width: calc(var(--spacing) * 96) !important; }
+.admin-app .w-97 { width: calc(var(--spacing) * 97) !important; }
+.admin-app .w-98 { width: calc(var(--spacing) * 98) !important; }
+.admin-app .w-99 { width: calc(var(--spacing) * 99) !important; }
+.admin-app .w-100 { width: calc(var(--spacing) * 100) !important; }
+
+/*
+ * Same collision, different property: Bootstrap's utility API
+ * (public/assets/css/vendor/bootstrap.min.css) generates
+ * `.text-center { text-align: center !important; }` with NO media query,
+ * so it wins over Tailwind's plain `.lg:text-left { text-align: left }`
+ * at every viewport width regardless of breakpoint - a component using
+ * `text-center lg:text-left` (center on mobile, left-aligned on desktop)
+ * stays centered forever. Bootstrap's directional variants are actually
+ * named `.text-start`/`.text-end`, not `.text-left`/`.text-right`, so
+ * only `text-center` itself collides - but every responsive variant of
+ * all three needs its own `!important` here too, since a non-important
+ * override can't beat Bootstrap's unconditional important one.
+ */
+.admin-app .text-left { text-align: left !important; }
+.admin-app .text-center { text-align: center !important; }
+.admin-app .text-right { text-align: right !important; }
+
+@media (min-width: 640px) {
+	.admin-app .sm\:text-left { text-align: left !important; }
+	.admin-app .sm\:text-center { text-align: center !important; }
+	.admin-app .sm\:text-right { text-align: right !important; }
+}
+
+@media (min-width: 768px) {
+	.admin-app .md\:text-left { text-align: left !important; }
+	.admin-app .md\:text-center { text-align: center !important; }
+	.admin-app .md\:text-right { text-align: right !important; }
+}
+
+@media (min-width: 1024px) {
+	.admin-app .lg\:text-left { text-align: left !important; }
+	.admin-app .lg\:text-center { text-align: center !important; }
+	.admin-app .lg\:text-right { text-align: right !important; }
+}
+
+@media (min-width: 1280px) {
+	.admin-app .xl\:text-left { text-align: left !important; }
+	.admin-app .xl\:text-center { text-align: center !important; }
+	.admin-app .xl\:text-right { text-align: right !important; }
+}
+
+/*
+ * A third instance of the same family of bug, this time via plain selector
+ * specificity rather than `!important`: the storefront theme
+ * (public/assets/scss/default/_forms.scss) hardcodes a look for every real
+ * input/textarea - e.g. `input[type="search"] { height: 50px; padding:
+ * 0 15px; border: 1px solid var(--color-gray-200); color: var(--color-
+ * gray-400); font-size: 15px; box-shadow: var(--shadow-10); ... }`. That
+ * selector's specificity ((0,1,1): one attribute + one tag) beats any
+ * single Tailwind utility class ((0,1,0)) regardless of source order, so
+ * EVERY admin text input has silently been rendering at the theme's fixed
+ * 40-50px height, 15px padding, gray border/text, and drop shadow instead
+ * of its own `h-10`, `pl-9`, `border-surface-line`, `text-ink-700`, etc.
+ * Bootstrap's `.border { border: 1px solid #dee2e6 !important; }` compounds
+ * this specifically for the border color, the same way `.w-*`/`.text-*`
+ * collide elsewhere in this file.
+ *
+ * There's no selector trick that both outranks the theme's rule AND still
+ * defers to whichever Tailwind class an individual input happens to use
+ * (any selector specific enough to beat (0,1,1) is automatically also
+ * specific enough to beat a lone (0,1,0) class) - so instead of a generic
+ * reset, this replicates the *exact* Tailwind-generated value for every
+ * concrete class actually used on an admin input/textarea/select
+ * (confirmed against the compiled admin stylesheet), scoped to `.admin-app`
+ * with `!important`. Properties nothing here ever sets per-class (box-
+ * shadow, outline, native search/date/number chrome) are just neutralized
+ * outright, since there's no legitimate per-component value to preserve.
+ */
+.admin-app input[type="text"],
+.admin-app input[type="password"],
+.admin-app input[type="email"],
+.admin-app input[type="number"],
+.admin-app input[type="tel"],
+.admin-app input[type="date"],
+.admin-app input[type="search"],
+.admin-app textarea,
+.admin-app select {
+	box-shadow: none !important;
+	outline: none !important;
+	appearance: none !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+}
+
+.admin-app input[type="search"]::-webkit-search-decoration,
+.admin-app input[type="search"]::-webkit-search-cancel-button,
+.admin-app input[type="search"]::-webkit-search-results-button,
+.admin-app input[type="search"]::-webkit-search-results-decoration {
+	display: none !important;
+}
+
+.admin-app .h-1 { height: var(--spacing) !important; }
+.admin-app .h-4 { height: calc(var(--spacing) * 4) !important; }
+.admin-app .h-10 { height: calc(var(--spacing) * 10) !important; }
+.admin-app .h-11 { height: calc(var(--spacing) * 11) !important; }
+
+.admin-app .pl-9 { padding-left: calc(var(--spacing) * 9) !important; }
+.admin-app .pl-10 { padding-left: calc(var(--spacing) * 10) !important; }
+.admin-app .pl-11 { padding-left: calc(var(--spacing) * 11) !important; }
+.admin-app .pr-3 { padding-right: calc(var(--spacing) * 3) !important; }
+.admin-app .pr-4 { padding-right: calc(var(--spacing) * 4) !important; }
+.admin-app .pr-12 { padding-right: calc(var(--spacing) * 12) !important; }
+.admin-app .px-3 { padding-inline: calc(var(--spacing) * 3) !important; }
+.admin-app .px-4 { padding-inline: calc(var(--spacing) * 4) !important; }
+.admin-app .px-5 { padding-inline: calc(var(--spacing) * 5) !important; }
+.admin-app .py-3 { padding-block: calc(var(--spacing) * 3) !important; }
+
+.admin-app .border { border-width: 1px !important; border-style: solid !important; }
+.admin-app .border-r-0 { border-right-width: 0 !important; }
+.admin-app .border-surface-line { border-color: rgb(var(--surface-line)) !important; }
+
+.admin-app .rounded { border-radius: 0.25rem !important; }
+.admin-app .rounded-base { border-radius: var(--radius-base) !important; }
+.admin-app .rounded-l-card {
+	border-top-left-radius: var(--radius-card) !important;
+	border-bottom-left-radius: var(--radius-card) !important;
+}
+
+.admin-app .bg-surface-body { background-color: rgb(var(--surface-body)) !important; }
+.admin-app .bg-surface-muted { background-color: rgb(var(--surface-muted)) !important; }
+.admin-app .bg-surface-muted\/50 {
+	background-color: color-mix(in oklab, rgb(var(--surface-muted)) 50%, transparent) !important;
+}
+.admin-app .bg-transparent { background-color: transparent !important; }
+
+.admin-app .text-ink-500 { color: rgb(var(--ink-500)) !important; }
+.admin-app .text-ink-700 { color: rgb(var(--ink-700)) !important; }
+.admin-app .text-ink-900 { color: rgb(var(--ink-900)) !important; }
+.admin-app .text-\[14px\] { font-size: 14px !important; }
+.admin-app .text-\[15px\] { font-size: 15px !important; }
+

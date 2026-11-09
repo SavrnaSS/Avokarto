@@ -1,0 +1,354 @@
+/* Cart page: bundle grouping. A bundle gets a header row, and its items
+   carry a green accent on the left so the set reads as one purchase.
+   Root font-size is 10px in this theme, so sizes are in px. */
+
+/* Out-ranks the theme's ".table-variation-one tbody tr td:last-child"
+   (right-aligned) - a single spanning cell is both first and last child. */
+.bundleHeadRow.bundleHeadRow > td:first-child:last-child {
+  padding-top: 18px;
+  padding-bottom: 8px;
+  border-bottom: 0;
+  text-align: left;
+}
+
+/* On phones the cart table scrolls sideways; keep the bundle header pinned
+   to the visible width so its saving and "Remove bundle" stay in view. */
+.bundleHead {
+  position: sticky;
+  left: 0;
+  max-width: min(100%, calc(100vw - 48px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--color-brand-50, #f2f8e8);
+}
+
+.bundleTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary, #174d0a);
+}
+
+.bundleBadge {
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.bundleMeta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+}
+
+.bundleSaving {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-secondary, #5f8f18);
+}
+
+.bundleRemove {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--color-gray-600, #444);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.bundleRemove:hover,
+.bundleRemove:focus-visible {
+  color: #c0392b;
+}
+
+/* Left accent ties the bundle's items to its header. */
+.bundleRow td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-secondary, #5f8f18);
+  padding-left: 14px;
+}
+
+.regularPrice {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--color-gray-400, #888);
+}
+
+.otherTitle {
+  position: sticky;
+  left: 0;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-heading, #000);
+}
+
+/* ---------- sidebar: order summary + Checkout first ---------- */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryPanel.summaryPanel {
+  order: -1;
+  margin-top: 0 !important;
+}
+
+.toolsPanel {
+  margin-top: 24px;
+}
+
+/* ---------- product photo: upright frame (table layout) ----------
+   The theme crops it to a 140px-wide landscape box, cutting off tops of
+   products/models. Same 4:5 frame as product cards elsewhere. */
+
+.cellProduct.cellProduct.cellProduct :global(.product-thumbnail a) {
+  /* Positioning context for the fill image. */
+  position: relative;
+  display: block;
+  width: 96px;
+  min-width: 96px;
+  max-width: 96px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--color-gray-100, #f3f3f3);
+}
+
+.cellProduct.cellProduct.cellProduct :global(.product-thumbnail img) {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+.cellProduct.cellProduct.cellProduct.cellProduct :global(.product-thumbnail .close-btn) {
+  z-index: 2;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-white, #fff);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+}
+
+/* ---------- stacked cards on narrow cart columns (phones) ----------
+   The same table markup becomes one card per item instead of a table that
+   scrolls sideways: product on top, price below it, then quantity and line
+   total side by side. `.table` is repeated to out-rank the theme's
+   ".rbt-transparent-table-one.table-variation-one tbody tr td:first-child". */
+
+.cartArea {
+  container: cart-items / inline-size;
+}
+
+/* 760px: below this the four table columns (each min 120px + the product
+   cell) no longer fit and the theme table would scroll sideways. */
+@container cart-items (max-width: 760px) {
+  .wrap.wrap {
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .table.table.table.table,
+  .table.table.table.table tbody {
+    display: block;
+    width: 100%;
+    /* The theme sets min-width: 650px on this table. */
+    min-width: 0;
+  }
+
+  .table.table.table.table thead {
+    display: none;
+  }
+
+  .table.table.table.table tbody tr {
+    display: block;
+  }
+
+  .table.table.table.table tbody tr td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+
+  .table.table.table.table tbody tr.itemRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "product product"
+      "price price"
+      "qty total";
+    gap: 10px 12px;
+    align-items: center;
+    margin: 0 0 12px;
+    padding: 12px;
+    border: 1px solid var(--color-gray-200, #e6e6e6);
+    border-radius: 16px;
+    background: var(--color-white, #fff);
+  }
+
+  /* Bundle items: the accent moves from the first cell to the card edge. */
+  .table.table.table.table tbody tr.bundleRow {
+    border-left: 3px solid var(--color-secondary, #5f8f18);
+  }
+
+  .table.table.table.table tbody tr.bundleRow td:first-child {
+    box-shadow: none;
+    padding-left: 0;
+  }
+
+  .table.table.table.table tbody tr .cellProduct {
+    grid-area: product;
+  }
+
+  .table.table.table.table tbody tr .cellPrice {
+    grid-area: price;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+  }
+
+  .table.table.table.table tbody tr .cellQty {
+    grid-area: qty;
+  }
+
+  .table.table.table.table tbody tr .cellTotal {
+    grid-area: total;
+    text-align: right;
+  }
+
+  /* Small labels replace the hidden column headings. */
+  .table.table.table.table tbody tr .cellPrice::before,
+  .table.table.table.table tbody tr .cellTotal::before {
+    content: attr(data-label);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-500, #555);
+  }
+
+  .table.table.table.table tbody tr .cellTotal::before {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .cellPrice :global(.price-text) {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .regularPrice.regularPrice {
+    display: inline;
+    margin: 0;
+  }
+
+  .cellTotal :global(.price-text) {
+    margin: 0;
+    font-size: 17px;
+  }
+
+  /* Product: portrait thumbnail beside the name, remove button in its corner. */
+  .cellProduct :global(.cart-product-card) {
+    width: 100%;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cellProduct :global(.product-thumbnail) {
+    flex: none;
+    width: 88px;
+  }
+
+  /* The theme pins this link at 140px wide; cards use an 88px thumbnail. */
+  .cellProduct.cellProduct.cellProduct :global(.product-thumbnail a) {
+    position: relative;
+    display: block;
+    width: 88px;
+    min-width: 88px;
+    max-width: 88px;
+    /* Portrait frame like the rest of the store's product photos. */
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--color-gray-100, #f3f3f3);
+  }
+
+  .cellProduct.cellProduct.cellProduct :global(.product-thumbnail img) {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border-radius: 10px;
+  }
+
+  /* Repeated class: the theme's (more specific) rule sets a transparent
+     background, which leaves the "x" hard to see over busy photos. */
+  .cellProduct.cellProduct.cellProduct.cellProduct :global(.product-thumbnail .close-btn) {
+    /* Above the photo, which otherwise catches the tap. */
+    z-index: 2;
+    top: 4px;
+    right: 4px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-white, #fff);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: 13px;
+  }
+
+  .cellProduct :global(.rbt-wish-product-name) {
+    margin-bottom: 4px;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  /* Cards don't scroll sideways, so the bundle header spans the full width. */
+  .bundleHead.bundleHead {
+    position: static;
+    max-width: none;
+  }
+
+  /* Group headings sit between cards. */
+  .table.table.table.table tbody tr.bundleHeadRow {
+    margin: 4px 0 10px;
+  }
+
+  .bundleHeadRow.bundleHeadRow > td:first-child:last-child {
+    padding: 0;
+  }
+}
+
+@media (pointer: coarse) {
+  .cellProduct :global(.product-thumbnail .close-btn) {
+    min-width: 36px;
+    min-height: 36px;
+  }
+}

@@ -1,0 +1,3 @@
+ALTER TABLE customers
+ADD COLUMN IF NOT EXISTS password_hash text,
+ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '';

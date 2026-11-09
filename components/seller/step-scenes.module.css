@@ -1,0 +1,54 @@
+/* Steps 1 and 3 of "How it works", in the same space as the store in step 2:
+   near-black frames, tilted in depth, colour only from the photos and the lime
+   of the money. Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.scene { --frame: #16210f; --lime: #c6f06c; --ease: cubic-bezier(.22, 1, .36, 1); position: absolute; inset: 0; overflow: hidden; perspective: 720px; perspective-origin: 50% 30%; container: scene / inline-size; }
+
+/* ---- step 1: the pick ---- */
+.fan { position: absolute; top: 16px; left: 50%; width: min(280px, 88%); height: 140px; margin-left: calc(min(280px, 88%) / -2); transform-style: preserve-3d; }
+.pick { position: absolute; top: 0; left: 31%; display: grid; place-items: center; width: 38%; aspect-ratio: 4 / 5; overflow: hidden; border: 4px solid var(--frame); border-radius: 16px; background: #e6e6e8; color: var(--frame); box-shadow: 0 16px 24px -12px rgb(16 24 8 / 50%); transition: transform 480ms var(--ease); }
+.pick:nth-child(1) { transform: translateX(-72%) translateZ(-24px) rotateY(24deg); }
+.pick:nth-child(2) { z-index: 1; transform: translateZ(32px); }
+.pick:nth-child(3) { transform: translateX(72%) translateZ(-24px) rotateY(-24deg); }
+.gain { position: absolute; bottom: 4px; left: 4px; padding: 0 6px; border-radius: 6px; background: rgb(22 33 15 / 86%); color: #fff; font-size: 11px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 20px; }
+/* The middle card overlaps the right one's left edge, so its figure sits right. */
+.pick:nth-child(3) .gain { right: 4px; left: auto; }
+.tick { position: absolute; top: 4px; right: 4px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; background: var(--lime); color: var(--frame); }
+.chip { position: absolute; z-index: 2; bottom: 12px; left: 50%; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #192e22; color: #fff; font-size: 12px; font-weight: 500; line-height: 16px; white-space: nowrap; transform: translateX(-50%); box-shadow: 0 8px 16px -8px rgb(16 24 8 / 60%); }
+.chip svg { color: var(--lime); }
+
+/* ---- step 3: the reel ---- */
+.stand { position: absolute; top: 12px; left: 50%; width: min(248px, 94%); height: 168px; margin-left: calc(min(248px, 94%) / -2); transform: rotateX(8deg) rotateY(12deg) rotateZ(-1.5deg); transform-style: preserve-3d; transition: transform 480ms var(--ease); }
+.reel { position: absolute; top: 0; left: 0; width: 96px; height: 168px; overflow: hidden; border: 4px solid var(--frame); border-radius: 16px; background: var(--frame); box-shadow: 0 24px 32px -16px rgb(16 24 8 / 55%); }
+.reel::after { position: absolute; inset: 50% 0 0; background: linear-gradient(180deg, transparent, rgb(0 0 0 / 64%)); content: ""; }
+.reelPlay { position: absolute; z-index: 1; top: 50%; left: 50%; display: grid; place-items: center; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; background: rgb(255 255 255 / 28%); color: #fff; backdrop-filter: blur(4px); }
+.reelPlay svg { margin-left: 2px; fill: #fff; }
+.reelActions { position: absolute; z-index: 1; right: 4px; bottom: 32px; display: grid; gap: 8px; color: #fff; }
+.reelFoot { position: absolute; z-index: 1; right: 4px; bottom: 4px; left: 4px; display: grid; gap: 4px; }
+.reelHandle { overflow: hidden; color: #fff; font-size: 11px; font-weight: 500; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+.reelTrack { display: block; height: 2px; overflow: hidden; border-radius: 2px; background: rgb(255 255 255 / 32%); }
+.reelTrack span { display: block; width: 100%; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: left center; transition: transform 250ms linear; }
+.payout { position: absolute; top: 48px; right: 0; display: grid; gap: 4px; width: 148px; max-width: calc(100% - 88px); padding: 12px; border-radius: 16px; background: #192e22; box-shadow: 0 16px 24px -12px rgb(16 24 8 / 60%); transform: translateZ(40px); transition: transform 480ms var(--ease); }
+.payout small { color: rgb(255 255 255 / 78%); font-size: 12px; line-height: 16px; white-space: nowrap; }
+.payout strong { color: var(--lime); font-size: 24px; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -.01em; line-height: 32px; white-space: nowrap; }
+
+/* Three-column tablets leave the stage narrow: only the picked product keeps
+   its figure, and the payout card sits flatter so it stays on the stage. */
+@container scene (max-width: 280px) {
+  .pick:not(:nth-child(2)) .gain { display: none; }
+  .payout { max-width: calc(100% - 96px); padding: 8px; transform: translateZ(8px); }
+  .payout strong { font-size: 20px; line-height: 24px; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  li:hover .pick:nth-child(1) { transform: translateX(-84%) translateZ(-32px) rotateY(32deg); }
+  li:hover .pick:nth-child(2) { transform: translateZ(56px) translateY(-4px); }
+  li:hover .pick:nth-child(3) { transform: translateX(84%) translateZ(-32px) rotateY(-32deg); }
+  li:hover .stand { transform: rotateX(4deg) rotateY(4deg) rotateZ(0deg); }
+  li:hover .payout { transform: translateZ(64px) translateY(-4px); }
+  @container scene (max-width: 280px) {
+    li:hover .payout { transform: translateZ(16px) translateY(-4px); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pick, .stand, .payout, .reelTrack span { transition: none; }
+}

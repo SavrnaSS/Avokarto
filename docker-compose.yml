@@ -1,0 +1,88 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: unimart
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in a .env file next to this compose file}
+      POSTGRES_DB: unimart
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U unimart -d unimart"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?Set the public HTTPS site origin}
+        SITE_INDEXABLE: ${SITE_INDEXABLE:-false}
+        NEXT_PUBLIC_LIGHTGALLERY_LICENSE_KEY: ${NEXT_PUBLIC_LIGHTGALLERY_LICENSE_KEY:-}
+        GOOGLE_SITE_VERIFICATION: ${GOOGLE_SITE_VERIFICATION:-}
+        BING_SITE_VERIFICATION: ${BING_SITE_VERIFICATION:-}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://unimart:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in a .env file next to this compose file}@db:5432/unimart
+      DATABASE_SSL: "false"
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET (32+ random characters) in a .env file next to this compose file}
+      ADMIN_SESSION_DAYS: ${ADMIN_SESSION_DAYS:-7}
+      CUSTOMER_SESSION_DAYS: ${CUSTOMER_SESSION_DAYS:-30}
+      DATABASE_POOL_MAX: ${DATABASE_POOL_MAX:-10}
+      DATABASE_CONNECTION_TIMEOUT_MS: ${DATABASE_CONNECTION_TIMEOUT_MS:-5000}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?Set the public HTTPS site origin}
+      SITE_INDEXABLE: ${SITE_INDEXABLE:-false}
+      STORE_DOMAIN_TARGET: ${STORE_DOMAIN_TARGET:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      EMAIL_REPLY_TO: ${EMAIL_REPLY_TO:-}
+    ports:
+      # Local-only listener for debugging; public traffic arrives through
+      # the caddy service below.
+      - "127.0.0.1:3000:3000"
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      # Admin-uploaded product/category images are written at runtime to
+      # public/uploads (see app/api/admin/uploads) - without this volume
+      # they'd live only in the container's writable layer and disappear
+      # on the next `docker compose up --build`.
+      - app-uploads:/app/public/uploads
+
+  # HTTPS for the main site and reseller custom domains (on-demand TLS).
+  # See deploy/caddy/Caddyfile and docs/backend-deploy.md.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?Set SITE_DOMAIN to the main site host, e.g. www.yourshop.com}
+      ACME_EMAIL: ${ACME_EMAIL:?Set ACME_EMAIL for certificate notices}
+      ACME_CA: ${ACME_CA:-https://acme-v02.api.letsencrypt.org/directory}
+      APP_UPSTREAM: app:3000
+    volumes:
+      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      # Certificates and ACME account keys - must persist, or every restart
+      # re-issues certificates and quickly hits Let's Encrypt rate limits.
+      - caddy-data:/data
+      - caddy-config:/config
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  db-data:
+  app-uploads:
+  caddy-data:
+  caddy-config:

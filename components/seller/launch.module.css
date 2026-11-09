@@ -1,0 +1,106 @@
+/* The launch: the builder's last page, in the same shell and tokens. Devices
+   above the panel on small screens, the panel beside them from 992px.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.scene {
+  --page: #fbfcf9;
+  --surface: #fff;
+  --raised: #f2f6ea;
+  --ink: #192e22;
+  --ink-2: #526055;
+  --ink-3: #657064;
+  --line: rgb(25 46 34 / 11%);
+  --line-2: rgb(25 46 34 / 20%);
+  --brand: #326347;
+  --brand-dark: #173c2a;
+  --lime: #c6f06c;
+  --lime-soft: #f2f8e8;
+  --gutter: clamp(16px, 4vw, 36px);
+  --stage-h: clamp(216px, 31dvh, 300px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  min-height: 100dvh;
+  background: var(--page);
+  color: var(--ink);
+}
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.top { display: flex; align-items: center; min-height: 61px; padding: 8px calc(var(--gutter) + var(--safe-r)) 8px calc(var(--gutter) + var(--safe-l)); border-bottom: 1px solid var(--line); background: var(--surface); }
+.brand { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 18px; font-weight: 600; line-height: 1.1; }
+.brand > span { display: grid; gap: 2px; }
+.brand small { color: var(--ink-3); font-size: 12px; font-weight: 400; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+.canvas { min-width: 0; overflow: hidden; padding: 12px calc(var(--gutter) + var(--safe-r)) 0 calc(var(--gutter) + var(--safe-l)); border-bottom: 1px solid var(--line); background: radial-gradient(60% 120% at 50% 0%, rgb(216 237 184 / 60%) 0%, transparent 70%), #f4f8ec; }
+.url { display: flex; flex: 1; align-items: center; gap: 8px; min-width: 0; padding-right: 12px; color: var(--ink-3); font-size: 12px; }
+.url svg { flex: none; color: var(--brand); }
+.url > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.url b { color: var(--ink); font-weight: 500; }
+
+.panel { display: flex; flex-direction: column; gap: 20px; width: min(640px, 100%); min-width: 0; margin-inline: auto; padding: 24px calc(var(--gutter) + var(--safe-r)) calc(24px + var(--safe-b)) calc(var(--gutter) + var(--safe-l)); animation: launchRise 320ms var(--ease) both; }
+@keyframes launchRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.scene .title { max-width: 22ch; margin: 0; color: var(--ink); font-size: clamp(26px, 20px + 1.6vw, 36px) !important; font-weight: 600; line-height: 1.15; letter-spacing: -.02em; overflow-wrap: anywhere; text-wrap: balance; outline: none; }
+.scene .intro { margin: -12px 0 0; color: var(--ink-2); font-size: 16px; line-height: 1.5; }
+.intro strong { color: var(--ink); font-weight: 500; }
+
+.phases { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.scene .phases li { position: relative; display: flex; align-items: center; gap: 12px; margin: 0; }
+.phases li:not(:last-child)::after { position: absolute; top: 32px; bottom: -12px; left: 15px; width: 2px; background: var(--line); content: ""; }
+.phases li[data-state="complete"]:not(:last-child)::after { background: var(--brand); }
+.phaseIcon { position: relative; z-index: 1; display: grid; flex: none; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--surface); color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--line-2); transition: background-color 220ms var(--ease), color 220ms var(--ease); }
+li[data-state="active"] .phaseIcon { background: var(--brand-dark); color: #fff; box-shadow: none; }
+li[data-state="complete"] .phaseIcon { background: var(--lime); color: var(--brand-dark); box-shadow: none; }
+li[data-state="error"] .phaseIcon { background: #fdecea; color: #b3261e; box-shadow: none; }
+.phaseText { display: grid; min-width: 0; }
+.phaseText strong { color: var(--ink); font-size: 14px; font-weight: 500; line-height: 20px; }
+.phaseText small { color: var(--ink-3); font-size: 13px; line-height: 16px; }
+li[data-state="waiting"] .phaseText strong { color: var(--ink-3); font-weight: 400; }
+.spin { animation: launchSpin 900ms linear infinite; }
+@keyframes launchSpin { to { transform: rotate(360deg); } }
+
+.scene .error { margin: 0; padding: 12px; border-radius: 10px; background: #fdecea; color: #8c1d18; font-size: 14px; line-height: 20px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.primary, .secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 8px 20px; border: 0; border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: 500; text-decoration: none !important; cursor: pointer; transition: background-color 160ms var(--ease), transform 120ms var(--ease); }
+.primary { flex: 1 1 auto; white-space: nowrap; background: var(--brand-dark); color: #fff !important; }
+.primary:disabled { opacity: .7; cursor: wait; }
+.primary:not(:disabled):active, .secondary:active { transform: scale(.98); }
+.secondary { flex: 1 0 auto; white-space: nowrap; background: transparent; color: var(--ink) !important; box-shadow: inset 0 0 0 1px var(--line-2); }
+.primary:focus-visible, .secondary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* What the trial costs afterwards: always plainly readable. */
+.scene .note { margin: -8px 0 0; color: var(--ink-2); font-size: 14px; line-height: 20px; }
+
+/* ---- the builder's shell: panel beside a full canvas ---- */
+@media (min-width: 992px) {
+  .scene { height: 100dvh; overflow: hidden; }
+  .top { padding-inline: 28px; }
+  .grid { grid-template-columns: clamp(420px, 40vw, 560px) minmax(0, 1fr); height: calc(100dvh - 61px); }
+  .panel { grid-area: 1 / 1; justify-content: center; width: auto; height: 100%; margin: 0; padding: 28px; overflow-y: auto; border-right: 1px solid var(--line); background: var(--surface); }
+  .canvas { --stage-h: 100%; position: relative; grid-area: 1 / 2; display: flex; height: 100%; padding: 16px clamp(20px, 2.5vw, 40px) 20px; border: 0; background: radial-gradient(60% 45% at 50% 0%, rgb(216 237 184 / 60%) 0%, transparent 70%), radial-gradient(45% 40% at 90% 75%, rgb(242 248 232 / 90%) 0%, transparent 70%), var(--page); }
+  .canvas::before { position: absolute; inset: 0; background-image: radial-gradient(rgb(23 77 10 / 8%) 1px, transparent 1px); background-size: 24px 24px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 30%, #000 0%, transparent 75%); pointer-events: none; content: ""; }
+  .url { justify-content: center; }
+}
+/* ---- short screens: the ticks are all done, so the next step comes first ---- */
+@media (max-width: 991px) and (max-height: 700px) {
+  .scene[data-phase="ready"] .phases { display: none; }
+}
+@media (max-width: 991px) and (max-height: 640px) {
+  .scene { --stage-h: 168px; }
+  .panel { gap: 16px; padding-top: 16px; }
+}
+/* ---- phones on their side: the same, smaller ---- */
+@media (max-height: 500px) and (max-width: 991px) {
+  .grid { grid-template-columns: minmax(0, 1fr) 40%; }
+  .panel { grid-area: 1 / 1; width: auto; margin: 0; padding-block: 16px; }
+  .canvas { --stage-h: calc(100dvh - 85px); position: sticky; top: 0; grid-area: 1 / 2; align-self: start; padding: 8px calc(8px + var(--safe-r)) 0 0; border: 0; background: none; }
+}
+@media (hover: hover) {
+  .primary:not(:disabled):hover { background: #0f2c1e; }
+  .secondary:hover { background: var(--raised); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel { animation: none; }
+  .spin { animation-duration: 3s; }
+  .phaseIcon, .primary, .secondary { transition: none; }
+  .primary:active, .secondary:active { transform: none; }
+}

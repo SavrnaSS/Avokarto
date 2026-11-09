@@ -1,0 +1,213 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*----------------------------- 
+    Product Review Styles
+-------------------------------*/
+.rbt-review-wth-product{
+    .rbt-product-review-inner{
+        border-radius: var(--radius-12);
+        overflow: hidden;
+        .rbt-review-top-section{
+            padding: 32px;
+            padding-top: 40px;
+            .rbt-review-title{
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+            .rbt-reviewer-inf{
+                margin-top: 24px;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                .rbt-reviewer-name{
+                    font-weight: 500;
+                    color: var(--color-heading);
+                    white-space: nowrap;
+                }
+            }
+        }
+        .rbt-review-bottom-section{
+            border-top: 2px solid var(--color-gray-100);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &:hover{
+                .rbt-review-prd-img{
+                    img{
+                        transform: scale(1.1);
+                    }
+                }
+            }
+            .rbt-review-bottom-left-part{
+                display: flex;
+                gap: 16px;
+                align-items: center;
+                .rbt-review-prd-img{
+                    img{
+                        max-width: 56px;
+                        height: auto;
+                        transition: var(--transition);
+                        border-radius: 4px;
+                    }
+                }
+                .rbt-review-prd-title{
+                    a{
+                        font-size: var(--font-size-b1);
+                        line-height: var(--line-height-b1);
+                        text-decoration: underline;
+                        font-weight: 500;
+                    }
+                }
+            }
+            .rbt-cart-button{
+                width: 48px;
+                background-color: var(--color-gray-light);
+                height: 48px;
+                line-height: 45px;
+                text-align: center;
+                display: inline-block;
+                border-radius: var(--radius-full);
+                transition: var(--transition);
+                color: var(--color-body);
+                z-index: 2;
+                position: relative;
+                &::after {
+                    position: absolute;
+                    content: "";
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    background: var(--color-primary);
+                    transform: scale(0.5);
+                    opacity: 0;
+                    transition: var(--transition);
+                    border-radius: var(--radius-full);
+                }
+                &:hover {
+                    color: var(--color-white);
+                    &::after {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+                i {
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
+
+.rbt-reviewer-chk-badge {
+    padding: 2px 8px;
+    border-radius: 40px;
+    background-color: var(--color-light-green);
+    font-size: var(--font-size-b4);
+    line-height: var(--line-height-b4);
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.rbt-review-card-var-2 {
+    .rbt-review-card-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .rbt-review-text {
+        font-size: var(--h3);
+        color: var(--color-white);
+        margin-bottom: 40px;
+
+        @media #{$lg-layout} {
+            font-size: var(--h5);
+            margin-bottom: 20px;
+        }
+
+        @media #{$sm-layout, $md-layout} {
+            font-size: var(--font-size-b1);
+            margin-bottom: 20px;
+        }
+    }
+
+    .rbt-rating-icon-list {
+        gap: 8px;
+
+        li {
+            i {
+                font-size: var(--h3);
+
+                @media #{$lg-layout} {
+                    font-size: var(--h5);
+                }
+
+                @media #{$sm-layout, $md-layout} {
+                    font-size: var(--font-size-b1);
+                }
+            }
+        }
+    }
+
+    .rbt-client {
+        margin-top: 12px;
+        margin-bottom: 0;
+        font-size: var(--h3);
+        color: var(--color-white);
+
+        @media #{$lg-layout} {
+            font-size: var(--h5);
+        }
+
+        @media #{$sm-layout, $md-layout} {
+            font-size: var(--font-size-b1);
+        }
+    }
+
+    .rbt-review-card-media {
+        figure {
+            display: flex;
+            justify-content: center;
+
+            img {
+                max-height: 572px;
+            }
+        }
+    }
+}
+
+.rbt-section-has-edge-divider {
+    position: relative;
+
+    .rbt-edge-top,
+    .rbt-edge-bottom {
+        position: absolute;
+        width: 100%;
+        line-height: 1;
+
+        svg {
+            width: 100%;
+
+            path {
+                height: 100%;
+            }
+        }
+    }
+
+    .rbt-edge-top {
+        bottom: calc(100% - 4px);
+    }
+
+    .rbt-edge-bottom {
+        top: calc(100% - 4px);
+    }
+}

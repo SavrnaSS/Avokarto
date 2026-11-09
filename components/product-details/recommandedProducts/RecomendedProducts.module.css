@@ -1,0 +1,45 @@
+/*
+ * .rbt-fshape-tab's decorative curved-corner tab style (public/assets/scss/
+ * elements/_tab.scss) reserves 52px of padding on each side of every tab
+ * label ("--shape-width"), meant for a full-width tab bar. In the sidebar
+ * column this widget lives in - already narrower after the width rebalance
+ * below - that much padding pushed "Recently Viewed" + "Recommended" past
+ * the available width, so the tab strip silently became horizontally
+ * scrollable and the inactive tab's label got clipped. Shrinking the shape
+ * width here keeps the decorative curve but gives the text room to fit.
+ * !important for the same cross-stylesheet-ordering reason as below.
+ */
+.wrapper {
+  --shape-width: 16px !important;
+}
+
+/*
+ * The shared .list-view-md theme rule (public/assets/scss/elements/
+ * _product-card.scss) gives each row's image a 46%-of-row flex-basis and a
+ * fixed 164px height - sized for a wide list. In this narrow sidebar column
+ * (a third of the page at most), 46% of the width is only ~100-140px, so
+ * that same fixed 164px height produced a tall, narrow crop of whatever
+ * photo the merchant uploaded (portrait-cropped even for landscape source
+ * images) that dwarfed the one-line title/price next to it. A small, fixed
+ * square thumbnail reads as a compact "recently viewed" row at any sidebar
+ * width, instead of scaling into a disproportionate portrait strip.
+ * Scoped to this component instead of editing the shared rule directly,
+ * since .list-view-md is also used by the Added-to-Cart modal
+ * (components/modals/AddedCart.tsx), which should keep its own proportions.
+ * !important because this ships as a CSS Module import - there is no
+ * guarantee it loads after the global SCSS bundle, so two equal-specificity
+ * rules can't rely on source order to pick a winner.
+ */
+.row :global(.rbt-card-img) {
+  flex: 0 0 84px !important;
+  width: 84px !important;
+}
+
+.row :global(.rbt-card-img) img {
+  height: 84px !important;
+}
+
+.row :global(.rbt-card-body) {
+  flex: 1 1 auto !important;
+  width: auto !important;
+}

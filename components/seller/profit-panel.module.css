@@ -1,0 +1,103 @@
+/* Winning products as an offer: one dark panel carries the figures and the
+   margin control, then four equal cards each lead with the profit. Everything
+   responds to the sheet's own width. Colour lives in the panel and the photos.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.sheet { --keep: #2f6b1f; --lime: #c6f06c; --ease: cubic-bezier(.22, 1, .36, 1); display: grid; gap: 16px; min-width: 0; container: sheet / inline-size; }
+
+/* ---- the offer ---- */
+.offer { display: grid; gap: 20px; padding: 20px; border-radius: 16px; background: var(--s-brand-dark); color: #fff; }
+.pitch { display: grid; gap: 4px; min-width: 0; }
+.sheet .margin { margin: 0; color: var(--lime); font-size: 14px; font-weight: 500; line-height: 20px; }
+.sheet .lead { margin: 0; color: #fff; font-size: 24px; font-weight: 500; line-height: 32px; letter-spacing: -.01em; text-wrap: balance; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; font-variant-numeric: tabular-nums; }
+.stats > div { display: grid; align-content: end; gap: 4px; min-width: 0; }
+.stats > [data-main] { grid-column: 1 / -1; }
+.sheet .stats dt { margin: 0; color: rgb(255 255 255 / 78%); font-size: 13px; font-weight: 400; line-height: 16px; }
+.sheet .stats dd { margin: 0; color: #fff; font-size: 24px; font-weight: 500; line-height: 32px; white-space: nowrap; }
+.sheet .stats [data-main] dd { color: var(--lime); font-size: clamp(44px, 15cqi, 56px); line-height: 1.1; letter-spacing: -.02em; }
+
+/* ---- the cards ---- */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.card { --lift: 4px; position: relative; display: flex; flex-direction: column; min-width: 0; margin: 0; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 1px var(--s-line), 0 0 0 0 rgb(0 0 0 / 0%); transition: transform 280ms var(--ease), box-shadow 280ms var(--ease); }
+/* One frame for all, so rows line up; contain keeps every photo whole. */
+.photo { position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; padding: 0; overflow: hidden; border: 0; border-radius: 16px 16px 0 0; background: #e6e6e8; cursor: zoom-in; -webkit-tap-highlight-color: transparent; }
+.photo img { transition: transform 480ms var(--ease); }
+.photo:active img { transform: scale(.98); }
+.photo:focus-visible { outline: 2px solid var(--s-brand-dark); outline-offset: -2px; }
+.body { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; padding: 12px; }
+.sheet .tag { margin: 0; color: var(--s-ink-3); font-size: 12px; line-height: 16px; }
+.sheet .name { display: -webkit-box; min-height: 40px; margin: 0; overflow: hidden; color: var(--s-ink); font-size: 14px; font-weight: 500; line-height: 20px; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
+.sheet .profit { display: grid; gap: 0; margin: 4px 0 8px; font-variant-numeric: tabular-nums; }
+.profit strong { justify-self: start; color: var(--keep); font-size: 28px; font-weight: 600; line-height: 36px; letter-spacing: -.01em; transform-origin: left center; transition: transform 280ms var(--ease); }
+.profit span { color: var(--s-ink-2); font-size: 13px; line-height: 16px; }
+.lines { display: grid; gap: 4px; margin: auto 0 12px; padding-top: 8px; border-top: 1px solid var(--s-line); font-variant-numeric: tabular-nums; }
+.lines > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 8px; min-width: 0; }
+.sheet .lines dt { min-width: 0; margin: 0; color: var(--s-ink-3); font-size: 12px; font-weight: 400; line-height: 16px; }
+.sheet .lines dd { flex: none; margin: 0 0 0 auto; color: var(--s-ink-2); font-size: 12px; font-weight: 400; line-height: 16px; white-space: nowrap; }
+.add { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; padding: 0 8px; overflow: hidden; border-radius: 10px; background: var(--s-muted); color: var(--s-ink) !important; font-size: 14px; font-weight: 500; text-decoration: none !important; white-space: nowrap; -webkit-tap-highlight-color: transparent; transition: color 200ms var(--ease), transform 160ms var(--ease); }
+/* The fill wipes in from the left, on hover and on a press. */
+.add::before { position: absolute; z-index: -1; inset: 0; background: var(--s-brand-dark); content: ""; transform: scaleX(0); transform-origin: left center; transition: transform 280ms var(--ease); }
+.add svg { transition: transform 280ms var(--ease); }
+.add:focus-visible { outline: 2px solid var(--s-brand-dark); outline-offset: 2px; }
+.add:active { color: #fff !important; transform: scale(.98); }
+.add:active::before { transform: scaleX(1); }
+.sheet .note { margin: 0; color: var(--s-ink-3); font-size: 13px; line-height: 20px; text-align: center; }
+
+/* All three figures in one row, so no side of the panel sits empty. */
+@container sheet (min-width: 440px) {
+  .stats { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .stats > [data-main] { grid-column: auto; }
+  .sheet .stats [data-main] dd { font-size: 44px; }
+}
+@container sheet (min-width: 560px) {
+  .offer { padding: 24px; }
+  .body { padding: 16px; }
+}
+/* All four products in one row. */
+@container sheet (min-width: 680px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .body { padding: 12px; }
+}
+/* Offer beside its figures. */
+@container sheet (min-width: 900px) {
+  .offer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 24px 48px; padding: 32px; }
+  .sheet .lead { font-size: 32px; line-height: 40px; }
+  .stats { grid-area: 1 / 2; }
+  .sheet .stats [data-main] dd { font-size: 48px; line-height: 56px; }
+  .card { --lift: 6px; }
+  .grid { gap: 16px; }
+  .body { padding: 16px; }
+}
+
+/* ---- full-size photo ---- */
+.viewer { width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; background: #0e1411; color: #fff; }
+.viewer::backdrop { background: transparent; }
+.viewerBody { display: flex; flex-direction: column; height: 100%; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+.viewerBar { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 16px; }
+.viewer .viewerBar p { min-width: 0; margin: 0; overflow: hidden; color: #fff; font-size: 15px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.viewerBar button { display: grid; flex: none; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 10px; background: rgb(255 255 255 / 12%); color: #fff; cursor: pointer; }
+.viewerBar button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.viewerImage { position: relative; flex: 1; min-height: 0; margin: 0 16px 16px; }
+:global(html):has(.viewer[open]) { overflow: hidden !important; }
+
+/* Only a real pointer or keyboard focus gets these, so a tap never leaves a
+   card stuck in its hover state. */
+@media (hover: hover) {
+  .viewerBar button:hover { background: rgb(255 255 255 / 20%); }
+  .card:hover, .card:has(:focus-visible) { box-shadow: inset 0 0 0 1px var(--s-ink-4), 0 16px 24px -16px rgb(0 0 0 / 24%); }
+  .card:hover .add, .card:has(:focus-visible) .add { color: #fff !important; }
+  .card:hover .add::before, .card:has(:focus-visible) .add::before { transform: scaleX(1); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover, .card:has(:focus-visible) { transform: translateY(calc(var(--lift) * -1)); }
+  /* Fills the gap the lift opens, so the pointer on the bottom edge cannot
+     drop the card and make it flicker. */
+  .card:hover::after { position: absolute; top: 100%; right: 0; left: 0; height: 8px; content: ""; }
+  .card:hover .photo img, .card:has(:focus-visible) .photo img { transform: scale(1.04); }
+  .card:hover .profit strong, .card:has(:focus-visible) .profit strong { transform: scale(1.06); }
+  .card:hover .add svg, .card:has(:focus-visible) .add svg { transform: rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .photo img, .profit strong, .add, .add::before, .add svg { transition: none; }
+  .add:active, .photo:active img { transform: none; }
+}

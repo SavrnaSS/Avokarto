@@ -1,0 +1,447 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*------------------------
+    Countdown Styles  
+-------------------------*/
+.countdown-style-1 {
+  .countdown {
+    display: flex;
+    margin: 0 -20px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: -10px;
+
+    .countdown-container {
+      margin: 10px;
+      position: relative;
+      transition: var(--transition);
+      text-align: center;
+      background: var(--white-opacity);
+      border-radius: 10px;
+      min-width: 120px;
+
+      .countdown-heading {
+        display: block;
+        color: var(--color-white);
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        display: block;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 30px;
+        transition: var(--transition);
+        opacity: 0.7;
+      }
+
+      .countdown-value {
+        display: block;
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 1.24;
+        color: var(--color-white);
+        text-align: center;
+        position: relative;
+        transition: var(--transition);
+        margin: 0;
+
+        @media #{$sm-layout} {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+.rbt-countdown-one {
+  .countdown {
+    display: flex;
+    gap: 8px;
+
+    .countdown-container {
+      position: relative;
+      transition: var(--transition);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 8px 12px;
+      background: var(--color-gray-100);
+      border-radius: 4px;
+      width: 50px;
+      min-height: 50px;
+
+      .countdown-heading {
+        display: block;
+        color: var(--color-gray-500);
+        font-size: var(--font-size-b4);
+        line-height: var(--line-height-b4);
+        text-align: center;
+        margin: 0;
+        display: block;
+        transition: var(--transition);
+      }
+
+      .countdown-value {
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+        color: var(--color-heading);
+        text-align: center;
+        position: relative;
+        transition: var(--transition);
+        margin: 0;
+
+        @media #{$sm-layout} {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  &.rbt-countdown-lg {
+    .countdown {
+      gap: 24px;
+      .countdown-container {
+        min-height: 96px;
+        min-width: 80px;
+
+        @media #{$md-layout} {
+          min-height: 72px;
+          min-width: 64px;
+        }
+
+        @media #{$sm-layout} {
+          min-height: 56px;
+          min-width: 48px;
+        }
+
+        .countdown-heading {
+          font-size: 20px;
+          line-height: 1.2;
+
+          @media #{$sm-layout, $md-layout} {
+            font-size: var(--font-size-b2);
+          }
+        }
+
+        .countdown-value {
+          font-size: 32px;
+          line-height: 1.2;
+
+          @media #{$md-layout} {
+            font-size: var(--font-size-b1);
+          }
+
+          @media #{$sm-layout} {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  &.bg-variation-black {
+    .countdown {
+      .countdown-container {
+        background-color: var(--color-black);
+
+        .countdown-value,
+        .countdown-heading {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+
+  &.bg-variation-primary {
+    .countdown {
+      .countdown-container {
+        background-color: var(--color-primary);
+
+        .countdown-value,
+        .countdown-heading {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+
+  &.bg-variation-green {
+    .countdown {
+      .countdown-container {
+        background-color: var(--color-success);
+
+        .countdown-value,
+        .countdown-heading {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+
+  &.cd-border-style {
+    .countdown {
+      .countdown-container {
+        padding: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        .countdown-value,
+        .countdown-heading {
+          color: var(--color-white);
+          padding: 4px;
+        }
+
+        .countdown-value {
+          padding-bottom: 7px;
+        }
+      }
+    }
+
+    &.bg-variation-black {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-black-01.webp");
+          mask-image: url("/assets/images/countdown/cd-bg-black-01.webp");
+          background-color: var(--color-black);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+
+    &.bg-variation-primary {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-primary-01.webp");
+          mask-image: url("/assets/images/countdown/cd-bg-primary-01.webp");
+          background-color: var(--color-primary);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          .countdown-heading {
+            border-top: 0.5px dashed rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+
+    &.bg-variation-green {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-green-01.webp");
+          mask-image: url("/assets/images/countdown/cd-bg-green-01.webp");
+          background-color: var(--color-success);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          .countdown-heading {
+            border-top: 0.5px dashed var(--color-white);
+          }
+        }
+      }
+    }
+
+    &.bg-variation-secondary {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-primary-01.webp");
+          mask-image: url("/assets/images/countdown/cd-bg-primary-01.webp");
+          background-color: var(--color-secondary);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          .countdown-heading {
+            border-top: 0.5px dashed var(--color-white);
+          }
+        }
+      }
+    }
+
+    &.bg-variation-white {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-white-01.webp");
+          mask-image: url("/assets/images/countdown/cd-bg-white-01.webp");
+          background-color: var(--color-white);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          .countdown-value,
+          .countdown-heading {
+            color: var(--color-primary);
+          }
+
+          .countdown-heading {
+            padding: 2px 0;
+            border-top: 0;
+          }
+
+          .countdown-value {
+            padding: 2px 0;
+            padding-bottom: 0px;
+          }
+        }
+      }
+    }
+
+    &.bg-variation-purple {
+      .countdown {
+        .countdown-container {
+          -webkit-mask-image: url("/assets/images/countdown/cd-bg-purple-01.svg");
+          mask-image: url("/assets/images/countdown/cd-bg-purple-01.svg");
+          background-color: var(--color-white);
+          -webkit-mask-position: 0% 0%;
+          -webkit-mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: #703ccd;
+          .countdown-value,
+          .countdown-heading {
+            color: var(--color-white);
+          }
+          .countdown-heading {
+            border-top: 0.5px dashed #703ccd;
+          }
+
+          .countdown-heading {
+            padding: 2px 0;
+            border-top: 0;
+          }
+
+          .countdown-value {
+            padding: 2px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*------------------------
+    Countdown Section Styles  
+-------------------------*/
+.rbt-countdown-section {
+  @extend %bgImagePosition;
+  padding: 80px;
+  border-radius: 16px;
+  overflow: hidden;
+
+  @media #{$sm-layout} {
+    padding: 40px;
+    border-radius: 8px;
+  }
+
+  @media #{$small-mobile} {
+    padding: 40px 20px;
+  }
+
+  &.rbt-countdown-section-style-one {
+    background-image: url(/assets/images/product-banner/product-countd-banner-01.webp);
+    @extend %bgImagePosition;
+
+    .rbt-subtitle {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--color-gray-500);
+    }
+
+    .rbt-title {
+      margin-top: 8px;
+      margin-bottom: 0;
+      font-weight: 400;
+    }
+
+    .rbt-btn {
+      margin-top: 32px;
+
+      @media #{$sm-layout} {
+        margin-top: 16px;
+      }
+    }
+
+    .rbt-countdown-section {
+      margin-top: 32px;
+
+      @media #{$sm-layout} {
+        margin-top: 16px;
+      }
+    }
+  }
+  &.rbt-countdown-bg-two {
+    background-image: url(/assets/images/product-banner/product-banner-furniture-c-03.webp);
+  }
+  &.rbt-countdown-bg-three {
+    background-image: url(/assets/images/product-banner/product-banner-img-f-03.webp);
+  }
+  &.rbt-count-down-bg-cake-01 {
+    background-image: url(/assets/images/countdown/countdown-banner-cake-lg-01.webp);
+  }
+
+  &.rbt-countdown-section-style-two {
+    padding: 0;
+
+    .rbt-countdown-content {
+      padding: 140px 88px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+      height: 100%;
+
+      @media #{$sm-layout,$md-layout,$lg-layout} {
+        padding: 40px;
+        border-radius: 8px;
+      }
+
+      @media #{$small-mobile} {
+        padding: 40px 20px;
+      }
+
+      .rbt-btn {
+        width: max-content;
+      }
+      &.rbt-countdown-content-var-two {
+        .rbt-title {
+          font-size: 48px;
+          text-align: center;
+          font-family: var(--font-quaternary);
+          @media #{$sm-layout} {
+            font-size: 32px;
+          }
+          @media #{$small-mobile} {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}

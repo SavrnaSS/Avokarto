@@ -1,0 +1,137 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+.rbt-error-content {
+    position: relative;
+    border: 2px solid var(--color-primary);
+    padding: 60px;
+    border-radius: var(--radius-12) var(--radius-12) var(--radius-12) 0;
+    margin-top: 98px;
+    background: var(--color-white);
+    z-index: 1;
+
+    @media #{$md-layout} {
+        padding: 60px 40px;
+        margin-top: 80px;
+        border-radius: var(--radius-12);
+    }
+
+    @media #{$sm-layout} {
+        padding: 20px;
+        margin-top: 60px;
+        border-radius: var(--radius-12);
+    }
+
+    .rbt-error-title {
+        font-size: 102px;
+        color: var(--color-primary);
+        line-height: 1;
+
+        @media #{$sm-layout} {
+            font-size: 70px;
+        }
+    }
+
+    .error-bg-shape {
+        width: 481px;
+        position: absolute;
+        top: 104px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -2;
+    }
+
+    .rbt-error-subtitle {
+        margin-top: 48px;
+        margin-bottom: 12px;
+
+        @media #{$lg-layout} {
+            margin-top: 36px;
+        }
+
+        @media #{$sm-layout} {
+            margin-top: 32px;
+        }
+    }
+
+    .rbt-error-description {
+        padding: 0 266px;
+        margin-bottom: 24px;
+
+        @media #{$laptop-device} {
+            padding: 0 180px;
+        }
+
+        @media #{$lg-layout} {
+            padding: 0 52px;
+        }
+
+        @media #{$md-layout} {
+            padding: 0 52px;
+        }
+
+        @media #{$sm-layout} {
+            padding: 0;
+        }
+
+        &.error-maintanance-description {
+            padding: 0 180px;
+
+            @media #{$laptop-device} {
+                padding: 0 96px;
+            }
+
+            @media #{$lg-layout} {
+                padding: 0 52px;
+            }
+
+            @media #{$md-layout} {
+                padding: 0;
+            }
+
+            @media #{$sm-layout} {
+                padding: 0;
+            }
+        }
+    }
+}
+
+// bottom border fshape style
+.rbt-fshape-box-outline-bottom-style {
+    border-top: unset;
+    border-radius: 0 0 0 12px;
+    padding: 0;
+    height: 52px;
+    width: 70%;
+    margin-top: -2px;
+    border-bottom: 2px solid var(--color-primary);
+    border-left: 2px solid var(--color-primary);
+    position: relative;
+    z-index: 2;
+
+    @media #{$laptop-device} {
+        margin-top: -3px;
+    }
+
+    @media #{$lg-layout} {
+        margin-top: -3px;
+    }
+
+    @media #{$md-layout} {
+        display: none;
+    }
+
+    @media #{$sm-layout} {
+        display: none;
+    }
+
+    .rbt-svg-bottom-portion {
+        position: absolute;
+        left: 100%;
+
+        svg {
+            display: inline-block;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+.imageFrame {
+  width: 100%;
+  aspect-ratio: 624 / 846;
+  background: #f3f4f2;
+}
+
+.imageFrame .imageLink {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.imageFrame .imageLink img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Uploaded variants must not resize the thumbnail row. */
+.variants.variants > li {
+  flex-shrink: 0;
+}
+
+.variants.variants > li > button {
+  width: 100%;
+  aspect-ratio: 624 / 846;
+}
+
+.variants.variants > li > button > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

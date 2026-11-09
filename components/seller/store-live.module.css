@@ -1,0 +1,38 @@
+/* The store on a laptop and a phone, tilted in space. Colour comes only from
+   the seller's theme and the product photos; the frames stay near black.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.scene { --frame: #16210f; --ease: cubic-bezier(.22, 1, .36, 1); position: absolute; inset: 0; overflow: hidden; perspective: 720px; perspective-origin: 50% 30%; }
+.rig { position: absolute; top: 20px; left: 50%; width: min(280px, 88%); height: 220px; margin-left: calc(min(280px, 88%) / -2); transform: rotateX(10deg) rotateY(-12deg) rotateZ(1.5deg); transform-style: preserve-3d; transition: transform 480ms var(--ease); }
+
+.laptop { position: absolute; top: 0; left: 0; display: grid; align-content: start; gap: 8px; width: 84%; height: 100%; padding: 8px; overflow: hidden; border: 4px solid var(--frame); border-radius: 16px; background: var(--store-bg); color: var(--store-ink); box-shadow: 0 24px 40px -20px rgb(16 24 8 / 50%); }
+/* One pass of light across the screen when the card is hovered. */
+.laptop::after { position: absolute; inset: -20% auto -20% -60%; width: 40%; background: linear-gradient(100deg, transparent, rgb(255 255 255 / 38%), transparent); content: ""; pointer-events: none; transform: skewX(-16deg); }
+.address { display: flex; align-items: center; gap: 4px; min-width: 0; height: 24px; padding: 0 8px; border-radius: 8px; background: color-mix(in srgb, var(--store-ink) 7%, transparent); font-size: 11px; line-height: 16px; }
+.address svg { flex: none; opacity: .6; }
+.address span { min-width: 0; overflow: hidden; opacity: .72; text-overflow: ellipsis; white-space: nowrap; }
+.shop { display: flex; align-items: center; gap: 8px; min-width: 0; padding-right: 12%; }
+.shop strong { min-width: 0; overflow: hidden; font-size: 14px; font-weight: 600; line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+.logo { display: grid; flex: none; place-items: center; width: 24px; height: 24px; border-radius: 8px; background: var(--store-accent); color: var(--store-on-accent); font-size: 12px; font-weight: 600; line-height: 1; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.tile { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 8px; background: color-mix(in srgb, var(--store-ink) 8%, transparent); }
+
+.phone { position: absolute; top: 44px; right: 0; display: grid; align-content: start; gap: 4px; width: 27%; height: 148px; padding: 4px; overflow: hidden; border: 4px solid var(--frame); border-radius: 16px; background: var(--store-bg); color: var(--store-ink); box-shadow: 0 16px 24px -12px rgb(16 24 8 / 60%); transform: translateZ(32px); transition: transform 480ms var(--ease); }
+.phoneHead { display: flex; justify-content: center; }
+.phoneHead .logo { width: 16px; height: 16px; border-radius: 4px; font-size: 0; }
+.phoneShot { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 6px; background: color-mix(in srgb, var(--store-ink) 8%, transparent); }
+.buy { height: 12px; border-radius: 4px; background: var(--store-accent); }
+
+.live { position: absolute; z-index: 1; bottom: 12px; left: 50%; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: #192e22; color: #fff; font-size: 12px; font-weight: 500; line-height: 16px; white-space: nowrap; transform: translateX(-50%); box-shadow: 0 8px 16px -8px rgb(16 24 8 / 60%); }
+.dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #c6f06c; }
+.dot::after { position: absolute; inset: 0; border-radius: inherit; background: inherit; content: ""; animation: live 2400ms var(--ease) infinite; }
+@keyframes live { from { opacity: .6; transform: scale(1); } 70%, to { opacity: 0; transform: scale(3); } }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  li:hover .rig { transform: rotateX(4deg) rotateY(-4deg) rotateZ(0deg); }
+  li:hover .phone { transform: translateZ(48px) translateY(-8px); }
+  li:hover .laptop::after { left: 130%; transition: left 900ms var(--ease); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rig, .phone { transition: none; }
+  .dot::after { display: none; }
+}

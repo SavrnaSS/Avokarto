@@ -1,0 +1,200 @@
+.section {
+  overflow: clip;
+}
+
+.bannerSection {
+  width: 100%;
+}
+
+.banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 8px;
+  background: #f4f0eb;
+}
+
+.bannerImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bannerCta {
+  position: absolute;
+  z-index: 3;
+  top: 39.5%;
+  left: 5.1%;
+  width: 26.2%;
+  height: max(7.3%, 44px);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.bannerCta:hover {
+  background: rgb(255 255 255 / 8%);
+  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 55%);
+}
+
+.bannerCta:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px #175b13;
+}
+
+.hotspot {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hotspotMarker {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 26px;
+  border: 7px solid #ffffff;
+  border-radius: 50%;
+  background: #175b13;
+  box-shadow: 0 3px 14px rgb(15 47 12 / 24%);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hotspotMarker::after {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgb(255 255 255 / 88%);
+  border-radius: inherit;
+  content: "";
+  animation: hotspotPulse 2s ease-out infinite;
+}
+
+.hotspot:hover .hotspotMarker,
+.hotspot:focus-visible .hotspotMarker,
+.hotspotActive .hotspotMarker {
+  transform: scale(1.14);
+  box-shadow:
+    0 0 0 3px #175b13,
+    0 5px 18px rgb(15 47 12 / 30%);
+}
+
+.hotspot:focus-visible {
+  outline: 3px solid #175b13;
+  outline-offset: 2px;
+}
+
+.hotspotLabel {
+  position: absolute;
+  top: 50%;
+  width: max-content;
+  max-width: 190px;
+  padding: 8px 11px;
+  transform: translateY(-50%) scale(0.96);
+  border: 1px solid rgb(23 91 19 / 16%);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 8px 24px rgb(22 34 20 / 16%);
+  color: #172016;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.hotspot[data-label-side="right"] .hotspotLabel {
+  left: calc(100% + 4px);
+  transform-origin: left center;
+}
+
+.hotspot[data-label-side="left"] .hotspotLabel {
+  right: calc(100% + 4px);
+  transform-origin: right center;
+}
+
+.hotspot:hover .hotspotLabel,
+.hotspot:focus-visible .hotspotLabel {
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+.productsPanel {
+  min-width: 0;
+}
+
+@keyframes hotspotPulse {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.9;
+  }
+
+  75%,
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1199px) {
+  .bannerSection {
+    max-width: 820px;
+    margin-inline: auto;
+  }
+
+  .productsPanel {
+    max-width: 900px;
+    margin-inline: auto;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner {
+    border-radius: 6px;
+  }
+
+  .hotspotLabel {
+    max-width: 142px;
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .productsPanel {
+    padding-inline: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bannerCta,
+  .hotspotMarker,
+  .hotspotLabel {
+    transition: none;
+  }
+
+  .hotspotMarker::after {
+    animation: none;
+  }
+}

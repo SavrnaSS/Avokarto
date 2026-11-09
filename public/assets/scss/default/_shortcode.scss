@@ -1,0 +1,1070 @@
+@use "sass:string";
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/*==============================
+ *  Utilities
+=================================*/
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.fix {
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 767px) {
+
+    .container,
+    .container-fluid,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+
+
+
+/*===============================
+    Background Color 
+=================================*/
+
+/* Map values are custom property names only to avoid Turbopack/Lightning CSS parsing "var" as pseudo-class */
+$colors: (
+    'primary': '--color-primary',
+    'secondary': '--color-secondary',
+    'brand-50': '--color-brand-50',
+    'brand-100': '--color-brand-100',
+    'brand-200': '--color-brand-200',
+    'brand-300': '--color-brand-300',
+    'brand-400': '--color-brand-400',
+    'brand-500': '--color-brand-500',
+    'brand-600': '--color-brand-600',
+    'brand-700': '--color-brand-700',
+    'gray-light': '--color-gray-light',
+    'black': '--color-black',
+    'dark-black': '--color-dark-black',
+    'heading': '--color-heading',
+    'body': '--color-body',
+    'black-opacity': '--color-black-opacity',
+    'gray-black': '--color-gray-black',
+    'gray-black-two': '--color-gray-black-two',
+    'gray-black-three': '--color-gray-black-three',
+    'light-pink': '--color-light-pink',
+    'gray-100': '--color-gray-100',
+    'gray-150': '--color-gray-150',
+    'gray-200': '--color-gray-200',
+    'gray-300': '--color-gray-300',
+    'gray-400': '--color-gray-400',
+    'gray-500': '--color-gray-500',
+    'gray-600': '--color-gray-600',
+    'gray-700': '--color-gray-700',
+    'white': '--color-white',
+    'white-opacity': '--white-opacity',
+    'extra-one': '--color-extra-one',
+    'extra-two': '--color-extra-two',
+    'extra-three': '--color-extra-one',
+    'extra-four': '--color-extra-four',
+    'extra-five': '--color-extra-five',
+    'extra-six': '--color-extra-six',
+    'extra-seven': '--color-extra-seven',
+    'extra-eight': '--color-extra-eight',
+    'extra-nine': '--color-extra-nine',
+    'extra-ten': '--color-extra-ten',
+    'extra-eleven': '--color-extra-eleven',
+    'extra-twelve': '--color-extra-twelve',
+    'success': '--color-success',
+    'danger': '--color-danger',
+    'warning': '--color-warning',
+    'element-bg-blue': '--color-element-bg-blue',
+    'element-bg-yellow': '--color-element-bg-yellow',
+    'green': '--color-green',
+    'light-green': '--color-light-green',
+    'yellow': '--color-yellow',
+    'orange': '--color-orange',
+    'chocolate': '--color-chocolate',
+    'facebook': '--color-facebook',
+    'tiktok': '--color-tiktok',
+    'youtube': '--color-youtube',
+    'linkedin': '--color-linkedin',
+    'pinterest': '--color-pinterest',
+    'tumblr': '--color-tumblr',
+    'telegram': '--color-telegram',
+    'vimeo': '--color-vimeo',
+    'twitch': '--color-twitch',
+    'discord': '--color-discord',
+    'whatsapp': '--color-whatsapp',
+    'mail': '--color-mail',
+    'phone': '--color-phone',
+    'skype': '--color-skype',
+    'signal': '--color-signal',
+);
+
+$font-weights: (
+    'light': '--f-light',
+    'regular': '--f-regular',
+    'medium': '--f-medium',
+    'semi-bold': '--f-semi-bold',
+    'bold': '--f-bold',
+    'extra-bold': '--f-extra-bold',
+    'black': '--f-black',
+);
+
+$fonts: (
+    'primary': '--font-primary',
+    'secondary': '--font-secondary',
+    'tertiary': '--font-tertiary',
+    'quaternary': '--font-quaternary',
+);
+
+/* Helper: build var() in output so SCSS source avoids "var" token that Turbopack misparses */
+@function rbt-var($name) {
+    @return string.unquote("var(" + $name + ")");
+}
+
+/*----------------------------------------------
+        Background and Text color class generate
+------------------------------------------------*/
+@each $name, $var-name in $colors {
+    .rbt-text-color-#{$name} {
+        color: rbt-var($var-name) !important;
+    }
+
+    .rbt-bg-color-#{$name} {
+        background-color: rbt-var($var-name) !important;
+    }
+}
+
+
+/*----------------------------------------------
+        border color class generate
+------------------------------------------------*/
+@each $name, $var-name in $colors {
+    .rbt-border-color-#{$name} {
+        border-color: rbt-var($var-name) !important;
+    }
+};
+
+
+/*===============================
+    Font Weight 
+=================================*/
+@each $name, $var-name in $font-weights {
+    .rbt-text-#{$name} {
+        font-weight: rbt-var($var-name) !important;
+    }
+}
+
+
+/*===============================
+    Font Family 
+=================================*/
+@each $name, $var-name in $fonts {
+    .rbt-font-#{$name} {
+        font-family: rbt-var($var-name) !important;
+    }
+}
+
+
+/*---------------------
+    Height and width 
+------------------------*/
+.fullscreen {
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/*===================
+Custom Row
+======================*/
+
+@media (min-width: 992px) {
+    .col-md-1-5 {
+        width: 20%;
+    }
+
+    .col-md-2-5 {
+        width: 40%;
+    }
+
+    .col-md-3-5 {
+        width: 60%;
+    }
+
+    .col-md-4-5 {
+        width: 80%;
+    }
+
+    .col-md-5-5 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-1-5 {
+        width: 20%;
+    }
+
+    .col-lg-2-5 {
+        width: 40%;
+    }
+
+    .col-lg-3-5 {
+        width: 60%;
+    }
+
+    .col-lg-4-5 {
+        width: 80%;
+    }
+
+    .col-lg-5-5 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .col-xl-1-5 {
+        width: 20%;
+    }
+
+    .col-xl-2-5 {
+        width: 40%;
+    }
+
+    .col-xl-3-5 {
+        width: 60%;
+    }
+
+    .col-xl-4-5 {
+        width: 80%;
+    }
+
+    .col-xl-5-5 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-1-8 {
+        width: 12.5%;
+    }
+
+    .col-md-2-8 {
+        width: 25%;
+    }
+
+    .col-md-3-8 {
+        width: 37.5%;
+    }
+
+    .col-md-4-8 {
+        width: 50%;
+    }
+
+    .col-md-5-8 {
+        width: 62.5%;
+    }
+
+    .col-md-6-8 {
+        width: 75%;
+    }
+
+    .col-md-7-8 {
+        width: 87.5%;
+    }
+
+    .col-md-8-8 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-1-8 {
+        width: 12.5%;
+    }
+
+    .col-lg-2-8 {
+        width: 25%;
+    }
+
+    .col-lg-3-8 {
+        width: 37.5%;
+    }
+
+    .col-lg-4-8 {
+        width: 50%;
+    }
+
+    .col-lg-5-8 {
+        width: 62.5%;
+    }
+
+    .col-lg-6-8 {
+        width: 75%;
+    }
+
+    .col-lg-7-8 {
+        width: 87.5%;
+    }
+
+    .col-lg-8-8 {
+        width: 100%;
+    }
+}
+@media (min-width: 1400px) {
+    .col-xxl-1-8 {
+        width: 12.5%;
+    }
+
+    .col-xxl-2-8 {
+        width: 25%;
+    }
+
+    .col-xxl-3-8 {
+        width: 37.5%;
+    }
+
+    .col-xxl-4-8 {
+        width: 50%;
+    }
+
+    .col-xxl-5-8 {
+        width: 62.5%;
+    }
+
+    .col-xxl-6-8 {
+        width: 75%;
+    }
+
+    .col-xxl-7-8 {
+        width: 87.5%;
+    }
+
+    .col-xxl-8-8 {
+        width: 100%;
+    }
+}
+
+.row--0 {
+    margin-left: -0px;
+    margin-right: -0px;
+
+    &>[class*="col"] {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+// row--4/8/16/20/24/32/40/45/60 padding all use !important, matching
+// row--12 below - without it, a column combining one of these with
+// Bootstrap's `.p-0 !important` loses its gutter padding while the row's
+// negative margin still applies, leaking as real horizontal page overflow.
+.row--4 {
+    margin-left: -4px;
+    margin-right: -4px;
+
+    &>[class*="col"] {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+}
+
+.row--8 {
+    margin-left: -8px;
+    margin-right: -8px;
+
+    &>[class*="col"] {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
+
+.row--16 {
+    margin-left: -16px;
+    margin-right: -16px;
+
+    @media #{$sm-layout} {
+        margin-left: -8px !important;
+        margin-right: -8px !important;
+    }
+
+    &>[class*="col"] {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+
+        @media #{$sm-layout} {
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
+    }
+}
+
+.row--12 {
+    margin-left: -12px;
+    margin-right: -12px;
+
+    @media #{$sm-layout} {
+        margin-left: -8px !important;
+        margin-right: -8px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+
+        // Responsive
+        // !important on every tier here (matching md/sm/small-mobile below)
+        // so this padding reliably cancels the row's negative margin even
+        // when a column also carries a `.p-0` utility class - without it,
+        // Bootstrap's `.p-0 !important` wins in the 992-1599px range only,
+        // exposing the row's -12px margin as real horizontal page overflow.
+        @media #{$laptop-device} {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
+        @media #{$small-mobile} {
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+        }
+    }
+}
+
+.row--20 {
+    margin-left: -20px;
+    margin-right: -20px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+
+.row--24 {
+    margin-left: -24px;
+    margin-right: -24px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+.row--32 {
+    margin-left: -32px;
+    margin-right: -32px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -32px;
+        margin-right: -32px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 32px !important;
+            padding-right: 32px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+.row--40 {
+    margin-left: -40px;
+    margin-right: -40px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+.row--45 {
+    margin-left: -45px;
+    margin-right: -45px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 45px !important;
+        padding-right: 45px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+.row--60 {
+    margin-left: -60px;
+    margin-right: -60px;
+
+    // Responsive
+    @media #{$laptop-device} {
+        margin-left: -60px;
+        margin-right: -60px;
+    }
+
+    @media #{$lg-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$md-layout} {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    @media #{$sm-layout} {
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+    }
+
+    &>[class*="col"],
+    &>[class*="col-"] {
+        padding-left: 60px !important;
+        padding-right: 60px !important;
+
+        // Responsive
+        @media #{$laptop-device} {
+            padding-left: 60px !important;
+            padding-right: 60px !important;
+        }
+
+        @media #{$lg-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$md-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        @media #{$sm-layout} {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+    }
+}
+
+
+/*===========================
+    Input Placeholder
+=============================*/
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+
+
+/*=============================
+	Overlay styles 
+==============================*/
+
+[data-overlay],
+[data-black-overlay],
+[data-white-overlay],
+[data-gradient-overlay] {
+    position: relative;
+}
+
+[data-overlay]>div,
+[data-overlay]>*,
+[data-black-overlay]>div,
+[data-black-overlay]>*,
+[data-white-overlay]>div,
+[data-white-overlay]>*,
+[data-gradient-overlay]>div,
+[data-gradient-overlay]>* {
+    position: relative;
+    z-index: 2;
+}
+
+[data-overlay]:before,
+[data-black-overlay]:before,
+[data-white-overlay]:before,
+[data-gradient-overlay]:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+[data-overlay]:before {
+    background: var(--color-primary);
+}
+
+[data-black-overlay]:before {
+    background-color: #000000;
+}
+
+[data-white-overlay]:before {
+    background-color: #ffffff;
+}
+
+
+
+@for $i from 1 through 10 {
+
+    [data-overlay="#{$i}"]:before,
+    [data-black-overlay="#{$i}"]:before,
+    [data-white-overlay="#{$i}"]:before,
+    [data-gradient-overlay="#{$i}"]:before {
+        opacity: #{$i * 0.10};
+    }
+}
+
+.opacity-7 {
+    opacity: 0.7;
+}
+
+
+
+/*=============================
+	position styles 
+==============================*/
+
+@for $i from 1 through 100 {
+    [data-rbt-position-vertical="#{$i}"] {
+        top: #{$i * 1%};
+    }
+}
+
+@for $i from 1 through 100 {
+    [data-rbt-position-horigental="#{$i}"] {
+        left: #{$i * 1%};
+    }
+}
+
+@for $i from 1 through 20 {
+    .z-#{$i} {
+        z-index: #{$i} !important;
+    }
+}
+
+
+
+
+/*------------------------------
+    Scroll Up 
+--------------------------------*/
+
+#scrollUp {
+    width: 70px;
+    height: 80px;
+    right: 100px;
+    bottom: 60px;
+    text-align: center;
+    z-index: 9811 !important;
+    text-decoration: none;
+    background: #fff;
+    line-height: 80px;
+    color: #757589;
+    font-size: 15px;
+    font-weight: 400;
+    @extend %transition;
+    display: inline-block;
+    background: #ffffff;
+
+    @media #{$md-layout} {
+        right: 20px;
+        bottom: 40px;
+    }
+
+    @media #{$sm-layout} {
+        right: 20px;
+        bottom: 40px;
+    }
+
+    &::before {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 2, 72, 0.1);
+        content: "";
+        position: absolute;
+        z-index: -1;
+        transform-style: preserve-3d;
+        transform: rotateY(-10deg);
+        filter: blur(50px);
+    }
+
+    &::after {
+        background: #ffffff;
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transform-style: preserve-3d;
+        transform: rotateY(-10deg);
+    }
+
+    @media #{$sm-layout} {
+        right: 20px;
+        bottom: 30px;
+        width: 50px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    span {
+        &.text {
+            position: relative;
+            display: inline-block;
+            margin-top: 7px;
+
+            @media #{$sm-layout} {
+                margin-top: 3px;
+            }
+
+            &::after {
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 5px 7px 5px;
+                border-color: transparent transparent var(--color-primary) transparent;
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 21%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+
+    &:hover {
+        span {
+            &.text {
+                color: var(--color-primary);
+            }
+        }
+    }
+}
+
+@media #{$sm-layout} {
+    .col-6.mt--24 {
+        margin-top: 16px !important;
+    }
+}
+@media #{$small-mobile} {
+    .row--12>[class*="col"].mt--24 {
+        margin-top: 8px !important;
+    }
+    .row--12.mt_dec--24{
+        margin-top: -8px !important;
+    }
+}
+
+
+
+
+/*--------------------
+    Contact Form 
+----------------------*/
+.form-message {
+    margin-bottom: 0;
+    text-align: center;
+
+    &.error {
+        margin-top: 20px;
+        color: #f80707;
+    }
+
+    &.success {
+        margin-top: 20px;
+        color: #0d8d2d;
+    }
+}
+
+
+.rbt-scroll-max-height {
+    max-height: 500px !important;
+    overflow-y: scroll;
+}
+
+.rbt-scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+.rbt-scroll::-webkit-scrollbar-thumb {
+    background-color: #e8e6e9 !important;
+    outline: 0;
+    border-radius: 10px;
+}
+
+.rbt-scroll::-webkit-scrollbar-track {
+    box-shadow: 0 0 1px #cecdcd;
+    background: #f6f6f6 !important;
+    padding: 1px;
+    border-radius: 8px;
+}
+
+
+
+
+/*=============================
+	Animation Order Config
+==============================*/
+@for $i from 0 through 50 {
+    .animation-order-#{$i} {
+        --animation-order: #{$i};
+    }
+}

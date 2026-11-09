@@ -1,0 +1,60 @@
+.saleBanner.saleBanner {
+  background-color: #e7ece3;
+}
+
+.saleBanner :global(.rbt-banner-inner) {
+  display: grid;
+  grid-template-columns: 48% 52%;
+  align-items: center;
+  min-height: 380px;
+}
+
+.saleBanner.saleBanner.saleBanner :global(.rbt-product-banner-content) {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 48px 12px 48px 28px !important;
+  min-width: 0;
+}
+
+.saleBanner.saleBanner.saleBanner :global(.rbt-product-banner-img) {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  height: auto;
+  width: 100%;
+  overflow: visible;
+  padding: 16px 12px 16px 0;
+}
+
+.saleBanner.saleBanner.saleBanner :global(.rbt-product-banner-img) img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.saleBanner.saleBanner.saleBanner :global(.rbt-banner-title) {
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.saleBanner.saleBanner.saleBanner :global(.rbt-content-section) :global(.rbt-banner-description) {
+  color: #566050;
+}
+
+@media (max-width: 575px) {
+  .saleBanner :global(.rbt-banner-inner) {
+    grid-template-columns: 1fr;
+  }
+
+  .saleBanner.saleBanner.saleBanner :global(.rbt-product-banner-content) {
+    padding: 32px 24px 16px !important;
+  }
+
+  .saleBanner.saleBanner.saleBanner :global(.rbt-product-banner-img) {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0 16px 20px;
+  }
+}

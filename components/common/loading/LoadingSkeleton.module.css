@@ -1,0 +1,58 @@
+.root { width: 100%; min-width: 0; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.block { border-radius: 6px; background: var(--skeleton-color, #e9ece8); animation: pulse 1.6s ease-in-out infinite; }
+.item { min-width: 0; }
+.media { width: 100%; aspect-ratio: 624 / 846; }
+.line { height: 16px; margin-top: 16px; width: 86%; }
+.short { height: 14px; margin-top: 10px; width: 50%; }
+.products, .categories, .categoryTiles, .detail, .dashboard { display: grid; gap: 24px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.categories { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.categories .media { aspect-ratio: 1; }
+.categories .item:nth-child(4n) { grid-column: span 2; }
+.categories .item:nth-child(4n) .media { aspect-ratio: 1026 / 490; }
+.categories .line, .categories .short { display: none; }
+/* Card body + pagination space measured from the real carousels (title,
+   rating, price, add-to-cart button, then the dots under the row). */
+.carousel { display: flex; gap: 24px; overflow: hidden; padding-bottom: 60px; }
+.carousel .item { flex: 0 0 calc((100% - 72px) / 4); padding-bottom: 152px; }
+.categoryTiles { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.categoryTiles .media { aspect-ratio: 3 / 4; }
+.categoryTiles .short { display: none; }
+.detail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.detail .media { aspect-ratio: 1; }
+.table { display: grid; gap: 1px; overflow: hidden; border-radius: 6px; border: 1px solid var(--skeleton-color, #e9ece8); }
+.table .item { display: grid; align-items: center; grid-template-columns: 1fr 2fr 1fr; gap: 24px; padding: 20px 16px; }
+.table .media { aspect-ratio: auto; height: 20px; }
+.table .line, .table .short { margin: 0; height: 14px; }
+.dashboard .media { aspect-ratio: auto; height: 40px; width: 40px; }
+.dashboard .item { padding: 20px 0; }
+.page .media { display: none; }
+.page .line { width: min(280px, 70%); height: 28px; margin: 0; }
+.page .short { width: min(440px, 90%); margin: 16px 0 32px; }
+.pageWrap { max-width: 1440px; margin: auto; padding: 32px 24px; min-height: 65vh; }
+.pageWrap > * + * { margin-top: 24px; }
+.admin { padding: 8px 0; --skeleton-color: var(--color-surface-muted, #e9ecef); }
+.state { padding: 32px 16px; text-align: center; color: var(--color-ink-500, #586052); }
+.state p { margin: 0 0 12px; font-size: 14px; }
+.state button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px; border: 1px solid #b7c7b0; border-radius: 6px; background: #fff; color: #214c14; font-size: 14px; cursor: pointer; }
+.state button:focus-visible { outline: 2px solid #54764a; outline-offset: 3px; }
+@keyframes pulse { 50% { opacity: 0.45; } }
+@media (max-width: 1199px) { .products, .categories { grid-template-columns: repeat(3, minmax(0, 1fr)); } .categoryTiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } .carousel { padding-bottom: 44px; } .carousel .item { flex-basis: calc((100% - 43.2px) / 2.8); padding-bottom: 120px; } }
+@media (max-width: 767px) {
+  .products, .categories, .dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .carousel { padding-bottom: 32px; }
+  .carousel .item { flex-basis: calc((100% - 19.2px) / 1.8); padding-bottom: 88px; }
+  /* Phones: the categories section is a swipe slider (~72% cards, next one
+     peeking, dots) - mirror it so nothing jumps when tiles arrive. */
+  .categories { display: flex; gap: 12px; overflow: hidden; padding-bottom: 34px; /* the slider's dot row */ }
+  .categories .item { flex: 0 0 72%; }
+  .categories .item:nth-child(4n) { grid-column: auto; }
+  .categories .item:nth-child(4n) .media, .categories .media { aspect-ratio: 1; border-radius: 16px; }
+  .categories::after { content: ""; flex: none; width: 1px; }
+  .categoryTiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 10px; }
+  .detail { grid-template-columns: 1fr; }
+  .table .item { gap: 12px; }
+}
+@media (min-width: 540px) and (max-width: 767px) { .categories .item { flex-basis: calc(50% - 6px); } }
+@media (max-width: 575px) { .categoryTiles .media { aspect-ratio: 1; } .pageWrap { padding: 24px 16px; } .admin { padding: 0; } }
+@media (prefers-reduced-motion: reduce) { .block { animation: none; } }

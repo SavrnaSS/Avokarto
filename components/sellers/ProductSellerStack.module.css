@@ -1,0 +1,67 @@
+.stack {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-left: auto;
+	padding: 2px 8px 2px 2px;
+	border-radius: 999px;
+	background: #eef7e9;
+	color: #174d0a;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	text-decoration: none;
+	transition: background-color 0.18s ease;
+}
+.stack:hover {
+	background: #d8edcf;
+	color: #174d0a;
+}
+.stack:focus-visible {
+	outline: 2px solid #3e8315;
+	outline-offset: 2px;
+}
+
+.faces {
+	display: inline-flex;
+}
+
+.face {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background: var(--seller, #3e8315);
+	color: #fff;
+	font-size: 9px;
+	font-weight: 700;
+	overflow: hidden;
+	transition: transform 0.18s ease;
+}
+.face + .face {
+	margin-left: -8px;
+}
+.stack:hover .face:nth-child(2) { transform: translateX(2px); }
+.stack:hover .face:nth-child(3) { transform: translateX(4px); }
+.stack:hover .face:nth-child(4) { transform: translateX(6px); }
+
+.more {
+	background: #174d0a;
+	font-size: 9px;
+}
+
+/* Narrow two-up cards: the faces carry the meaning, the words drop. */
+@media (max-width: 575px) {
+	.text { display: none; }
+	.stack { padding-right: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.face { transition: none; }
+	.stack:hover .face { transform: none; }
+}

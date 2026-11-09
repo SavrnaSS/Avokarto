@@ -1,0 +1,3 @@
+/* Fills its positioned parent. The still sits behind the video and its copy. */
+.frame { position: absolute; inset: 0; overflow: hidden; background-position: center; background-size: cover; }
+.frame video, .frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

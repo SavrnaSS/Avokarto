@@ -1,0 +1,116 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+.rbt-minicart-bottom-section {
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 348;
+    overflow: hidden;
+    padding: 16px 0;
+    // translateY(100%) hides the bar by its own rendered height, not a
+    // guessed pixel offset - a fixed `bottom: -100px` used to leave part of
+    // the bar (whenever its content was taller than 100px) sitting inside
+    // the viewport and intercepting clicks/drags on whatever page content
+    // was underneath it, even while "inactive".
+    transform: translateY(100%);
+    transition: transform .3s;
+    pointer-events: none;
+    @media #{$sm-layout,$md-layout} {
+        display: none;
+     }
+    &.rbt-minicart-bottom-section-active {
+        transform: translateY(0);
+        pointer-events: auto;
+        @media #{$smlg-device} {
+            transform: translateY(-54px);
+        }
+        @media #{$large-mobile} {
+            transform: translateY(-54px);
+        }
+    }
+    .course-action-bottom-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        @media #{$sm-layout} {
+            justify-content: center;
+        }
+    }
+    .rbt-price.large-size .current-price {
+        @media #{$md-layout} {
+            font-size: 24px;
+        }
+        @media #{$sm-layout} {
+            font-size: 24px;
+        }
+    }
+    .rbt-price.large-size .off-price {
+        @media #{$md-layout} {
+            font-size: 13px;
+        }
+        @media #{$sm-layout} {
+            font-size: 13px;
+        }
+    }
+
+    .rbt-price {
+        @media #{$large-mobile} {
+            display: none;
+        }
+    }
+    .rbt-prd-info-section{
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        @media #{$sm-layout,$md-layout} {
+            text-align: center;
+            justify-content: center;
+         }
+    }
+    .rbt-prd-img{
+        max-width: 84px;
+        img{
+            border-radius: 4px;
+        }
+    }
+    .rbt-content{
+        text-align: left;
+    }
+    .rbt-minicart-bottom-section-right{
+        text-align: end;
+        justify-content: end;
+        align-items: center;
+        gap: 16px;
+        @media #{$sm-layout,$md-layout} {
+           text-align: center;
+           justify-content: center;
+           flex-wrap: wrap;
+        }
+        @media #{$small-mobile} {
+            gap: 4px;
+         }
+    }
+    .pricing-part{
+        span{
+            font-size: var(--h5);
+            line-height: 1;
+        }
+    }
+    .rbt-title{
+        @media #{$small-mobile} {
+            font-size: var(--font-size-b3);
+         }
+    }
+    .rbt-desc{
+        @media #{$small-mobile} {
+            font-size: var(--font-size-b4);
+         }
+    }
+}
+
+

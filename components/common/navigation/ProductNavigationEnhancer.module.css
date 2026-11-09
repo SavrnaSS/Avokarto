@@ -1,0 +1,57 @@
+.progress {
+  position: fixed;
+  z-index: 10050;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: #2d6a1f;
+  box-shadow: 0 1px 5px rgba(45, 106, 31, 0.24);
+}
+
+.loading {
+  opacity: 1;
+  animation: product-route-progress 12s cubic-bezier(0.2, 0.7, 0.2, 1)
+    forwards;
+}
+
+.complete {
+  opacity: 0;
+  transform: scaleX(1);
+  transition:
+    transform 120ms ease-out,
+    opacity 180ms ease-out 70ms;
+}
+
+@keyframes product-route-progress {
+  0% {
+    transform: scaleX(0.06);
+  }
+
+  40% {
+    transform: scaleX(0.58);
+  }
+
+  75% {
+    transform: scaleX(0.82);
+  }
+
+  100% {
+    transform: scaleX(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading {
+    animation: none;
+    transform: scaleX(0.72);
+  }
+
+  .complete {
+    transition: none;
+  }
+}

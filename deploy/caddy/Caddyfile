@@ -1,0 +1,65 @@
+# Caddy in front of the Avokarto app: HTTPS for the main site plus
+# on-demand certificates for reseller custom domains.
+#
+# Environment (see docs/backend-deploy.md, "Seller custom domains"):
+#   SITE_DOMAIN     main site host, e.g. www.yourshop.com (no scheme)
+#   ACME_EMAIL      address for certificate-expiry notices
+#   APP_UPSTREAM    where the Next.js server listens (default app:3000,
+#                   the docker-compose service; use 127.0.0.1:3000 without Docker)
+#   ACME_CA         optional: Let's Encrypt staging while testing,
+#                   https://acme-staging-v02.api.letsencrypt.org/directory
+
+{
+	email {$ACME_EMAIL}
+	acme_ca {$ACME_CA:https://acme-v02.api.letsencrypt.org/directory}
+
+	# Before issuing a certificate for an unknown hostname, Caddy asks the app.
+	# It answers 200 only for verified, active reseller domains (see
+	# app/api/domains/tls-check), so nobody can make this server request
+	# certificates for arbitrary names. Asked over the private network.
+	on_demand_tls {
+		ask http://{$APP_UPSTREAM:app:3000}/api/domains/tls-check
+	}
+}
+
+# Shared proxy settings for every site below.
+(avokarto_app) {
+	encode zstd gzip
+
+	reverse_proxy {$APP_UPSTREAM:app:3000} {
+		# Live updates are Server-Sent Events: stream them immediately.
+		flush_interval -1
+		# Caddy keeps the visitor's Host header and adds X-Forwarded-For /
+		# X-Forwarded-Proto / X-Forwarded-Host, which the app uses to route
+		# custom domains (proxy.ts) and check request origins.
+		transport http {
+			# Long-lived SSE connections must not be cut by an idle timeout.
+			read_timeout 0
+		}
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+}
+
+# Main site: certificate obtained at startup.
+{$SITE_DOMAIN} {
+	import avokarto_app
+}
+
+# Seller custom domains: any other HTTPS hostname. The certificate is issued
+# on the first visit, after the ask check above approves the domain.
+https:// {
+	tls {
+		on_demand
+	}
+	import avokarto_app
+}
+
+# Plain HTTP for any hostname redirects to HTTPS. (Caddy answers ACME
+# HTTP-01 challenges on port 80 before this route runs.)
+http:// {
+	redir https://{host}{uri} 308
+}

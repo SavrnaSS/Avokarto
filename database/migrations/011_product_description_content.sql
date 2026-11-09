@@ -1,0 +1,4 @@
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS short_summary text NOT NULL DEFAULT '',
+ADD COLUMN IF NOT EXISTS key_highlights text[] NOT NULL DEFAULT ARRAY[]::text[],
+ADD COLUMN IF NOT EXISTS faqs jsonb NOT NULL DEFAULT '[]'::jsonb;

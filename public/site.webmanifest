@@ -1,0 +1,26 @@
+{
+  "name": "Avokarto",
+  "short_name": "Avokarto",
+  "description": "Launch your own dropshipping store in a minute - pick winning products, post ready-made reels, and let Avokarto ship every order.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f8e8",
+  "theme_color": "#174d0a",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48 64x64 128x128 256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

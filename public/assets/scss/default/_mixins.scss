@@ -1,0 +1,100 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+
+
+@mixin clearfix() {
+	&::after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder { 
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+
+
+// Container Right expand
+@mixin ml-container-width($container_width) {
+    max-width: calc($container_width + calc(calc((100% - $container_width))/2));
+}
+
+
+
+/* Theme-specific classes */
+body{
+	&.theme-yellow {
+		--color-primary: var(--color-yellow);
+	  }
+	  
+	&.theme-blue {
+		--color-primary: #2196F3; /* Assuming this is the blue color */
+	}
+	
+	&.theme-red {
+		--color-primary: #F44336; /* Assuming this is the red color */
+	}
+}
+
+// Pre-hydration Swiper grid (before .swiper-initialized).
+// $visible-* = how many slides to show; $cols-* = grid columns at that breakpoint.
+@mixin rbt-swiper-ssr-layout(
+	$visible-default: 1,
+	$visible-lg: null,
+	$cols-default: 1,
+	$cols-lg: null,
+	$gap: 24px,
+	$breakpoint: 992px
+) {
+	$visible-lg-resolved: if(sass($visible-lg == null): $visible-default; else: $visible-lg);
+	$cols-lg-resolved: if(sass($cols-lg == null): $cols-default; else: $cols-lg);
+
+	&:not(.swiper-initialized) {
+		.swiper-wrapper {
+			display: grid;
+			grid-template-columns: repeat($cols-default, minmax(0, 1fr));
+			gap: $gap;
+			transform: none !important;
+			width: 100% !important;
+		}
+
+		.swiper-slide {
+			width: auto !important;
+			height: auto !important;
+			margin: 0 !important;
+		}
+
+		.swiper-slide:nth-child(n + #{$visible-default + 1}) {
+			display: none;
+		}
+
+		@media (min-width: $breakpoint) {
+			.swiper-wrapper {
+				grid-template-columns: repeat($cols-lg-resolved, minmax(0, 1fr));
+			}
+
+			@if $visible-lg-resolved != $visible-default {
+				.swiper-slide:nth-child(n + #{$visible-default + 1}) {
+					display: block;
+				}
+			}
+
+			.swiper-slide:nth-child(n + #{$visible-lg-resolved + 1}) {
+				display: none;
+			}
+		}
+	}
+}

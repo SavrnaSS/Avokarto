@@ -1,0 +1,182 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+:root {
+    --hue: 221;
+    --bg: hsl(var(--hue), 10%, 90%);
+    --fg: hsl(var(--hue), 10%, 10%);
+    --primary: hsl(var(--hue), 90%, 55%);
+    --trans-dur: 0.3s;
+    font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+}
+
+// Pre Loader CSS
+.rbt-preloader {
+    background: var(--color-white);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+}
+
+.rbt-preloader-inner {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    img, svg {
+        max-width: 300px;
+    }
+}
+
+.preloader-msg {
+    animation: msg 0.3s 13.7s linear forwards;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+}
+
+.preloader-msg--last {
+    animation-direction: reverse;
+    animation-delay: 14s;
+    visibility: hidden;
+}
+
+.rbt-preloader-cart {
+    display: block;
+    margin: 0 auto 1.5em auto;
+    width: 60px;
+    height: 60px;
+}
+
+.rbt-preloader-cart-lines,
+.rbt-preloader-cart-top,
+.rbt-preloader-cart-wheel1,
+.rbt-preloader-cart-wheel2,
+.rbt-preloader-cart-wheel-stroke {
+    animation: cartLines 2s ease-in-out infinite;
+}
+
+.rbt-preloader-cart-lines {
+    stroke: var(--primary);
+}
+
+.rbt-preloader-cart-top {
+    animation-name: cartTop;
+}
+
+.rbt-preloader-cart-wheel1 {
+    animation-name: cartWheel1;
+    transform: rotate(-0.25turn);
+    transform-origin: 43px 111px;
+}
+
+.rbt-preloader-cart-wheel2 {
+    animation-name: cartWheel2;
+    transform: rotate(0.25turn);
+    transform-origin: 102px 111px;
+}
+
+.rbt-preloader-cart-wheel-stroke {
+    animation-name: cartWheelStroke
+}
+
+.rbt-preloader-cart-track {
+    stroke: hsla(var(--hue), 10%, 10%, 0.1);
+    transition: stroke var(--trans-dur);
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: hsl(var(--hue), 10%, 10%);
+        --fg: hsl(var(--hue), 10%, 90%);
+    }
+
+    .rbt-preloader-cart-track {
+        stroke: hsla(var(--hue), 10%, 90%, 0.1);
+    }
+}
+
+/* Animations */
+@keyframes msg {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    99.9% {
+        opacity: 0;
+        visibility: visible;
+    }
+
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes cartLines {
+
+    from,
+    to {
+        opacity: 0;
+    }
+
+    8%,
+    92% {
+        opacity: 1;
+    }
+}
+
+@keyframes cartTop {
+    from {
+        stroke-dashoffset: -338;
+    }
+
+    50% {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: 338;
+    }
+}
+
+@keyframes cartWheel1 {
+    from {
+        transform: rotate(-0.25turn);
+    }
+
+    to {
+        transform: rotate(2.75turn);
+    }
+}
+
+@keyframes cartWheel2 {
+    from {
+        transform: rotate(0.25turn);
+    }
+
+    to {
+        transform: rotate(3.25turn);
+    }
+}
+
+@keyframes cartWheelStroke {
+
+    from,
+    to {
+        stroke-dashoffset: 81.68;
+    }
+
+    50% {
+        stroke-dashoffset: 40.84;
+    }
+}

@@ -1,0 +1,53 @@
+/* Pricing: three plans that line up row for row, Pro in the brand's dark green,
+   and what covers each plan worked out from a real product's profit.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.wrap { --ease: cubic-bezier(.22, 1, .36, 1); --lime: #c6f06c; display: grid; gap: 16px; min-width: 0; container: pricing / inline-size; }
+.grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+.plan { display: grid; gap: 24px; min-width: 0; padding: 24px; border-radius: 20px; background: #fff; box-shadow: inset 0 0 0 1px var(--s-line); }
+.plan[data-featured] { background: var(--s-brand-dark); box-shadow: none; color: #fff; }
+.head { display: flex; flex-direction: column; min-width: 0; }
+.wrap .name { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0; color: var(--s-ink); font-size: 20px; font-weight: 600; line-height: 28px; }
+.name span { color: var(--lime); font-size: 13px; font-weight: 500; line-height: 16px; white-space: nowrap; }
+.plan[data-featured] .name { color: #fff; }
+.wrap .blurb { margin: 4px 0 20px; color: var(--s-ink-2); font-size: 15px; line-height: 24px; }
+.plan[data-featured] .blurb { color: rgb(255 255 255 / 80%); }
+.wrap .price { display: flex; align-items: baseline; gap: 4px; margin: auto 0 0; color: var(--s-ink-2); font-size: 15px; line-height: 20px; }
+.price strong { color: var(--s-ink); font-size: 48px; font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: -.02em; line-height: 56px; }
+.plan[data-featured] .price { color: rgb(255 255 255 / 80%); }
+.plan[data-featured] .price strong { color: #fff; }
+.wrap .covered { margin: 0 0 20px; color: #2f6b1f; font-size: 14px; font-weight: 500; line-height: 20px; }
+.plan[data-featured] .covered { color: var(--lime); }
+.list { display: grid; align-content: start; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.list li { display: flex; gap: 8px; margin: 0; color: var(--s-ink); font-size: 15px; line-height: 20px; }
+.list svg { flex: none; width: 16px; height: 20px; color: #2f6b1f; }
+.list .includes { color: var(--s-ink-2); font-size: 14px; }
+.plan[data-featured] .list li { color: #fff; }
+.plan[data-featured] .list .includes { color: rgb(255 255 255 / 80%); }
+.plan[data-featured] .list svg { color: var(--lime); }
+/* One loud button in the row: Pro's. The others stay outlined. */
+.plan[data-featured] .ctaLime { background: var(--lime) !important; box-shadow: none !important; color: var(--s-brand-dark) !important; }
+.plan .ctaQuiet { background: #fff !important; box-shadow: inset 0 0 0 1px var(--s-brand-dark) !important; color: var(--s-brand-dark) !important; }
+@media (hover: hover) {
+  .plan .ctaQuiet:hover { background: var(--s-brand-soft) !important; }
+}
+.wrap .note { display: grid; gap: 4px; justify-items: center; margin: 0; color: var(--s-ink-2); font-size: 14px; line-height: 20px; text-align: center; text-wrap: balance; }
+.noBreak { white-space: nowrap; }
+.titleLine { display: inline-block; max-width: 100%; }
+/* Two set lines once they fit, so "Cancel any time." never splits. */
+@media (min-width: 720px) {
+  h2.title { width: 100%; max-width: none !important; }
+  .titleLine { white-space: nowrap; }
+}
+
+/* Tablets: a plan reads across, so three cards never squeeze into narrow columns. */
+@container pricing (min-width: 640px) {
+  .plan { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .list { align-content: center; }
+}
+/* Desktop: rows shared across the plans, so buttons and lists line up. */
+@container pricing (min-width: 960px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto; }
+  .plan { grid-row: span 2; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; gap: 24px; padding: 28px; }
+  .list { align-content: start; padding-top: 24px; border-top: 1px solid var(--s-line); }
+  .plan[data-featured] .list { border-top-color: rgb(255 255 255 / 14%); }
+}

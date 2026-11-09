@@ -1,0 +1,186 @@
+/* Doubled with Bootstrap's class so these win over `.dropdown-menu`
+   regardless of stylesheet order. */
+.menu:global(.dropdown-menu) {
+  width: 264px;
+  max-width: calc(100vw - 24px);
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid var(--color-gray-100, #f3f3f3);
+  border-radius: var(--radius-12, 12px);
+  background: var(--color-white, #fff);
+  box-shadow: 0 16px 40px -12px rgb(23 77 10 / 18%), 0 2px 6px rgb(0 0 0 / 4%);
+  font-family: var(--font-primary, inherit);
+  list-style: none;
+}
+
+/* `translate` composes with the inline `transform` Popper sets. */
+.menu:global(.dropdown-menu.show) {
+  animation: menu-in 160ms cubic-bezier(0.15, 0.2, 0.1, 1);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+.menu > li {
+  margin: 0;
+}
+
+.menu > .profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  padding: 10px 10px 14px;
+  border-bottom: 1px solid var(--color-gray-100, #f3f3f3);
+}
+
+.avatar {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 15px;
+  font-weight: var(--f-semi-bold, 600);
+  letter-spacing: 0.02em;
+}
+
+.identity {
+  display: grid;
+  min-width: 0;
+}
+
+.name,
+.email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name {
+  color: var(--color-heading, #000);
+  font-size: var(--font-size-b2, 15px);
+  font-weight: var(--f-semi-bold, 600);
+  line-height: 1.35;
+}
+
+.email {
+  color: var(--color-gray-500, #555);
+  font-size: var(--font-size-b4, 12px);
+  line-height: 1.5;
+}
+
+.menu .item:global(.dropdown-item) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--radius-md, 8px);
+  background: transparent;
+  color: var(--color-gray-700, #333);
+  font-size: var(--font-size-b3, 14px);
+  font-weight: var(--f-medium, 500);
+  line-height: 1.4;
+  text-align: left;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.item svg {
+  flex-shrink: 0;
+  color: var(--color-gray-400, #888);
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.menu .item:global(.dropdown-item):hover,
+.menu .item:global(.dropdown-item):focus-visible {
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+}
+
+.item:hover svg,
+.item:focus-visible svg {
+  color: var(--color-primary, #174d0a);
+}
+
+.menu .item:global(.dropdown-item):active {
+  background: var(--color-brand-100, #e8f4d9);
+}
+
+.menu .item:global(.dropdown-item):focus-visible {
+  outline: 2px solid var(--color-primary, #174d0a);
+  outline-offset: -2px;
+}
+
+.menu > .divider {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--color-gray-100, #f3f3f3);
+}
+
+.menu .signOut:global(.dropdown-item):hover,
+.menu .signOut:global(.dropdown-item):focus-visible {
+  background: rgb(229 62 62 / 8%);
+  color: var(--color-danger, #e53e3e);
+}
+
+.signOut:hover svg,
+.signOut:focus-visible svg {
+  color: var(--color-danger, #e53e3e);
+  transform: translateX(2px);
+}
+
+.menu .signOut:global(.dropdown-item):disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Toggle button */
+.trigger {
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.trigger:focus {
+  outline: none;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-primary, #174d0a);
+  outline-offset: 2px;
+}
+
+.trigger[aria-expanded="true"] {
+  box-shadow: 0 0 0 3px var(--color-brand-200, #d8edb8);
+}
+
+/* Icon + name variant (Header2/6/7): its text runs to the box edge, so a
+   ring would clip it. The open menu is signal enough. */
+.trigger:global(.rbt-access-box-wrapper) {
+  border-radius: var(--radius-md, 8px);
+}
+
+.trigger:global(.rbt-access-box-wrapper):focus-visible {
+  outline-offset: 6px;
+}
+
+.trigger:global(.rbt-access-box-wrapper)[aria-expanded="true"] {
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu:global(.dropdown-menu.show) {
+    animation: none;
+  }
+  .item,
+  .item svg,
+  .trigger {
+    transition: none;
+  }
+}

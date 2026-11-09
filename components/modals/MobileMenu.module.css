@@ -1,0 +1,132 @@
+/* Categories tab. Mirrors headerComponents/MegaMenuDropdown.module.css,
+   sized for touch: every row is at least 56px tall. */
+.catList {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 0;
+  list-style: none;
+}
+
+.catList > li {
+  margin: 0;
+}
+
+.catRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 10px;
+  border-radius: var(--radius-12, 12px);
+  color: var(--color-heading, #000);
+  font-size: var(--font-size-b2, 15px);
+  font-weight: var(--f-medium, 500);
+  line-height: 1.35;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease;
+}
+
+.catRow:hover,
+.catRow:focus-visible {
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+}
+
+.catRow:active {
+  background: var(--color-brand-100, #e8f4d9);
+  transform: scale(0.985);
+}
+
+.catRow:focus-visible {
+  outline: 2px solid var(--color-primary, #174d0a);
+  outline-offset: -2px;
+}
+
+/* "Shop all" reads as the primary entry, not just another category. */
+.catRowAll {
+  margin-bottom: 4px;
+  background: var(--color-brand-50, #f2f8e8);
+  color: var(--color-primary, #174d0a);
+  font-weight: var(--f-semi-bold, 600);
+}
+
+.catRowAll:hover,
+.catRowAll:focus-visible {
+  background: var(--color-brand-100, #e8f4d9);
+}
+
+.catThumb {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-gray-150, #f6f6f6);
+  color: var(--color-primary, #174d0a);
+  font-size: 16px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 4%);
+}
+
+.catThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catRowAll .catThumb {
+  background: var(--color-primary, #174d0a);
+  color: var(--color-white, #fff);
+  box-shadow: none;
+}
+
+.catName {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.catCount {
+  flex-shrink: 0;
+  min-width: 26px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-brand-100, #e8f4d9);
+  color: var(--color-primary, #174d0a);
+  font-size: var(--font-size-b4, 12px);
+  font-weight: var(--f-semi-bold, 600);
+  line-height: 1.5;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Always visible: touch has no hover to reveal it. */
+.catArrow {
+  flex: 0 0 auto;
+  color: var(--color-gray-400, #888);
+  font-size: 12px;
+}
+
+.catRow:hover .catArrow,
+.catRow:focus-visible .catArrow,
+.catRowAll .catArrow {
+  color: var(--color-primary, #174d0a);
+}
+
+.catStatus {
+  padding: 12px 10px;
+  color: var(--color-body);
+  font-size: var(--font-size-b3, 14px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catRow {
+    transition: none;
+  }
+  .catRow:active {
+    transform: none;
+  }
+}

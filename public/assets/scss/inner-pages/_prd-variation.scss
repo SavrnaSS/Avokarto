@@ -1,0 +1,53 @@
+@use "../default/variables" as *; // Importing all the variables
+@use "../default/extend" as *; // Importing all the extend
+@use "../default/mixins" as *; // Importing all the mixins
+
+/**************************************
+    Product Variation Styles
+***************************************/
+.rbt-h-unset {
+    max-height: unset !important;
+}
+
+.rbt-disabled {
+    opacity: 0.8;
+    filter: grayscale(1);
+}
+
+.rbt-switcher--color{
+    background: transparent;
+    border: 0;
+    padding: 0;
+
+    &.rbt-disabled{
+        transition: var(--transition);
+        &::before{
+            content: "";
+            height: calc(100% + 12px);
+            width: 1px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            position: absolute;
+            background: var(--color-gray-300);
+            transition: all 0.4s cubic-bezier(0, 0, 0.34, 0.54);
+        }
+    }
+}
+
+.rbt-switcher-root{
+    button.rbt-store-button,
+    button.rbt-switcher--prd{
+        cursor: pointer;
+    }
+
+    li{
+        &.active{
+            .rbt-store-button{
+                background: var(--color-primary);
+                border-color: var(--color-primary);
+                color: var(--color-white);
+            }
+        }
+    }
+}

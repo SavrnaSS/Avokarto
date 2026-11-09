@@ -1,0 +1,179 @@
+.panel {
+  width: 100%;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.panel .statusSelect {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 216px;
+  max-width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid #d8ded6;
+  border-radius: 6px;
+  outline: none;
+  background-color: var(--color-white, #fff);
+  color: var(--color-heading, #171717);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.panel .statusSelect:hover,
+.panel .statusSelect[data-state="open"] {
+  border-color: #7c9872;
+  background-color: #f7faf5;
+}
+
+.filterIcon {
+  flex-shrink: 0;
+  color: #64715f;
+}
+
+.chevron {
+  display: flex;
+  margin-left: auto;
+  flex-shrink: 0;
+  color: #64715f;
+}
+
+.statusSelect[data-state="open"] .chevron {
+  transform: rotate(180deg);
+}
+
+.statusMenu {
+  z-index: 1050;
+  box-sizing: border-box;
+  width: var(--radix-select-trigger-width);
+  max-width: calc(100vw - 32px);
+  max-height: min(360px, var(--radix-select-content-available-height));
+  overflow: hidden;
+  border: 1px solid #e0e5dd;
+  border-radius: 8px;
+  background: #fff;
+  color: #20271d;
+  box-shadow: 0 8px 28px rgb(25 40 18 / 12%), 0 2px 6px rgb(25 40 18 / 4%);
+}
+
+.menuViewport {
+  padding: 6px;
+}
+
+.menuLabel {
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #687263;
+}
+
+.statusOption {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 34px 10px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+.statusOption[data-state="checked"] {
+  background: #edf4e8;
+  color: #214c14;
+  font-weight: 600;
+}
+
+.statusOption[data-highlighted] {
+  background: #f0f3ee;
+  box-shadow: inset 0 0 0 1px #bacbb2;
+}
+
+.selectedIcon {
+  position: absolute;
+  right: 10px;
+  display: flex;
+}
+
+.scrollButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+  background: #fff;
+  color: #64715f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel .statusSelect {
+    transition: none;
+  }
+}
+
+.panel .statusSelect:focus {
+  outline: none;
+}
+
+.panel .statusSelect:focus-visible {
+  border-color: #54764a;
+  box-shadow: inset 0 0 0 1px #54764a;
+}
+
+.tableScroll:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.panel .tableScroll {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tableScroll table {
+  min-width: 640px;
+}
+
+@media (max-width: 575px) {
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .panel .statusSelect {
+    width: 100%;
+  }
+}

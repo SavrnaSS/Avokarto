@@ -1,0 +1,32 @@
+/* The theme control: eight equal rows, one dark selection, nothing louder than
+   the live devices. Only the specimens differ, and only in type and colour.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; min-width: 0; }
+.row { display: flex; align-items: center; gap: 12px; min-width: 0; height: 56px; padding: 0 12px 0 8px; border: 0; border-radius: 12px; background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); text-align: left; cursor: pointer; transition: background-color 160ms var(--ease), box-shadow 160ms var(--ease), color 160ms var(--ease); }
+.label { flex: 1; order: 2; min-width: 0; overflow: hidden; font-size: 14px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.row:active { transform: scale(.98); }
+.row:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.row[aria-pressed="true"] { background: var(--brand-dark); color: #fff; box-shadow: none; }
+
+/* 40px: type on the theme's page colour, with its accent along the foot. */
+.specimen { --ink-s: #15190f; --heading: inherit; --weight: 500; position: relative; display: grid; flex: none; order: 1; place-items: center; width: 40px; height: 40px; overflow: hidden; border-radius: 4px; background: var(--page); color: var(--ink-s); box-shadow: inset 0 0 0 1px rgb(25 46 34 / 10%); font-family: var(--heading); font-size: 18px; font-weight: var(--weight); line-height: 1; }
+.specimen::after { position: absolute; right: 0; bottom: 0; left: 0; height: 4px; background: var(--accent); content: ""; }
+.specimen[data-theme="editorial"] { --heading: Didot, "Bodoni 72", Georgia, "Times New Roman", serif; --weight: 400; }
+.specimen[data-theme="playful"] { --ink-s: #2b1d2e; --weight: 800; }
+.specimen[data-theme="street"] { --weight: 900; }
+.specimen[data-theme="minimal"] { --weight: 400; }
+.specimen[data-theme="bold"] { --weight: 900; }
+.specimen[data-theme="elegant"] { --ink-s: #2a2318; --heading: Georgia, "Times New Roman", serif; --weight: 400; }
+.specimen[data-theme="noir"] { --ink-s: #f4f4f5; --weight: 600; }
+.specimen[data-theme="organic"] { --ink-s: #2c2a1e; --heading: Georgia, "Times New Roman", serif; --weight: 600; }
+
+@container (min-width: 560px) {
+  .list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (hover: hover) {
+  .row:not([aria-pressed="true"]):hover { background: var(--raised); box-shadow: inset 0 0 0 1px var(--line-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .row { transition: none; }
+  .row:active { transform: none; }
+}

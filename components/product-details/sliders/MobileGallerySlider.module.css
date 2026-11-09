@@ -1,0 +1,105 @@
+.wrapper {
+  position: relative;
+}
+
+.swiper {
+  width: 100%;
+  border-radius: var(--radius-10, 10px);
+  overflow: hidden;
+}
+
+/*
+ * Same 624:846 frame as the desktop gallery (DesktopProductGallery.module.css
+ * .mainFrame) and the product cards (ProductCard1.module.css .imageFrame) -
+ * shorter than the real photo's native size (as tall as 776x1236, which used
+ * to force a scroll before price/Add to Cart were even visible) without
+ * cropping into the subject the way a squarer ratio does: a squarer frame
+ * needs a bigger object-fit: cover crop to fill it, and on a tall portrait
+ * photo like these that crop lands on the subject's head/feet, not just
+ * background. Matching desktop's ratio keeps the crop identical (and
+ * proven safe) on both breakpoints, and keeps every slide the same height
+ * regardless of the uploaded photo's own dimensions.
+ */
+.slide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 624 / 846;
+  background: #f3f4f2;
+}
+
+.slide img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/*
+ * The shared .rbt-arrow-between theme class force-hides its arrows on small
+ * screens (opacity: 0 !important under $sm-layout) since most sliders on
+ * this site rely on touch-swipe alone below desktop. This gallery is the one
+ * place that needs always-visible arrows on mobile (see the product page
+ * responsive request), so it gets its own arrow styling instead of reusing
+ * that class.
+ */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--radius-full, 50%);
+  background: var(--color-white, #fff);
+  color: var(--color-body, #737373);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+}
+
+.arrow:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+.arrow:global(.swiper-button-disabled) {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.prev {
+  left: 12px;
+}
+
+.next {
+  right: 12px;
+}
+
+.pagination {
+  /* Overrides swiper/css/pagination's `position: absolute; bottom: 10px`,
+     which would otherwise float the dots on top of the image instead of in
+     the gap below it. */
+  position: static !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  width: auto;
+}
+
+.pagination :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  margin: 0 !important;
+  border-radius: var(--radius-full, 50%);
+  background: var(--color-gray-300, #c1c1c1);
+  opacity: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.pagination :global(.swiper-pagination-bullet-active) {
+  background: var(--color-primary, #174d0a);
+  transform: scale(1.2);
+}

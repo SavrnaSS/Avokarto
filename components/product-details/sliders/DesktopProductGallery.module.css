@@ -1,0 +1,141 @@
+.wrapper {
+  width: 100%;
+}
+
+/*
+ * Fixed aspect ratio (matches ProductCard1.module.css's imageFrame) so the
+ * gallery never jumps size as it swipes between real, admin-uploaded photos
+ * of differing native dimensions.
+ */
+.mainFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 624 / 846;
+  background: #f3f4f2;
+  border-radius: var(--radius-10, 10px);
+  overflow: hidden;
+}
+
+.mainSwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.slideLink {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slideLink img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-full, 50%);
+  background: var(--color-white, #fff);
+  color: var(--color-body, #737373);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.mainFrame:hover .arrow {
+  opacity: 1;
+}
+
+.arrow:global(.swiper-button-disabled) {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.prev {
+  left: 16px;
+}
+
+.next {
+  right: 16px;
+}
+
+.thumbRailWrap {
+  position: relative;
+  margin-top: 16px;
+}
+
+.thumbRailWrap::before,
+.thumbRailWrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.thumbRailWrap::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-white, #fff), transparent);
+}
+
+.thumbRailWrap::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-white, #fff), transparent);
+}
+
+.thumbRailWrap.fadeStart::before,
+.thumbRailWrap.fadeEnd::after {
+  opacity: 1;
+}
+
+.thumbRail {
+  padding: 2px;
+}
+
+.thumbSlide {
+  width: 84px !important;
+  height: 84px;
+}
+
+.thumbButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-10, 10px);
+  overflow: hidden;
+  cursor: pointer;
+  background: #f3f4f2;
+  opacity: 0.7;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.thumbButton:hover {
+  opacity: 1;
+}
+
+.thumbButton img {
+  object-fit: cover;
+}
+
+.thumbSlide:global(.swiper-slide-thumb-active) .thumbButton {
+  border-color: var(--color-primary, #174d0a);
+  opacity: 1;
+}

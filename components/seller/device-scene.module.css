@@ -1,0 +1,65 @@
+/* The small-screen canvas: the seller's store on a laptop and a phone, standing
+   on a lit floor. The light under them is the store's own brand colour, so the
+   stage answers every colour change. Sizes come from DeviceScene.tsx. */
+.stage { position: relative; display: flex; flex-direction: column; gap: 8px; width: min(100%, 820px); height: var(--stage-h); margin-inline: auto; padding-bottom: 12px; }
+.bar { position: relative; z-index: 3; display: flex; flex: none; align-items: center; justify-content: space-between; gap: 8px; height: 40px; padding-left: 12px; border-radius: 10px; background: rgb(255 255 255 / 86%); box-shadow: 0 0 0 1px rgb(25 46 34 / 10%), 0 1px 2px rgb(25 46 34 / 6%); }
+.sceneSlot { display: flex; flex: 1; min-width: 0; min-height: 0; }
+.scene { position: relative; flex: 1; min-width: 0; min-height: 0; }
+.floor { position: absolute; right: -40%; bottom: calc(var(--lift, 0px) - 8px); left: -40%; height: 56%; background-image: linear-gradient(rgb(50 99 71 / 16%) 1px, transparent 1px), linear-gradient(90deg, rgb(50 99 71 / 16%) 1px, transparent 1px); background-size: 28px 28px; transform: perspective(240px) rotateX(62deg); transform-origin: bottom; -webkit-mask-image: radial-gradient(50% 90% at 50% 100%, #000 10%, transparent 100%); mask-image: radial-gradient(50% 90% at 50% 100%, #000 10%, transparent 100%); }
+.light { position: absolute; right: 8%; bottom: calc(var(--lift, 0px) - 12px); left: 8%; height: 44%; border-radius: 50%; background: var(--accent); opacity: .26; filter: blur(28px); transition: background-color 300ms cubic-bezier(.22, 1, .36, 1); }
+.group { position: absolute; bottom: var(--lift, 0px); left: 50%; transform: translateX(-50%); animation: sceneRise 420ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes sceneRise { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.laptop { position: absolute; z-index: 0; bottom: 0; left: 0; }
+.lid { position: relative; overflow: hidden; background: #0e1411; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 10%); }
+.base { position: relative; left: -5%; width: 110%; border-radius: 1px 1px 8px 8px; background: linear-gradient(#dfe4db, #a9b1a5); box-shadow: 0 10px 18px rgb(25 46 34 / 24%), inset 0 1px 0 rgb(255 255 255 / 80%); }
+.base::before { position: absolute; top: 0; left: 50%; width: 16%; height: 36%; border-radius: 0 0 6px 6px; background: rgb(25 46 34 / 18%); transform: translateX(-50%); content: ""; }
+.phone { position: absolute; z-index: 1; right: 0; bottom: 0; background: #0e1411; box-shadow: 0 0 0 1px rgb(255 255 255 / 14%), 0 12px 22px rgb(25 46 34 / 32%); }
+.tablet { position: absolute; z-index: 1; bottom: 0; left: 0; background: #0e1411; box-shadow: 0 0 0 1px rgb(255 255 255 / 14%), 0 12px 22px rgb(25 46 34 / 30%); }
+.phoneGlass { position: relative; overflow: hidden; }
+.laptop, .tablet, .phone { transition: transform 220ms cubic-bezier(.22, 1, .36, 1); }
+.pick { position: absolute; z-index: 3; inset: 0; padding: 0; border: 0; border-radius: inherit; background: transparent; cursor: zoom-in; }
+.pick:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+.screen { position: relative; overflow: hidden; background: #fff; }
+.frame { position: absolute; top: 0; left: 0; border: 0; pointer-events: none; transform-origin: 0 0; }
+.loading { position: absolute; inset: 0; background: linear-gradient(100deg, #eef1ea 30%, #f8faf5 50%, #eef1ea 70%) 0 0 / 200% 100%; animation: sceneShimmer 1.2s linear infinite; }
+@keyframes sceneShimmer { to { background-position: -200% 0; } }
+/* A change landed: one band of light runs down the glass. */
+.sweep { position: absolute; z-index: 2; inset: 0; background: linear-gradient(180deg, transparent 40%, rgb(198 240 108 / 55%) 50%, transparent 60%) 0 0 / 100% 300%; background-position: 0 100%; opacity: 0; pointer-events: none; animation: sceneSweep 700ms cubic-bezier(.22, 1, .36, 1); }
+@keyframes sceneSweep { from { background-position: 0 100%; opacity: 1; } to { background-position: 0 0; opacity: 0; } }
+
+/* ---- the desktop canvas ---- */
+.single { position: relative; display: flex; flex: 1; flex-direction: column; justify-content: center; min-height: 0; }
+.single > div { position: relative; z-index: 1; }
+/* Painted after the store's shadow, so the strip stays clean. */
+.summary { position: relative; z-index: 2; }
+.summary > div { transition: background-color 160ms cubic-bezier(.22, 1, .36, 1); }
+.summary > [data-current] { background: var(--lime-soft); box-shadow: inset 0 -2px 0 var(--brand); }
+.summary dt { display: flex; align-items: center; gap: 4px; }
+.summary dt svg { color: var(--brand); }
+span.canvasUrl { display: none; flex: 0 1 320px; justify-content: center; margin-inline: auto; min-height: 36px; padding-inline: 16px; border-radius: 10px; background: rgb(255 255 255 / 70%); box-shadow: 0 0 0 1px var(--line); }
+.modes { display: inline-flex; flex: none; gap: 4px; padding: 4px; border-radius: 10px; background: rgb(255 255 255 / 70%); box-shadow: 0 0 0 1px var(--line); }
+.modes button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 36px; height: 36px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2); font-size: 13px; font-weight: 500; cursor: pointer; transition: background-color 160ms cubic-bezier(.22, 1, .36, 1), color 160ms cubic-bezier(.22, 1, .36, 1); }
+.modes button span { display: none; }
+.modes button[aria-pressed="true"] { background: var(--brand-dark); color: #fff; }
+.modes button[aria-pressed="true"] span { display: inline; }
+@media (min-width: 1280px) {
+  span.canvasUrl { display: flex; }
+}
+@media (min-width: 1500px) {
+  .modes button span { display: inline; }
+}
+@media (hover: hover) {
+  .laptop:has(.pick:hover), .tablet:has(.pick:hover), .phone:has(.pick:hover) { transform: translateY(-4px); }
+  .modes button:not([aria-pressed="true"]):hover { background: var(--raised); color: var(--ink); }
+}
+@media (pointer: coarse) {
+  .modes button { min-width: 44px; height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group, .loading, .sweep { animation: none; }
+  .group { opacity: 1; }
+  .light, .laptop, .tablet, .phone { transition: none; }
+}

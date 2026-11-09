@@ -1,0 +1,92 @@
+/* The launch sequence: a quiet rail of what is already done, then a curved wall
+   of reels around the seller's store. Colour comes from the photos, the
+   store's theme and one lime accent.
+   Designed with unslop by Damir Sokolovsky (@heydamir), CC BY 4.0. */
+/* Registered so the light glides to the pointer instead of jumping. */
+@property --spot-x { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
+@property --spot-y { syntax: "<percentage>"; inherits: true; initial-value: 12%; }
+
+.backdrop { --spot-size: clamp(240px, 42vw, 560px); position: absolute; z-index: 0; inset: 0; overflow: hidden; background: linear-gradient(180deg, #e9f5d6 0%, #dcefbf 56%, #cfe8a8 100%); pointer-events: none; transition: --spot-x 480ms cubic-bezier(.22, 1, .36, 1), --spot-y 480ms cubic-bezier(.22, 1, .36, 1); }
+/* The light. */
+.backdrop::before { position: absolute; inset: 0; background: radial-gradient(var(--spot-size) circle at var(--spot-x) var(--spot-y), rgb(255 255 255 / 72%) 0%, transparent 72%); content: ""; }
+/* The hero's dots, shown only around the light. */
+.backdrop::after { position: absolute; inset: 0; background-image: radial-gradient(rgb(23 77 10 / 16%) 1px, transparent 1px); background-size: 24px 24px; content: ""; -webkit-mask-image: radial-gradient(var(--spot-size) circle at var(--spot-x) var(--spot-y), #000 0%, transparent 72%); mask-image: radial-gradient(var(--spot-size) circle at var(--spot-x) var(--spot-y), #000 0%, transparent 72%); }
+/* Once the store has a name, the lime rises from the bottom. */
+.backdrop[data-complete] { background: linear-gradient(180deg, #e9f5d6 0%, #d3edaa 56%, #bfe67e 100%); }
+
+.rail { --ease: cubic-bezier(.22, 1, .36, 1); position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 0; padding: 12px; border-top: 1px solid rgb(62 131 21 / 16%); list-style: none; text-align: left; }
+.rail li { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; margin: 0; }
+.node { display: grid; flex: none; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 2px var(--s-brand-dark); color: #c6f06c; transition: background-color 280ms var(--ease); }
+.rail li[data-done] .node { background: var(--s-brand-dark); }
+.stepText { display: grid; min-width: 0; }
+.rail small { color: var(--s-ink-2); font-size: 12px; line-height: 1.34; }
+.rail strong { display: none; overflow: hidden; color: var(--s-ink); font-size: 14px; font-weight: 500; line-height: 1.43; text-overflow: ellipsis; white-space: nowrap; }
+/* The line runs through the node centres; 75% less the padding and gap. */
+.track { position: absolute; top: 23px; left: 24px; width: calc(75% - 12px); height: 2px; background: rgb(23 60 42 / 16%); }
+.track span { display: block; width: 100%; height: 100%; background: var(--s-brand-dark); transform: scaleX(.667); transform-origin: left; transition: transform 480ms var(--ease); }
+.rail[data-complete] .track span { transform: none; }
+/* Phones keep the steps and drop the values, which saves the height of a card. */
+@media (min-width: 640px) {
+  .rail strong { display: block; }
+}
+
+.wall { --ease: cubic-bezier(.22, 1, .36, 1); position: relative; z-index: 1; height: clamp(392px, 34vw, 440px); overflow: hidden; container: wall / inline-size; }
+.arc { position: absolute; inset: 0; perspective: 1200px; perspective-origin: 50% 20%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.plane { --lean-x: 0; --lean-y: 0; position: absolute; inset: 0; transform: rotateY(calc(var(--lean-x) * 4deg)) rotateX(calc(var(--lean-y) * -2deg)); transform-style: preserve-3d; transition: transform 320ms var(--ease); }
+.side, .window { position: absolute; left: 50%; transition: opacity 640ms var(--ease), transform 480ms var(--ease), box-shadow 280ms var(--ease); }
+.window { top: 24px; z-index: 2; display: grid; align-content: start; gap: 12px; width: clamp(296px, 40cqi, 504px); height: 520px; padding: 12px; overflow: hidden; border: 4px solid #16210f; border-radius: 20px; background: var(--store-bg); box-shadow: 0 32px 48px -24px rgb(16 24 8 / 45%); color: var(--store-ink); transform: translateX(-50%); }
+.address { display: flex; align-items: center; gap: 4px; min-width: 0; min-height: 28px; padding: 4px 8px; border-radius: 8px; background: color-mix(in srgb, var(--store-ink) 7%, transparent); font-size: 12px; line-height: 1.34; }
+.address svg { flex: none; opacity: .6; }
+.address span { min-width: 0; overflow: hidden; opacity: .72; text-overflow: ellipsis; white-space: nowrap; }
+.shop { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.shop strong { flex: 1; min-width: 0; overflow: hidden; font-size: 16px; font-weight: 600; line-height: 24px; text-overflow: ellipsis; white-space: nowrap; }
+.shop svg { flex: none; opacity: .72; }
+.logo { display: grid; flex: none; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--store-accent); color: var(--store-on-accent); font-size: 14px; font-weight: 600; line-height: 1; }
+.banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding: 12px; border-radius: 12px; background: var(--store-accent); color: var(--store-on-accent); font-size: 14px; font-weight: 500; line-height: 1.43; }
+.banner b { padding: 4px 12px; border-radius: 8px; background: var(--store-on-accent); color: var(--store-accent); font-size: 12px; font-weight: 500; line-height: 1.34; white-space: nowrap; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tile { display: grid; gap: 4px; min-width: 0; }
+.tilePhoto { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 8px; background: #e6e6e8; color: #16210f; }
+.tile em { font-size: 12px; font-style: normal; font-variant-numeric: tabular-nums; font-weight: 500; line-height: 16px; }
+
+.side { --x: 0px; --y: 0px; --turn: 0deg; top: 40px; width: clamp(136px, 15cqi, 188px); aspect-ratio: 9 / 16; overflow: hidden; border: 4px solid #16210f; border-radius: 20px; background: #16210f; box-shadow: 0 24px 32px -16px rgb(16 24 8 / 45%); transform: translate(calc(-50% + var(--x)), var(--y)) rotateY(var(--turn)); }
+.side[data-place="0"] { --x: clamp(232px, 30cqi, 372px); --y: 8px; --turn: -24deg; z-index: 1; }
+.side[data-place="1"] { --x: calc(clamp(232px, 30cqi, 372px) * -1); --y: 8px; --turn: 24deg; z-index: 1; }
+.side[data-place="2"] { --x: clamp(352px, 46cqi, 572px); --y: 32px; --turn: -40deg; }
+.side[data-place="3"] { --x: calc(clamp(352px, 46cqi, 572px) * -1); --y: 32px; --turn: 40deg; }
+.reelPlay { position: absolute; z-index: 1; top: 50%; left: 50%; display: grid; place-items: center; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: rgb(255 255 255 / 28%); color: #fff; }
+.reelPlay svg { margin-left: 2px; fill: #fff; }
+
+.live { position: absolute; z-index: 3; top: 8px; left: 50%; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: #192e22; color: #fff; font-size: 13px; font-weight: 500; line-height: 16px; white-space: nowrap; transform: translateX(-50%); }
+.dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #c6f06c; }
+.dot::after { position: absolute; inset: 0; border-radius: inherit; background: inherit; content: ""; animation: live 2400ms var(--ease) infinite; }
+@keyframes live { from { opacity: .6; transform: scale(1); } 70%, to { opacity: 0; transform: scale(3); } }
+
+/* Tablets: the store and its two nearest products. */
+@media (max-width: 991px) {
+  .side[data-place="2"], .side[data-place="3"] { display: none; }
+}
+/* Phones: no curve. The store leads a row to swipe, with the next card peeking in. */
+@media (max-width: 639px) {
+  .wall { display: grid; gap: 12px; justify-items: center; height: auto; }
+  .live { position: static; transform: none; }
+  .arc { position: relative; inset: auto; width: 100%; overflow-x: auto; -webkit-mask-image: none; mask-image: none; perspective: none; scroll-padding: 0 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .arc::-webkit-scrollbar { display: none; }
+  .plane { position: relative; inset: auto; display: flex; align-items: stretch; gap: 12px; width: max-content; padding: 0 20px 32px; transform: none; }
+  .window, .side { position: relative; top: auto; left: auto; flex: none; transform: none; scroll-snap-align: start; }
+  .window { width: min(304px, calc(100vw - 96px)); height: auto; }
+  .side, .side[data-place="2"], .side[data-place="3"] { display: block; width: 184px; aspect-ratio: auto; }
+  .tile:nth-child(n + 4) { display: none; }
+}
+@media (hover: hover) and (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .side:hover { box-shadow: 0 32px 40px -16px rgb(16 24 8 / 50%); transform: translate(calc(-50% + var(--x)), calc(var(--y) - 8px)) rotateY(calc(var(--turn) * .5)); }
+}
+/* One entrance: the wall settles into its curve as it scrolls in. */
+@media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .wall:not([data-seen]) .side { opacity: 0; transform: translate(calc(-50% + var(--x) * .6), calc(var(--y) + 48px)) rotateY(0deg); }
+  .wall:not([data-seen]) .window { opacity: 0; transform: translate(-50%, 32px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop, .plane, .side, .window, .node, .track span { transition: none; }
+  .dot::after { display: none; }
+}
